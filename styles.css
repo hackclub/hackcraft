@@ -36,8 +36,9 @@ body {
 
 #header {
     padding: 1em;
-    background-color: #60c965;
-    background-image: linear-gradient(to bottom right, #275236, #2c6244);
+    /* background-color: #60c965; */
+    /* background-image: linear-gradient(to bottom right, #275236, #2c6244); */
+    background-image: url('images/grass.png');
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,10 +64,14 @@ a {
     margin-top: 2em;
     margin-left: auto;
     margin-right: auto;
-    padding: 0.5em;
-    background: #603101;
-    border-radius: 0.5em;
-    box-shadow: #603101 1px 1px 10px;
+    background: #b8b8b8;
+    color: rgba(94, 94, 94);
+    font-family: 'Minecraftia', sans-serif;
+    line-height: 0;
+    text-decoration: none;
+    padding: 1.5em;
+    padding-bottom: 0.7em;
+    border: rgb(94, 94, 94) 3px solid;
 }
 
 .hoverable {
@@ -78,7 +83,6 @@ a {
 }
 
 .boba-number {
-    background-image: url('images/boba.svg');
     width: 16px;
     height: 16px;
     text-align: center;
@@ -89,7 +93,6 @@ a {
     padding: 1em;
     background-image: linear-gradient(to bottom right, #C76B0F, #A25404);
     /* max-width: 24em; */
-
 }
 
 .section {
@@ -177,8 +180,4 @@ a {
     100% {
         transform: rotate(-5deg);
     }
-}
-
-button {
-    background-color: #603101 !important;
 }
