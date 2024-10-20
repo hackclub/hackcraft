@@ -8,10 +8,29 @@
   <meta name="viewport" content="width=450">
   <!-- Styles -->
   <link rel="stylesheet" type="text/css" href="styles.css">
-  <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-    rel="stylesheet">
+
+<script>
+  const splashText = [
+    'YSWS edition!',
+    'Plug-ins everywhere!',
+    'by HCers, for HCers!',
+    'As seen on Slack!',
+    'Coming soon to a screen in front of you!',
+    'More than 1 plugins sold!',
+    'A modder is you!'
+  ]
+  const getSplash = () => document.querySelector('.splash')
+  function cycleSplash() {
+    let splash = getSplash()
+    if (splash) {
+      const randomSplash = splashText[Math.floor(Math.random() * splashText.length)]
+      splash.innerText = randomSplash
+    }
+  }
+  window.onload = function () {
+    cycleSplash()
+  }
+</script>
 </head>
 
 <body>
@@ -20,14 +39,16 @@
       alt="Dinosaur arm holding flag that reads 'Hack Club'">
   </a>
   <div id="header">
-    <img src="images/logo.svg" alt="Boba Drops Logo" width="90%" height="auto">
+    <div style="position: relative; padding-bottom: 5em;">
+      <img src="images/logo.png" alt="Boba Drops Logo" width="90%" height="auto">
+      <div class="splash" onclick="cycleSplash()"></div>
+    </div>
     <div id="subtitle" style="font-size: 1.2em;">
-      <span>Build a site</span>
+      <span>Ship a mod</span>
       <div class="spacer"></div>
-      <span>Get free boba</span>
+      <span>Get a game key</span>
     </div>
     <a id="form-link" class="hoverable" href="https://forms.hackclub.com/t/tLf8GYVBqSus" target="_blank">Get your boba</a>
-    <a style="margin-top: 1em;" class="hoverable" href="https://forms.hackclub.com/t/5r7VGppu9wus" target="_blank">Run a club meeting</a>
   </div>
   <div id="content">
     <!-- Steps! -->
@@ -54,10 +75,6 @@
       </div>
     </div>
   </div>
-  <!-- Video!
-    <div class="container">
-      <iframe class="yt-embed" src="https://www.youtube.com/embed/OiYav0MhU4I?si=GA1xU0y-W2aCGC5W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div> -->
   <!-- Text description -->
   <div class="container">
     <div class="section">

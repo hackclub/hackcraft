@@ -1,4 +1,4 @@
-<p align="center"><img alt="Boba Drops" src="./images/logo.svg"></a>
+<p align="center"><img alt="Boba Drops" src="./images/logo.png"></a>
 <p align="center">
   <span>Build your first site</span><span> • </span><span>Get free boba</span>
 </p>
