@@ -1,27 +1,25 @@
 body {
-    color: #F6D193;
+    color: white;
     margin: 0;
-    font-family: monospace;
-    background: #60c965;
+    font-family: 'Minecraftia', sans-serif;
     font-size: 1.5em;
 }
 
 @font-face {
     font-family: 'Minecraftia';
     src: url('./fonts/Minecraftia-Regular.ttf') format('truetype');
-
 }
 
 .splash {
     font-family: 'Minecraftia', sans-serif;
-    font-size: 1rem;
-    color: #f5ca0b;
+    font-size: 1.25rem;
+    color: #FFFF55;
     transform: rotate(-7deg);
     animation: splash 0.25s alternate infinite;
     cursor: pointer;
     position: absolute;
-    right: 0;
-    bottom: 40%;
+    right: -40px;
+    bottom: 50%;
 }
 
 @keyframes splash {
@@ -33,12 +31,20 @@ body {
     }
   }
 
+  #navbar {
+    padding: 5em;
+    background: #603101;
+    background-image: url('images/grass.png');
+    background-repeat: repeat-x;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
 
 #header {
     padding: 1em;
-    /* background-color: #60c965; */
-    /* background-image: linear-gradient(to bottom right, #275236, #2c6244); */
-    background-image: url('images/grass.png');
+    background-image: url('images/dirt.png');
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,11 +59,22 @@ body {
 #footer {
     padding: 1em;
     text-align: center;
-    background: #603101;
+    background-image: url('images/bedrock.png');
+    background-repeat: repeat-x;
 }
 
 a {
     color: inherit;
+    text-decoration-thickness: 2px;
+}
+
+a:hover {
+    text-decoration-thickness: 4px;
+}
+
+li {
+    list-style-type: square;
+
 }
 
 #form-link {
@@ -82,7 +99,8 @@ a {
     transform: translateY(-5px);
 }
 
-.boba-number {
+.mc-number {
+    font-family: 'Minecraft', sans-serif;
     width: 16px;
     height: 16px;
     text-align: center;
@@ -101,6 +119,14 @@ a {
     margin-right: auto;
 }
 
+.container:has(.grid-steps) {
+    background-image: url('images/cobblestone.png')
+}
+
+.container:has(.section) {
+    background-image: url('images/deeplslate.png')
+}
+
 .grid-steps {
     grid-template-columns: 1fr 1fr;
     display: grid;
@@ -109,7 +135,6 @@ a {
     margin: 0 auto;
     /* max-width:  */
 }
-
 @media (max-width: 32srem) {
     .grid-steps {
         grid-template-columns: 1fr;
@@ -123,21 +148,23 @@ a {
     display: flex;
     position: relative;
     aspect-ratio: 2 / 1;
+    background-size: cover;
 }
 
 .item-text {
+    font-family: 'Minecraftia', sans-serif;
     position: absolute;
-    bottom: 0px;
+    bottom: -20px;
     right: 1rem;
-    color: #F6D193;
     font-size: 20px;
     font-weight: bold;
-    text-shadow: #603101 1px 1px 8px;
+    text-shadow: black 1px 1px 8px;
 }
 
 #subtitle {
-    display: inherit;
-    /* font family: gunydrops */
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
 }
 
 .yt-embed {
@@ -180,4 +207,12 @@ a {
     100% {
         transform: rotate(-5deg);
     }
+}
+
+.player1 {
+    color: #FBFBFB;
+}
+
+.player2 {
+    color: #4da14d;
 }
