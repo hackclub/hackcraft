@@ -1,0 +1,41 @@
+:root {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 1) 100%), url("../../../public/images/dirt.png");
+  background-repeat: repeat;
+}
+
+.poem {
+  margin: 50vh 18rem 20vh 18em;
+  overflow: hidden;
+}
+
+.mc-ysws-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 62vh;
+  margin-top: 8vh;
+  width: 50vw;
+  opacity: 0;
+}
+
+.poem-text {
+  opacity: 0;
+  font-size: x-large;
+  color: white;
+  margin: 4rem 0rem 4rem 0rem;
+  font-family: 'Minecraftia', sans-serif;
+}
+
+@font-face {
+  font-family: 'Minecraftia';
+  src: url('/fonts/Minecraftia-Regular.ttf') format('truetype');
+}
+
+.player1 {
+  color: #1AA1A9;
+}
+
+.player2 {
+  text-align: right;
+  color: #237A24;
+}
