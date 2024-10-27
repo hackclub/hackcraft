@@ -37,7 +37,7 @@ export default function Page() {
       opacity: 1,
       scrollTrigger: {
         trigger: e,
-        markers: true,
+        markers: false,
         start: "top center",
         end: "+=24 center",
         scrub: 1,
