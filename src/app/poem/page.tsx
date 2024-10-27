@@ -50,7 +50,7 @@ export default function Page() {
       scrollTrigger: {
         trigger: "img",
         markers: true,
-        start: "top center
+        start: "top center",
         end: "top top",
         scrub: 1,
         toggleActions: "play pause none none"
