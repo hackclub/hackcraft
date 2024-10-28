@@ -11,7 +11,8 @@ import "./page.css";
 export default function Page() {
   const searchParams = useSearchParams();
   const userId = searchParams.get("id");
-  const [username, setUsername] = useState("Steve");
+  const names = ['Steve', 'Alex', 'Zuri', 'Sunny', 'Noor', 'Makena', 'Kai', 'Efe', 'Ari']
+  const [username, setUsername] = useState(names[Math.floor(Math.random() * names.length)]);
 
   useEffect(() => {
     if (userId) {
@@ -63,12 +64,13 @@ export default function Page() {
   return (
     <div id="poem">
       <div className="poem">
-        <p className="poem-text player1">I see the game you mean.</p>
-        <p className="poem-text player2">Minecraft?</p>
-        <p className="poem-text player1">Yes. Take care. It has reached a higher level now. It can read our desires.</p>
-        <p className="poem-text player2">You can do whatever you want. There's unlimited freedom.</p>
-        <p className="poem-text player1">It reads our thoughts like they were code on a screen.</p>
-        <p className="poem-text player2">Go out and make something cool</p>
+        <p className="poem-text player1">I see the player you mean.</p>
+        <p className="poem-text player2">{username}?</p>
+        <p className="poem-text player1">Yes. Take care. It has reached another power level.</p>
+        <p className="poem-text player2">Maybe it's ready for the next step. To modify the very fabric of the world it plays in.</p>
+        <p className="poem-text player1">A new interface to plug into</p>
+        <p className="poem-text player2">And we will love what it creates</p>
+        <p className="poem-text player1">The joy of creation. The joy of bringing something new into the universe.</p>
         <img src="images/logo.png" className="mc-ysws-logo" />
       </div>
     </div>
