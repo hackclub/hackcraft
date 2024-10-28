@@ -49,7 +49,7 @@ export default function Page() {
       opacity: 1,
       scrollTrigger: {
         trigger: "img",
-        markers: true,
+        markers: false,
         start: "top center",
         end: "top top",
         scrub: 1,

@@ -1,7 +1,15 @@
+import Airtable from "airtable";
 import SplashText from "~/components/SplashText";
 import '~/styles/global.css';
 
 export default function Home() {
+  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base('appROpbCKgNm7r5ln');
+  const amountOfRsvps = base('RSVPs').select({
+    view: 'Grid view',
+  }).all()
+    .then((records) => records.length)
+    .catch(() => 0);
+
   return (
     <>
     <div id="navbar">
@@ -21,6 +29,7 @@ export default function Home() {
     </div>
     <a href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
       target="_blank"><button className="hoverable">RSVP for stickers!</button></a>
+      <p><em><strong>{amountOfRsvps}/100</strong> people have RSVP'd!</em></p>
   </div>
   <div id="content">
     <div className="container">
