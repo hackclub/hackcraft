@@ -57,16 +57,17 @@ export default function Home() {
     <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
       <h2 className="player1">I see the game you mean.</h2>
       <p className="player2">Minecraft?</p>
-      <p className="player1">Yes. Take care. It has reached a higher level now. It can read our desires.</p>
-      <p className="player2">You can do whatever you want. There&apos;s unlimited freedom.</p>
-      <p className="player1">It reads our thoughts like they were code on a screen.</p>
-      <p className="player2">Go out and make something cool</p>
+      <p className="player1">Yes. Take care. The player is ready to reach a higher level in it, they may soon see the code.</p>
+      <p className="player2">They read our thoughts like they were code on a screen. All they need to do is reach out and make changes.</p>
+      <p className="player1">Change the code, and change the universe. You can do whatever you want. There&apos;s unlimited freedom.</p>
+      <p className="player2">Go out and make something cool.</p>
+      <p className="player1">Join others as they create their own universes.</p>
       <a href="https://github.com/MelnCat/IncompleteCombustion" target="_blank">
         just like this mod</a>.
       <h3>Craft a mod...</h3>
       <p>
         Never made a mod? <strong>It&apos;s the perfect time to <a href="https://workshops.hackclub.com/minecraft_modding/"
-            target="_blank">build one</a></strong>. For
+          target="_blank">build one</a></strong>. For
         inspiration, check out:
       </p>
       <ul>
