@@ -3,6 +3,7 @@
   <span>Build a Minecraft mod</span><span> • </span><span>Get Minecraft</span>
 </p>
 <hr />
+
 > Newly released! Go RSVP now to get stickers! More resources coming soon.
 
 To qualify:
