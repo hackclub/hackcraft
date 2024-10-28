@@ -19,17 +19,17 @@ export default function Home() {
     </a>
   </div>
   <div id="header">
-    <div style={{position: 'relative', paddingBottom: '5em'}}>
-      <img src="images/logo.png" alt="Minecraft Logo" width="100%" height="auto" />
+    <div style={{position: 'relative', bottom: '5em'}}>
+      <img src="images/logo.png" alt="Minecraft Logo" width="100%"  />
       <SplashText />
     </div>
-    <div id="subtitle" style={{fontSize: '1.2em'}}>
+    <div id="subtitle" style={{fontSize: '1.2em', bottom: '3.5em', position: 'relative'}}>
       <span>Ship a mod</span>
       <span>Get Minecraft</span>
     </div>
-    <a href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
+    <a style={{bottom: '3em', position: 'relative'}} href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
       target="_blank"><button className="hoverable">RSVP for stickers!</button></a>
-      <p><em><strong>{amountOfRsvps}/100</strong> people have RSVP'd!</em></p>
+    <p style={{bottom: '2.5em', position: 'relative'}}><em><strong>{amountOfRsvps}/500</strong> hackers already RSVP'd!</em></p>
   </div>
   <div id="content">
     <div className="container">
