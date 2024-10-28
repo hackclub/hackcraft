@@ -78,7 +78,7 @@ export default function Page() {
       }
     });
 
-    setInterval(() => window.scrollBy(0, 1.5), 50)
+    setInterval(() => window.scrollBy(0, 1.5), 35)
   })
 
   return (
