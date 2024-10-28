@@ -71,6 +71,15 @@ export default function Page() {
         <p className="poem-text player1">A new interface to plug into</p>
         <p className="poem-text player2">And we will love what it creates</p>
         <p className="poem-text player1">The joy of creation. The joy of bringing something new into the universe.</p>
+        <p className="poem-text player2">I will always be there to guide you.</p>
+        <p className="poem-text player1">We will have to reach out to them. To be their guide.</p>
+        <p className="poem-text player2">To build with them.</p>
+        <p className="poem-text player1">To make them understand what we can do.</p>
+        <p className="poem-text player2">And what they can do.</p>
+        <p className="poem-text player1">To show them the way.</p>
+        <p className="poem-text player2">They'll make something incredible.</p>
+        <p className="poem-text player1">The most incredible thing.</p>
+        <p className="poem-text player2">The Universe.</p>
         <img src="images/logo.png" className="mc-ysws-logo" />
       </div>
     </div>
