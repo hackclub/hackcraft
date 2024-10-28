@@ -2,10 +2,7 @@
 import { useState } from "react";
 
 export default function SplashText() {
-  const [currentSplash, setCurrentSplash] = useState('YSWS edition!');
-
   const splashText = [
-    'YSWS edition!',
     'Plug-ins everywhere!',
     'by HCers, for HCers!',
     'As seen on Slack!',
@@ -18,8 +15,17 @@ export default function SplashText() {
     'BEWARE THE FROGPAD...',
     'Unlimited Modabilities!',
     'Hack to the Future!',
-    'All mods are cool!'
+    'All mods are cool!',
+    "Mo plugins, mo problems!",
+    'Paid for with emeralds',
+    'The modding never ends!',
+    'Please stand by...',
+    'The end... or the beginning?',
+    'Not just a phase!',
+    'More like modcraft!',
   ]
+
+  const [currentSplash, setCurrentSplash] = useState(splashText[0]);
 
   function cycleSplash() {
     const randomSplash =  splashText[Math.floor(Math.random() * splashText.length)]
