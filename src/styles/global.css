@@ -7,7 +7,7 @@ body {
 
 @font-face {
     font-family: 'Minecraftia';
-    src: url('./fonts/Minecraftia-Regular.ttf') format('truetype');
+    src: url('/fonts/Minecraftia-Regular.ttf') format('truetype');
 }
 
 .splash {
@@ -34,7 +34,7 @@ body {
   #navbar {
     padding: 5em;
     background: #603101;
-    background-image: url('images/grass.png');
+    background-image: url('/images/grass.png');
     background-repeat: repeat-x;
     display: flex;
     justify-content: space-between;
@@ -44,7 +44,7 @@ body {
 
 #header {
     padding: 1em;
-    background-image: url('images/dirt.png');
+    background-image: url('/images/dirt.png');
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,7 +59,7 @@ body {
 #footer {
     padding: 1em;
     text-align: center;
-    background-image: url('images/bedrock.png');
+    background-image: url('/images/bedrock.png');
     background-repeat: repeat-x;
 }
 
@@ -164,11 +164,11 @@ button{
 }
 
 .container:has(.grid-steps) {
-    background-image: url('images/cobblestone.png')
+    background-image: url('/images/cobblestone.png')
 }
 
 .container:has(.section) {
-    background-image: url('images/deeplslate.png')
+    background-image: url('/images/deeplslate.png')
 }
 
 .grid-steps {
