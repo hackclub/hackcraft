@@ -1,6 +1,6 @@
-"use client";
+'use client';
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,13 +8,12 @@ import { useGSAP } from "@gsap/react";
 
 import "./page.css";
 
-export default function Page() {
+function UsernameText({ randomName, tl }: { randomName: string, tl: gsap.core.Timeline }) {
+  const [username, setUsername] = useState(randomName);
   const searchParams = useSearchParams();
-  const userId = searchParams.get("id");
-  const names = ['Steve', 'Alex', 'Zuri', 'Sunny', 'Noor', 'Makena', 'Kai', 'Efe', 'Ari']
-  const [username, setUsername] = useState(names[Math.floor(Math.random() * names.length)]);
-
-  useEffect(() => {
+  const userId = searchParams.get("id") || "";
+  
+  useGSAP(() => {
     if (userId) {
       const url = new URL('/api/getUser', window.location.origin);
       url.searchParams.append("id", userId);
@@ -28,13 +27,34 @@ export default function Page() {
         setUsername(data.username);
       });
     }
+
+    tl.to(".poem-custom-username", {
+      opacity: 1,
+      scrollTrigger: {
+        trigger: ".poem-custom-username",
+        markers: false,
+        start: "top center",
+        end: "+=24 center",
+        scrub: 1,
+        toggleActions: "play reverse play reset"
+      }
+    });
   }, [userId]);
 
+  return (
+    <p className="poem-text player2 poem-custom-username">{username}</p>
+  );
+}
+
+export default function Page() {
+  const names = ['Steve', 'Alex', 'Zuri', 'Sunny', 'Noor', 'Makena', 'Kai', 'Efe', 'Ari']
+  const randomName = names[Math.floor(Math.random() * names.length)];
+
   gsap.registerPlugin(ScrollTrigger, useGSAP);
+  const tl = gsap.timeline();
 
   useGSAP(() => {
-    const tl = gsap.timeline();
-    gsap.utils.toArray(".poem-text").forEach(e => tl.to(e, {
+    gsap.utils.toArray<HTMLElement>(".poem-text").forEach(e => tl.to(e, {
       opacity: 1,
       scrollTrigger: {
         trigger: e,
@@ -65,7 +85,9 @@ export default function Page() {
     <div id="poem">
       <div className="poem">
         <p className="poem-text player1">I see the player you mean.</p>
-        <p className="poem-text player2">{username}?</p>
+        <Suspense fallback={<p className="poem-text player2">{randomName}</p>}>
+          <UsernameText randomName={randomName} tl={tl} />
+        </Suspense>
         <p className="poem-text player1">Yes. Take care. It has reached another power level.</p>
         <p className="poem-text player2">Maybe it's ready for the next step. To modify the very fabric of the world it plays in.</p>
         <p className="poem-text player1">A new interface to plug into</p>

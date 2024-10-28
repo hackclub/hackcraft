@@ -14,7 +14,7 @@ export async function GET(request: Request) {
             },
         })
         
-    } catch (e) {
+    } catch {
         return new Response(JSON.stringify({username: names[Math.floor(Math.random() * names.length)]}), {
             headers: {
                 "Content-Type": "application/json",
