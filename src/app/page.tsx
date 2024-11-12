@@ -29,7 +29,7 @@ export default function Home() {
     </div>
     <a style={{bottom: '3em', position: 'relative'}} href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
       target="_blank"><button className="hoverable">RSVP for stickers!</button></a>
-    <p style={{bottom: '2.5em', position: 'relative'}}><em><strong>{amountOfRsvps}/500</strong> hackers already RSVP'd!</em></p>
+    <p style={{bottom: '2.5em', position: 'relative'}}><em><strong>{amountOfRsvps}/200</strong> hackers already RSVP'd!</em></p>
   </div>
   <div id="content">
     <div className="container">
