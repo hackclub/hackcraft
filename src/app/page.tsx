@@ -2,6 +2,8 @@ import Airtable from "airtable";
 import SplashText from "~/components/SplashText";
 import '~/styles/global.css';
 
+export const revalidate = 60;
+
 export default function Home() {
   const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base('appROpbCKgNm7r5ln');
   const amountOfRsvps = base('RSVPs').select({
