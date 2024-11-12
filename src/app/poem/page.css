@@ -4,7 +4,13 @@
 }
 
 .poem {
-  margin: 50vh 18rem 20vh 18em;
+  margin: 50vh 18rem 20vh 18rem;
+
+  @media only screen and (max-width: 1000px) {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
   overflow: hidden;
 }
 
