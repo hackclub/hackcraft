@@ -1,17 +1,9 @@
-import Airtable from "airtable";
 import SplashText from "~/components/SplashText";
 import '~/styles/global.css';
 
 export const revalidate = 60;
 
 export default function Home() {
-  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base('appROpbCKgNm7r5ln');
-  const amountOfRsvps = base('RSVPs').select({
-    view: 'Grid view',
-  }).all()
-    .then((records) => records.length)
-    .catch(() => 0);
-
   return (
     <>
     <div id="navbar">
@@ -29,9 +21,8 @@ export default function Home() {
       <span>Ship a mod</span>
       <span>Get Minecraft</span>
     </div>
-    <a style={{bottom: '3em', position: 'relative'}} href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
-      target="_blank"><button className="hoverable">RSVP for stickers!</button></a>
-    <p style={{bottom: '2.5em', position: 'relative'}}><em><strong>{amountOfRsvps}/200</strong> hackers already RSVP'd!</em></p>
+    <a style={{bottom: '3em', position: 'relative'}} href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
+      target="_blank"><button className="hoverable">Submit your mod!</button></a>
   </div>
   <div id="content">
     <div className="container">
@@ -93,8 +84,8 @@ export default function Home() {
       </em>
       </p>
       <div style={{display: 'flex'}}>
-        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
-          target="_blank">RSVP!</a>
+        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
+          target="_blank">Submit</a>
       </div>
       </div>
     </div>
