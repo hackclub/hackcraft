@@ -59,8 +59,7 @@ export default function Home() {
         just like this mod</a>.
       <h3>Craft a mod...</h3>
       <p>
-        Never made a mod? <strong>It&apos;s the perfect time to <a href="https://workshops.hackclub.com/minecraft_modding/"
-          target="_blank">build one</a></strong>. For
+        Never made a mod? <strong>It&apos;s the perfect time to build one. For
         inspiration, check out:
       </p>
       <ul>
