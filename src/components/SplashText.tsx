@@ -4,6 +4,7 @@ import { useState } from "react";
 export default function SplashText() {
   const splashText = [
     'Plug-ins everywhere!',
+    'lock-in? more like plugin!',
     'by HCers, for HCers!',
     'As seen on Slack!',
     'Coming soon to a screen in front of you!',
@@ -23,9 +24,11 @@ export default function SplashText() {
     'The end... or the beginning?',
     'Not just a phase!',
     'More like modcraft!',
+    'V2: electric boogaloo!',
+    'so, you going to blanketcon?',
   ]
 
-  const [currentSplash, setCurrentSplash] = useState(splashText[0]);
+  const [currentSplash, setCurrentSplash] = useState(splashText[Math.floor(Math.random() * splashText.length)]);
 
   function cycleSplash() {
     const randomSplash =  splashText[Math.floor(Math.random() * splashText.length)]
