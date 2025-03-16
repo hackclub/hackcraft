@@ -24,10 +24,10 @@ export default function Home() {
     <div style={{width: "auto", position: 'relative'}}>
       <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px"}} href="./guide">
        <button className="hoverable">Tutorial!</button></a>
-      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px"}} href="./gallery">
+      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px", marginLeft: "3px"}} href="./gallery">
        <button className="hoverable">Gallery</button></a>
       <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginLeft: "3px"}} href=""
-        target="_blank"><button className="hoverable">Starting soon!</button></a>
+        target="_blank"><button className="hoverable">RSVP!</button></a>
     </div>
   </div>
   <div id="content">
@@ -88,9 +88,21 @@ export default function Home() {
           href="https://hangar.papermc.io" target="_blank">Hangar</a> to get a Minecraft account.
       </em>
       </p>
+
+      <h2>FAQ</h2>
+      <h4>- What are the rewards?</h4>
+      <p>Stickers for everyone! Plus you get to choose one of the following:</p>
+      <ul>
+        <li>A Mincraft lincence</li>
+        <li>Server hosting credits</li>
+        <li>More to be added!</li>
+      </ul>
+      <h4>- When does it start?</h4>
+      <p>Really soon!</p>
+
       <div style={{display: 'flex'}}>
-        <a className="hoverable" id="form-link" href=""
-          target="_blank">Starting soon!</a>
+        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
+          target="_blank">RSVP!</a>
       </div>
       </div>
     </div>

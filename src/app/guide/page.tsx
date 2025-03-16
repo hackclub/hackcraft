@@ -26,13 +26,6 @@ export default function Home() {
       <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
         <h2>MC Tutorial!</h2>
         <p>No idea how to make a mod? We got you covered!</p>
-        <h2>We ship</h2>
-	<ul>
-          <li>A Mincraft lincence</li>
-          <li>Server hosting credits</li>
-          <li>More to be added!</li>
-	</ul>
-	<p>(You can only choose one)</p>
       </div>
     </div>
   </div>
