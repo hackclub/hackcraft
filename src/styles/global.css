@@ -63,6 +63,10 @@ body {
     background-repeat: repeat-x;
 }
 
+.showcase {
+    background-color: #000000AA;
+}
+
 a {
     color: inherit;
     text-decoration-thickness: 2px;
@@ -169,6 +173,12 @@ button{
 
 .container:has(.section) {
     background-image: url('/images/deeplslate.png')
+}
+
+.showcase {
+    display: grid;
+    gap: 5em;
+    margin: 0 auto;
 }
 
 .grid-steps {

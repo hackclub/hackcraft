@@ -21,8 +21,14 @@ export default function Home() {
       <span>Ship a mod</span>
       <span>Get Minecraft</span>
     </div>
-    <a style={{bottom: '3em', position: 'relative'}} href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
-      target="_blank"><button className="hoverable">Submit your mod!</button></a>
+    <div style={{width: "auto", position: 'relative'}}>
+      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px"}} href="./guide">
+       <button className="hoverable">Tutorial!</button></a>
+      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px"}} href="./gallery">
+       <button className="hoverable">Gallery</button></a>
+      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginLeft: "3px"}} href=""
+        target="_blank"><button className="hoverable">Starting soon!</button></a>
+    </div>
   </div>
   <div id="content">
     <div className="container">
@@ -59,7 +65,7 @@ export default function Home() {
         just like this mod</a>.
       <h3>Craft a mod...</h3>
       <p>
-        Never made a mod? <strong>It&apos;s the perfect time to build one. For
+        Never made a mod? <strong>It&apos;s the perfect time to build one.</strong> For
         inspiration, check out:
       </p>
       <ul>
@@ -83,8 +89,8 @@ export default function Home() {
       </em>
       </p>
       <div style={{display: 'flex'}}>
-        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
-          target="_blank">Submit</a>
+        <a className="hoverable" id="form-link" href=""
+          target="_blank">Starting soon!</a>
       </div>
       </div>
     </div>
