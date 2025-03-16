@@ -26,6 +26,7 @@ export default function SplashText() {
     'More like modcraft!',
     'V2: electric boogaloo!',
     'so, you going to blanketcon?',
+    // yep, cyao & msw are working with HC ;p
   ]
 
   const [currentSplash, setCurrentSplash] = useState(splashText[Math.floor(Math.random() * splashText.length)]);
