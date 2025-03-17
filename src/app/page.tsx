@@ -93,7 +93,7 @@ export default function Home() {
       <h4>- What are the rewards?</h4>
       <p>Stickers for everyone! Plus you get to choose one of the following:</p>
       <ul>
-        <li>A Mincraft lincence</li>
+        <li>A Mincraft license</li>
         <li>Server hosting credits</li>
         <li>More to be added!</li>
       </ul>
