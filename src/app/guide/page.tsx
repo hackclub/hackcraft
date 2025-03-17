@@ -32,18 +32,18 @@ export default function Home() {
   <div id="content">
     <div className="container" style={{backgroundImage: 'url("images/cobblestone.png")', backgroundRepeat: 'repeat'}}>
       <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-        <h2>But how to make a mod?</h2>
-        <p>IDK!</p>
+        <h2>TO BE ADDED SOON.</h2>
       </div>
     </div>
   </div>
   <div className="container" style={{backgroundImage: 'url("images/deepslate.png")', backgroundRepeat: 'repeat'}}>
     <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-      <h2>FAQ</h2>
-      <h3>How can I make a mod without owning Minecraft?</h3>
-      <p>You can launch Minecraft directly with frabric without an account!</p>
-      <h3>idk?</h3>
-      <p>How :33333</p>
+      <h2>Submitting</h2>
+      <p>Submissions open soon! Fill out this forum and we'll send you an email when we start:</p>
+      <div style={{display: 'flex'}}>
+        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
+          target="_blank">RSVP!</a>
+      </div>
     </div>
   </div>
   <div id="footer">

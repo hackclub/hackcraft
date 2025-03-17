@@ -99,6 +99,8 @@ export default function Home() {
       </ul>
       <h4>- When does it start?</h4>
       <p>Really soon!</p>
+      <h4>- How can I make a mod without owning Minecraft?</h4>
+      <p>You can launch Minecraft directly with frabric without an account!</p>
 
       <div style={{display: 'flex'}}>
         <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
