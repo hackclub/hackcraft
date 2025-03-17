@@ -41,7 +41,7 @@ export default function Home() {
     <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
       <h2>FAQ</h2>
       <h3>How can I make a mod without owning Minecraft?</h3>
-      <p>You can launch Minecraft directly with frabric without an account!</p>
+      <p>You can launch Minecraft directly with fabric without an account!</p>
       <h3>idk?</h3>
       <p>How :33333</p>
     </div>
