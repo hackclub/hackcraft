@@ -14,7 +14,7 @@ export default function Home() {
   </div>
   <div id="header">
     <div style={{position: 'relative', bottom: '1.5em'}}>
-      <img src="images/logo.png" alt="Minecraft Logo" width="100%"  />
+      <img src="images/logo.png" alt="Minecraft Logo" width="100%" />
       <SplashText />
     </div>
     <div id="subtitle" style={{fontSize: '1.2em', position: 'relative'}}>
@@ -32,7 +32,16 @@ export default function Home() {
   <div id="content">
     <div className="container" style={{backgroundImage: 'url("images/cobblestone.png")', backgroundRepeat: 'repeat'}}>
       <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-        <h2>TO BE ADDED SOON.</h2>
+        <h3>Setting up the project</h3>
+        <p>First, we will need a powerful IDE: <a href="https://www.jetbrains.com/idea/download/">IntellIJ Idea Community Edition</a>, be sure to scroll down and download Community Edition, it's free!</p>
+	<p>After it's downloaded, open up the application, and click on the "Plugins" on the left bar.</p>
+	<p>Search for "Minecraft Development", and click install. After that, click Restart IDE.</p>
+	<p>It's now time to create a new project! Click on the "New Project" button, and select "Minecraft" on the left side.</p>
+        <p>Change the name and ids to whatever you like, and select "Fabric" in the "Templates". Your command creation dialogue should look like this:</p>
+        <img src="images/project-creation.png" alt="Project Creation Pic" width="100%" />
+	<p>Click create and you have setup the base of your fabric project!</p>
+	<p>PS: If you see the error "Could not resolve net.fabricmc:fabric-loom:1.10-SNAPSHOT.", go to the file gradle > wrapper > gradle-wrapper.properties and change the distribution URL to "https\://services.gradle.org/distributions/gradle-8.14-milestone-4-bin.zip".</p>
+	<p>To develop Minecraft plugins, we are going to use the <a href="https://fabricmc.net/">Fabric mod loader</a>. If there is something your confused about, go check their docs!</p>
       </div>
     </div>
   </div>
