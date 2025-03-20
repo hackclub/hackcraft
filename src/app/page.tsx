@@ -26,7 +26,7 @@ export default function Home() {
        <button className="hoverable">Tutorial!</button></a>
       <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px", marginLeft: "3px"}} href="./gallery">
        <button className="hoverable">Gallery</button></a>
-      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginLeft: "3px"}} href=""
+      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginLeft: "3px"}} href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
         target="_blank"><button className="hoverable">RSVP!</button></a>
     </div>
   </div>
