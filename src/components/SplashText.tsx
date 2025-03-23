@@ -26,6 +26,7 @@ export default function SplashText() {
     'More like modcraft!',
     'V2: electric boogaloo!',
     'so, you going to blanketcon?',
+    'Now version 2!'
     // yep, cyao & msw are working with HC ;p
   ]
 
