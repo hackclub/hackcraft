@@ -40,7 +40,7 @@ export default function Home() {
         <p>Change the name and ids to whatever you like, and select "Fabric" in the "Templates". Your command creation dialogue should look like this:</p>
         <img src="images/project-creation.png" alt="Project Creation Pic" width="100%" />
 	<p>Click create and you have setup the base of your fabric project!</p>
-	<p>PS: If you see the error "Could not resolve net.fabricmc:fabric-loom:1.10-SNAPSHOT.", go to the file gradle > wrapper > gradle-wrapper.properties and change the distribution URL to "https\://services.gradle.org/distributions/gradle-8.14-milestone-4-bin.zip".</p>
+	<p>PS: If you see the error "Could not resolve net.fabricmc:fabric-loom:1.10-SNAPSHOT.", go to the file gradle &gt; wrapper &gt; gradle-wrapper.properties and change the distribution URL to "https\://services.gradle.org/distributions/gradle-8.14-milestone-4-bin.zip".</p>
 	<p>To develop Minecraft plugins, we are going to use the <a href="https://fabricmc.net/">Fabric mod loader</a>. If there is something your confused about, go check their docs!</p>
       </div>
     </div>
