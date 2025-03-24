@@ -37,17 +37,17 @@ export default function Home() {
           <div className="mc-number">1</div>
           <p className="item-text">Make a mod</p>
         </div>
-        <div className="item-step hoverable" style={{backgroundImage: 'url(images/modrinth.png)'}}>
+        <div className="item-step hoverable" style={{backgroundImage: 'url(images/time.png)'}}>
           <div className="mc-number">2</div>
+          <p className="item-text">Track time</p>
+        </div>
+        <div className="item-step hoverable" style={{backgroundImage: 'url(images/modrinth.png)'}}>
+          <div className="mc-number">3</div>
           <p className="item-text">Publish it on Modrinth</p>
         </div>
         <div className="item-step hoverable" style={{backgroundImage: 'url(images/shop.png)'}}>
-          <div className="mc-number">3</div>
-          <p className="item-text">Get Minecraft!</p>
-        </div>
-        <div className="item-step hoverable" style={{backgroundImage: 'url(images/play.png)'}}>
           <div className="mc-number">4</div>
-          <p className="item-text">Enjoy!</p>
+          <p className="item-text">Get Minecraft!</p>
         </div>
       </div>
     </div>
@@ -81,6 +81,8 @@ export default function Home() {
       <p>More of a social coder? You can also <a href="https://hackclub.com/slack?event=HackCraft">hang out online with
           other
           high schoolers</a> learning to build their first mods</p>
+      <h3>Spend the time...</h3>
+      <p>Spend at least 8 hours on your mod! Track it with <a href="https://hackatime.hackclub.com/">Hackatime</a>, a teenager made fork of Wakatime.</p>
       <h3>Place the blocks...</h3>
       <p>
       <em>
@@ -90,6 +92,8 @@ export default function Home() {
       </p>
 
       <h2>FAQ</h2>
+      <h4>- How much time do I need to work on my mod?</h4>
+      <p>At least 8 hours! Track it with <a href="https://hackatime.hackclub.com/">Hackatime</a></p>
       <h4>- What are the rewards?</h4>
       <p>Stickers for everyone! Plus you get to choose one of the following:</p>
       <ul>
@@ -97,8 +101,10 @@ export default function Home() {
         <li>Server hosting credits</li>
         <li>More to be added!</li>
       </ul>
+      <h4>- Can I submit an old mod?</h4>
+      <p>Sorry! But it needs to be new</p>
       <h4>- When does it start?</h4>
-      <p>Really soon!</p>
+      <p>Now!</p>
       <h4>- How can I make a mod without owning Minecraft?</h4>
       <p>You can launch Minecraft directly with frabric without an account!</p>
 

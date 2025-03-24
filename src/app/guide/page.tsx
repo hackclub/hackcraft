@@ -33,9 +33,11 @@ export default function Home() {
     <div className="container" style={{backgroundImage: 'url("images/cobblestone.png")', backgroundRepeat: 'repeat'}}>
       <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
         <h3>Setting up the project</h3>
-        <p>First, we will need a powerful IDE: <a href="https://www.jetbrains.com/idea/download/">IntellIJ Idea Community Edition</a>, be sure to scroll down and download Community Edition, it's free!</p>
+        <p>First, we will need a powerful IDE: <a target="_blank" href="https://www.jetbrains.com/idea/download/">IntellIJ Idea Community Edition</a>, be sure to scroll down and download Community Edition, it's free!</p>
 	<p>After it's downloaded, open up the application, and click on the "Plugins" on the left bar.</p>
-	<p>Search for "Minecraft Development", and click install. After that, click Restart IDE.</p>
+	<p>Search for "Minecraft Development", and click install.</p>
+	<p>We also need to setup time tracking: Search "Wakatime" and click intall. After that, click Restart IDE.</p>
+	<p>Now go connect to <a target="_blank" href="https://hackatime.hackclub.com/">hackatime</p> and setup Hackatime following the instructions on the website.</p>
 	<p>It's now time to create a new project! Click on the "New Project" button, and select "Minecraft" on the left side.</p>
         <p>Change the name and ids to whatever you like, and select "Fabric" in the "Templates". Your command creation dialogue should look like this:</p>
         <img src="images/project-creation.png" alt="Project Creation Pic" width="100%" />
