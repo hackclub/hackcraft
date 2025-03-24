@@ -26,8 +26,8 @@ export default function Home() {
        <button className="hoverable">Tutorial!</button></a>
       <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px", marginLeft: "3px"}} href="./gallery">
        <button className="hoverable">Gallery</button></a>
-      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginLeft: "3px"}} href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
-        target="_blank"><button className="hoverable">RSVP!</button></a>
+      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginLeft: "3px"}} href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
+        target="_blank"><button className="hoverable">Submit!</button></a>
     </div>
   </div>
   <div id="content">
@@ -103,8 +103,8 @@ export default function Home() {
       <p>You can launch Minecraft directly with frabric without an account!</p>
 
       <div style={{display: 'flex'}}>
-        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
-          target="_blank">RSVP!</a>
+        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
+          target="_blank">Submit Now!</a>
       </div>
       </div>
     </div>

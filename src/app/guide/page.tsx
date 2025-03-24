@@ -48,10 +48,11 @@ export default function Home() {
   <div className="container" style={{backgroundImage: 'url("images/deepslate.png")', backgroundRepeat: 'repeat'}}>
     <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
       <h2>Submitting</h2>
-      <p>Submissions open soon! Fill out this forum and we'll send you an email when we start:</p>
+
+      <p><a target="_blank" href="https://hackclub.com/slack/">Join our slack</a>, then submit the following forum to submit!</p>
       <div style={{display: 'flex'}}>
-        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagHuAw1cqV1a3VTm/form"
-          target="_blank">RSVP!</a>
+        <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
+          target="_blank">Submit Now!</a>
       </div>
     </div>
   </div>
