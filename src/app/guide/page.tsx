@@ -37,7 +37,7 @@ export default function Home() {
 	<p>After it's downloaded, open up the application, and click on the "Plugins" on the left bar.</p>
 	<p>Search for "Minecraft Development", and click install.</p>
 	<p>We also need to setup time tracking: Search "Wakatime" and click intall. After that, click Restart IDE.</p>
-	<p>Now go connect to <a target="_blank" href="https://hackatime.hackclub.com/">hackatime</p> and setup Hackatime following the instructions on the website.</p>
+	<p>Now go connect to <a target="_blank" href="https://hackatime.hackclub.com/">hackatime</a> and setup Hackatime following the instructions on the website.</p>
 	<p>It's now time to create a new project! Click on the "New Project" button, and select "Minecraft" on the left side.</p>
         <p>Change the name and ids to whatever you like, and select "Fabric" in the "Templates". Your command creation dialogue should look like this:</p>
         <img src="images/project-creation.png" alt="Project Creation Pic" width="100%" />
