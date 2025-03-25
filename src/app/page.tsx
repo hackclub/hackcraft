@@ -107,6 +107,10 @@ export default function Home() {
       <p>Now!</p>
       <h4>- How can I make a mod without owning Minecraft?</h4>
       <p>You can launch Minecraft directly with frabric without an account!</p>
+      <h4>- Can I use MCreator?</h4>
+      <p>No. You must code the mod yourself</p>
+      <h4>- Can I use Forge, spigot, paper etc.?</h4>
+      <p>Yup!</p>
 
       <div style={{display: 'flex'}}>
         <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
