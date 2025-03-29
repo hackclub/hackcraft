@@ -111,6 +111,8 @@ export default function Home() {
       <p>No. You must code the mod yourself</p>
       <h4>- Can I use Forge, spigot, paper etc.?</h4>
       <p>Yup!</p>
+      <h4>- Can I use Kotlin?</h4>
+      <p>Of course!</p>
 
       <div style={{display: 'flex'}}>
         <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"

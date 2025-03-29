@@ -44,7 +44,42 @@ export default function Home() {
 	<p>Click create and you have setup the base of your fabric project!</p>
 	<p>PS: If you see the error "Could not resolve net.fabricmc:fabric-loom:1.10-SNAPSHOT.", go to the file gradle &gt; wrapper &gt; gradle-wrapper.properties and change the distribution URL to "https\://services.gradle.org/distributions/gradle-8.14-milestone-4-bin.zip".</p>
 	<p>To develop Minecraft plugins, we are going to use the <a href="https://fabricmc.net/">Fabric mod loader</a>. If there is something your confused about, go check their docs!</p>
-	<p>(I'm gonna compleate this this week, go check the fabric docs for the moment! <a href="https://docs.fabricmc.net/develop/">https://docs.fabricmc.net/develop/</a>)</p>
+
+	<p>Now, lets first launch the game! You don't need a Minecraft account to do this: You can find the launch profiles in the top-right corner of the window. Click the dropdown menu to see the available launch profiles.</p>
+	<p>There should be a client and server profile, click on the green play button on the line with "Minecraft Client" written on it:</p>
+        <img src="images/run-mc.png" alt="Run Minecraft" width="100%" />
+
+	<p>Your game should launch! Now everytime you make changes in your code and want to try it out, relaunch Minecraft.</p>
+
+	<h3>Adding a item</h3>
+	<p>So, do you want to add a item? It's quite simple!</p>
+	<p>Firstly, we need to make a new class - I'm going to call it ModItems here. Open up the folders src &gt; main &gt; java &gt; com.whatyounamed.it and right click the last folder. Select new &gt; java class and name it what ever you want, then click enter.</p>
+
+	<p>Now go back to the main file, in the same directory. It should have the same name as your mod, and add a line in the class.</p>
+	<code>
+	public static final String MOD_ID = "supercoolmod";
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	</code>
+	<p>Change supercoolmod to your mod's name, and if you see any red words, hover over them then click "Import Class"</p>
+
+	<p>For adding items, we will use a helper function. Add it to the new class and read the comments for explenation!</p>
+	<code>
+	public static Item register(String name, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
+		// Create the item key.
+		RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(FabricDocsReference.MOD_ID, name));
+
+		// Create the item instance.
+		Item item = itemFactory.apply(settings.registryKey(itemKey));
+
+		// Register the item.
+		Registry.register(Registries.ITEM, itemKey, item);
+
+		// Return the item we just made
+		return item;
+	}
+	</code>
+
+	<p>Minecraft uses a registery system, which is like a list that keeps track of stuff. Here in the helper function, we used RegistryKey.of() to create a new id for our new item, and then itemFactory to apply configs that are passed into the function (You will see how), then finally add the item to the internal items list with Registry.register.</p>
       </div>
     </div>
   </div>
