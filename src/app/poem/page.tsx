@@ -102,7 +102,7 @@ export default function Page() {
         <p className="poem-text player2">They'll make something incredible.</p>
         <p className="poem-text player1">The most incredible thing.</p>
         <p className="poem-text player2">The Universe.</p>
-        <img src="images/logo.png" className="mc-ysws-logo" />
+        <img src="images/logo.png" alt="Logo of mc ysws" className="mc-ysws-logo" />
       </div>
     </div>
   );

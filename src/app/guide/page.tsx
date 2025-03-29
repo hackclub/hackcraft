@@ -1,5 +1,9 @@
 import SplashText from "~/components/SplashText";
+import Code from "~/components/Code";
 import '~/styles/global.css';
+
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export const revalidate = 60;
 
@@ -56,30 +60,32 @@ export default function Home() {
 	<p>Firstly, we need to make a new class - I'm going to call it ModItems here. Open up the folders src &gt; main &gt; java &gt; com.whatyounamed.it and right click the last folder. Select new &gt; java class and name it what ever you want, then click enter.</p>
 
 	<p>Now go back to the main file, in the same directory. It should have the same name as your mod, and add a line in the class.</p>
-	<code>
-	public static final String MOD_ID = "supercoolmod";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	</code>
+        <SyntaxHighlighter showLineNumbers language="java" style={theme}>
+	{`public static final String MOD_ID = "supercoolmod";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+}`}
+	</SyntaxHighlighter>
 	<p>Change supercoolmod to your mod's name, and if you see any red words, hover over them then click "Import Class"</p>
 
-	<p>For adding items, we will use a helper function. Add it to the new class and read the comments for explenation!</p>
-	<code>
-	public static Item register(String name, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
-		// Create the item key.
-		RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(FabricDocsReference.MOD_ID, name));
+	<p>For adding items, we will use a helper function. Add it to the new class and read the comments for explenation! Don't forget to replace "Supercoolmod" with your mod's main class name.</p>
+        <SyntaxHighlighter showLineNumbers language="java" style={theme}>
+	{`public static Item register(String name, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
+        // Create the item key.
+        RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Supercoolmod.MOD_ID, name));
+        
+        // Create the item instance.
+        Item item = itemFactory.apply(settings.registryKey(itemKey));
+        
+        // Register the item.
+        Registry.register(Registries.ITEM, itemKey, item);
 
-		// Create the item instance.
-		Item item = itemFactory.apply(settings.registryKey(itemKey));
+        // Return the item we just made
+        return item;
+    }
+}`}
+	</SyntaxHighlighter>
 
-		// Register the item.
-		Registry.register(Registries.ITEM, itemKey, item);
-
-		// Return the item we just made
-		return item;
-	}
-	</code>
-
-	<p>Minecraft uses a registery system, which is like a list that keeps track of stuff. Here in the helper function, we used RegistryKey.of() to create a new id for our new item, and then itemFactory to apply configs that are passed into the function (You will see how), then finally add the item to the internal items list with Registry.register.</p>
+	<p>Minecraft uses a registry system, which is like a list that keeps track of stuff. Here in the helper function, we used RegistryKey.of() to create a new id for our new item, and then itemFactory to apply configs that are passed into the function (You will see how), then finally add the item to the internal items list with Registry.register.</p>
       </div>
     </div>
   </div>
