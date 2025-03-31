@@ -1,9 +1,5 @@
 import SplashText from "~/components/SplashText";
-import Code from "~/components/Code";
 import '~/styles/global.css';
-
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export const revalidate = 60;
 
