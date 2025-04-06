@@ -18,52 +18,53 @@ export default function Home() {
       <SplashText />
     </div>
     <div id="subtitle" style={{fontSize: '1.2em', position: 'relative'}}>
-      <span>The Guide™</span>
+      <span>The <s>Upgraded</s> Guide™</span>
     </div>
   </div>
   <div id="content">
     <div className="container" style={{backgroundImage: 'url("images/dirt.png")', backgroundRepeat: 'repeat'}}>
       <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-        <h2>MC Tutorial!</h2>
-        <p>No idea how to make a mod? We got you covered!</p>
+        <h2>No Experience?</h2>
+        <p>Don't know how to starting modding Minecraft? We've got you covered!</p>
       </div>
     </div>
   </div>
   <div id="content">
     <div className="container" style={{backgroundImage: 'url("images/cobblestone.png")', backgroundRepeat: 'repeat'}}>
       <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-        <h3>Setting up the project</h3>
-        <p>First, we will need a powerful IDE: <a target="_blank" href="https://www.jetbrains.com/idea/download/">IntellIJ Idea Community Edition</a>, be sure to scroll down and download Community Edition, it's free!</p>
-	<p>After it's downloaded, open up the application, and click on the "Plugins" on the left bar.</p>
-	<p>Search for "Minecraft Development", and click install.</p>
-	<p>We also need to setup time tracking: Search "Wakatime" and click install. After that, click Restart IDE.</p>
-	<p>Now go connect to <a target="_blank" href="https://hackatime.hackclub.com/">hackatime</a> and setup Hackatime following the instructions on the website.</p>
-	<p>It's now time to create a new project! Click on the "New Project" button, and select "Minecraft" on the left side then choose JDK 21. (If JDK 21 isn't there, download it <a href="https://adoptium.net/temurin/releases/?package=jdk&version=21">here</a>!)</p>
-        <p>Change the name and ids to whatever you like (scroll down and change group id too), then select "Fabric" in the "Templates". Your command creation dialogue should look like this:</p>
+        <h3>Setting up your project</h3>
+        <p>First, we will require a powerful integrated development environment (IDE for short). For this guide™, we will use <a target="_blank" href="https://www.jetbrains.com/idea/download/">IntellIJ Idea Community Edition</a>.
+        Make sure to download the Community Edition. This will make sure that you're modding without any costs!</p>
+	<p>After it has been downloaded onto your computer, open up the application, and click on the "Plugins" on the bar on the left side of your screen.</p>
+	<p>Search for "Minecraft Development", and click install on the plugin.</p>
+	<p>We also need to setup time tracking for your project. Search "Wakatime" and click install. After that, click Restart IDE. This will close IDE and reopen it for you.</p>
+	<p>After that, connect to your <a target="_blank" href="https://hackatime.hackclub.com/">hackatime</a> and setup Hackatime. You should follow the instructions on the website.</p>
+	<p>Finally, it's time to create a new project! Click on the "New Project" button, and select "Minecraft" on the left side. Choose "JDK 21". (If you can't see the option, download it <a href="https://adoptium.net/temurin/releases/?package=jdk&version=21">here</a>!)</p>
+        <p>You can change the name and ids to whatever you like (remember to scroll down and change group id too!), then select "Fabric" in "Templates". Your command creation dialogue should look like this:</p>
         <img src="images/project-creation.png" alt="Project Creation Pic" width="100%" />
-	<p>Click create and you have setup the base of your fabric project!</p>
-	<p>PS: If you see the error "Could not resolve net.fabricmc:fabric-loom:1.10-SNAPSHOT.", go to the file gradle &gt; wrapper &gt; gradle-wrapper.properties and change the distribution URL to "https\://services.gradle.org/distributions/gradle-8.14-milestone-4-bin.zip".</p>
-	<p>To develop Minecraft plugins, we are going to use the <a href="https://fabricmc.net/">Fabric mod loader</a>. If there is something your confused about, go check their docs!</p>
+	<p>Then, create the project. Look at what you've done: you've just setup the base of your fabric project!</p>
+	<p style={{fontSize: '.8rem'}}><i>Note: If you see the error "Could not resolve net.fabricmc:fabric-loom:1.10-SNAPSHOT.", go to the file gradle &gt; wrapper &gt; gradle-wrapper.properties and change the distribution URL to "https\://services.gradle.org/distributions/gradle-8.14-milestone-4-bin.zip".</i></p>
+	<p>To developing Minecraft mods, we are going to use the <a href="https://fabricmc.net/">Fabric mod loader</a>. If there's something your confused about, go check their <a target="_blank" href="https://docs.fabricmc.net/develop/">docs</a>!</p>
 
-	<p>Now, lets first launch the game! You don't need a Minecraft account to do this: You can find the launch profiles in the top-right corner of the window. Click the dropdown menu to see the available launch profiles.</p>
-	<p>There should be a client and server profile, click on the green play button on the line with "Minecraft Client" written on it:</p>
+	<p>Now, lets launch the game for the first time! Fortunately, you won't need a Minecraft account to do this: you can find the launch profiles in the top-right corner of the window. Click the dropdown menu to see the available launch profiles.</p>
+	<p>There should be a client and server profile, click on the green play button next to the label that reads "Minecraft Client".</p>
         <img src="images/run-mc.png" alt="Run Minecraft" width="100%" />
 
-	<p>Your game should launch! Now everytime you make changes in your code and want to try it out, relaunch Minecraft.</p>
-
-	<h3>How to continue developing?</h3>
-	<p>Consult the Fabric tutorial! It is awesomely written. <a href="https://docs.fabricmc.net/develop/items/first-item" target="_blank">You can add blocks, play sounds, add entities and more!</a></p>
-	<p>Want to change some existing Minecraft behaviour? <a href="https://wiki.fabricmc.net/tutorial:mixin_introduction" target="_blank">Try using Mixins</a></p>
+	<p>Your game should now launch! Remember that everytime you make changes in your code and want to test it, you must relaunch Minecraft.</p>
+	<h3>What do I do next?</h3>
+	<p>Follow the Fabric tutorial for modding! It's made specifically for beginners. If you want to add your first item, we highly suggest you follow the guide <a href="https://docs.fabricmc.net/develop/items/first-item" target="_blank">here</a>!</p>
+	<p>What about changing some existing Minecraft behaviour? <a href="https://wiki.fabricmc.net/tutorial:mixin_introduction" target="_blank">Try using Mixins</a></p>
 	<p>Need automatic data generation? <a href="https://docs.fabricmc.net/develop/data-generation/setup" target="_blank">Datagen has you covered!</a></p>
-	<p>Want more features? <a href="https://docs.fabricmc.net/develop/sounds/using-sounds" target="_blank"></a>Read the fabric tutorial!</p>
+	<p>Want to add more sounds? <a href="https://docs.fabricmc.net/develop/sounds/using-sounds" target="_blank">Read this guide!</a></p>
+  <p>Go for the <a href="https://docs.fabricmc.net/develop/">Fabric guide</a> for anything else!</p>
       </div>
     </div>
   </div>
   <div className="container" style={{backgroundImage: 'url("images/deepslate.png")', backgroundRepeat: 'repeat'}}>
     <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-      <h2>Submitting</h2>
-
-      <p><a target="_blank" href="https://hackclub.com/slack/">Join our slack</a>, then submit the following forum to submit!</p>
+      <h2>How do I submit my finished project?</h2>
+      <p>Join <a target="_blank" href="https://app.slack.com/client/T0266FRGM/C07NQ5QAYNQ">our channel</a> (#mc-modding) on <a target="_blank" href="https://hackclub.com/slack/">Hack Club's Slack</a>, then follow the instructions to join.
+      Only after joining Hack Club's Slack you may submit.</p>
       <div style={{display: 'flex'}}>
         <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
           target="_blank">Submit Now!</a>
