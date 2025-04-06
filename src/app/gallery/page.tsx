@@ -1,7 +1,15 @@
 import Gallery from "~/components/Gallery";
+import SplashText from "~/components/SplashText";
+import { Metadata } from "next";
 import '~/styles/global.css';
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: 'Hackcraft Gallery',
+  description:
+    'See what others made with Hackcraft!',
+};
 
 export default function Home() {
   return (
@@ -16,7 +24,7 @@ export default function Home() {
     <div className="container" style={{backgroundImage: 'url(images/dirt.png)', textAlign: "center"}}>
       <h2>See what others made!</h2>
       <div className="showcase" style={{textAlign: "center", padding: '1em'}}>
-        <Gallery />
+        <Gallery/>
       </div>
     </div>
   </div>

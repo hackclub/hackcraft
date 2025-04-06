@@ -3,6 +3,12 @@ import '~/styles/global.css';
 
 export const revalidate = 60;
 
+export const metadata: Metadata = {
+  title: 'Hackcraft Guide',
+  description:
+    'The guide to modding Minecraft with Hackcraft!',
+};
+
 export default function Home() {
   return (
     <>
@@ -14,8 +20,8 @@ export default function Home() {
   </div>
   <div id="header">
     <div style={{position: 'relative', bottom: '1.5em'}}>
-      <img src="images/logo.png" alt="Minecraft Logo" width="100%" />
-      <SplashText />
+      <a href="/"><img src="images/logo.png" alt="Minecraft Logo" width="100%"/></a>
+      <SplashText/>
     </div>
     <div id="subtitle" style={{fontSize: '1.2em', position: 'relative'}}>
       <span>The Guide™</span>

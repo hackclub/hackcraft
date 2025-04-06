@@ -20,6 +20,12 @@ body {
     position: absolute;
     right: -40px;
     bottom: 50%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 @keyframes splash {
@@ -70,6 +76,7 @@ body {
 a {
     color: inherit;
     text-decoration-thickness: 2px;
+    text-underline-offset: -0.3em;
 }
 
 a:hover {
@@ -78,7 +85,6 @@ a:hover {
 
 li {
     list-style-type: square;
-
 }
 
 button{
@@ -148,7 +154,7 @@ button{
 }
 
 .mc-number {
-    font-family: 'Minecraft', sans-serif;
+    font-family: 'Minecraftia', sans-serif;
     width: 16px;
     height: 16px;
     text-align: center;
@@ -198,7 +204,6 @@ button{
 .item-step {
     padding: 1em;
     color: white;
-    border-radius: 1em;
     display: flex;
     position: relative;
     aspect-ratio: 2 / 1;
@@ -212,7 +217,7 @@ button{
     padding-bottom: 0.4em;
     position: absolute;
     bottom: -20px;
-    right: -1rem;
+    right: 0;
     font-size: 20px;
     font-weight: bold;
     text-shadow: black 1px 1px 8px;
@@ -295,9 +300,8 @@ button{
 }
 
 .player1, .player2 {
-    /* opacity: 0; */
     transition-duration: 1s;
-    line-height: 90%;
+    line-height: 150%;
 }
 
 .player1:hover, .player2:hover {
