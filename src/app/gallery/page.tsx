@@ -20,15 +20,6 @@ export default function Home() {
         alt="Dinosaur arm holding flag that reads 'Hack Club'" />
     </a>
   </div>
-  <div id="header">
-      <div style={{position: 'relative', bottom: '1.5em'}}>
-        <a href="/"><img src="images/logo.png" alt="Minecraft Logo" width="100%"/></a>
-        <SplashText/>
-      </div>
-      <div id="subtitle" style={{fontSize: '1.2em', position: 'relative'}}>
-        <span>The Gallery™</span>
-      </div>
-  </div>
   <div id="content">
     <div className="container" style={{backgroundImage: 'url(images/dirt.png)', textAlign: "center"}}>
       <h2>See what others made!</h2>

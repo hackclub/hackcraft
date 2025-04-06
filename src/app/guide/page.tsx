@@ -24,13 +24,13 @@ export default function Home() {
       <SplashText/>
     </div>
     <div id="subtitle" style={{fontSize: '1.2em', position: 'relative'}}>
-      <span>The <s>Upgraded</s> Guide™</span>
+      <span>The Guide™</span>
     </div>
   </div>
   <div id="content">
     <div className="container" style={{backgroundImage: 'url("images/dirt.png")', backgroundRepeat: 'repeat'}}>
       <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-        <h2 style={{marginTop: '0'}}>No Experience?</h2>
+        <h2>No Experience?</h2>
         <p>Don't know how to starting modding Minecraft? We've got you covered!</p>
       </div>
     </div>
