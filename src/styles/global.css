@@ -3,7 +3,6 @@ body {
     margin: 0;
     font-family: 'Minecraftia', sans-serif;
     font-size: 1.5em;
-    line-height: 150%;
 }
 
 @font-face {
@@ -248,7 +247,6 @@ button{
     display: flex;
     justify-content: center;
     gap: 1.5em;
-    padding-top: 1em;
 }
 
 .yt-embed {
