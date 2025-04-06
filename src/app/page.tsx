@@ -3,6 +3,12 @@ import '~/styles/global.css';
 
 export const revalidate = 60;
 
+export const metadata: Metadata = {
+  title: 'Hackcraft',
+  description:
+    'Ship a mod, get Minecraft!',
+};
+
 export default function Home() {
   return (
     <>
@@ -14,7 +20,7 @@ export default function Home() {
   </div>
   <div id="header">
     <div style={{position: 'relative', bottom: '5em'}}>
-      <img src="images/logo.png" alt="Minecraft Logo" width="100%"  />
+    <a href="/"><img src="images/logo.png" alt="Minecraft Logo" width="100%"/></a>
       <SplashText />
     </div>
     <div id="subtitle" style={{fontSize: '1.2em', bottom: '3.5em', position: 'relative'}}>
@@ -38,7 +44,7 @@ export default function Home() {
           <p className="item-text">Make a mod</p>
         </div>
         <div className="item-step hoverable" style={{backgroundImage: 'url(images/time.png)'}}>
-          <div className="mc-number">2</div>
+          <div className="mc-number" style={{color: 'black'}}>2</div>
           <p className="item-text">Track time</p>
         </div>
         <div className="item-step hoverable" style={{backgroundImage: 'url(images/modrinth.png)'}}>
@@ -54,7 +60,7 @@ export default function Home() {
   </div>
   <div className="container" style={{backgroundImage: 'url("images/deepslate.png")', backgroundRepeat: 'repeat'}}>
     <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-      <h2 className="player1">I see the game you mean.</h2>
+      <h2 className="player1" style={{marginTop: '0'}}>I see the game you mean.</h2>
       <p className="player2">Minecraft?</p>
       <p className="player1">Yes. Take care. The player is ready to reach a higher level in it, they may soon see the code.</p>
       <p className="player2">They read our thoughts like they were code on a screen. All they need to do is reach out and make changes.</p>
@@ -93,22 +99,22 @@ export default function Home() {
 
       <h2>FAQ</h2>
       <h4>- How much time do I need to work on my mod?</h4>
-      <p>At least 8 hours! Track it with <a href="https://hackatime.hackclub.com/">Hackatime</a></p>
+      <p>At least 8 hours! You'll have to track it with <a href="https://hackatime.hackclub.com/">Hackatime</a></p>
       <h4>- What are the rewards?</h4>
-      <p>Stickers for everyone! Plus you get to choose one of the following:</p>
+      <p>Stickers! (yes, real ones!) Not only that, but you get to choose one of the following:</p>
       <ul>
         <li>A Mincraft licence</li>
         <li>Server hosting credits</li>
-        <li>More to be added!</li>
+        <li>...and more coming soon!</li>
       </ul>
       <h4>- Can I submit an old mod?</h4>
-      <p>Sorry! But it needs to be new</p>
+      <p>Sorry! But it needs to be a new mod.</p>
       <h4>- When does it start?</h4>
       <p>Now!</p>
       <h4>- How can I make a mod without owning Minecraft?</h4>
       <p>You can launch Minecraft directly with frabric without an account!</p>
       <h4>- Can I use MCreator?</h4>
-      <p>No. You must code the mod yourself</p>
+      <p>No. You must code the mod yourself!</p>
       <h4>- Can I use Forge, spigot, paper etc.?</h4>
       <p>Yup!</p>
       <h4>- Can I use Kotlin?</h4>

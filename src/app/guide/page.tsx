@@ -3,6 +3,12 @@ import '~/styles/global.css';
 
 export const revalidate = 60;
 
+export const metadata: Metadata = {
+  title: 'Hackcraft Guide',
+  description:
+    'The guide to modding Minecraft with Hackcraft!',
+};
+
 export default function Home() {
   return (
     <>
@@ -14,8 +20,8 @@ export default function Home() {
   </div>
   <div id="header">
     <div style={{position: 'relative', bottom: '1.5em'}}>
-      <img src="images/logo.png" alt="Minecraft Logo" width="100%" />
-      <SplashText />
+      <a href="/"><img src="images/logo.png" alt="Minecraft Logo" width="100%"/></a>
+      <SplashText/>
     </div>
     <div id="subtitle" style={{fontSize: '1.2em', position: 'relative'}}>
       <span>The <s>Upgraded</s> Guide™</span>
@@ -24,7 +30,7 @@ export default function Home() {
   <div id="content">
     <div className="container" style={{backgroundImage: 'url("images/dirt.png")', backgroundRepeat: 'repeat'}}>
       <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-        <h2>No Experience?</h2>
+        <h2 style={{marginTop: '0'}}>No Experience?</h2>
         <p>Don't know how to starting modding Minecraft? We've got you covered!</p>
       </div>
     </div>
@@ -62,7 +68,7 @@ export default function Home() {
   </div>
   <div className="container" style={{backgroundImage: 'url("images/deepslate.png")', backgroundRepeat: 'repeat'}}>
     <div className="section" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem'}}>
-      <h2>How do I submit my finished project?</h2>
+      <h2 style={{marginTop: '0'}}>How do I submit my finished project?</h2>
       <p>Join <a target="_blank" href="https://app.slack.com/client/T0266FRGM/C07NQ5QAYNQ">our channel</a> (#mc-modding) on <a target="_blank" href="https://hackclub.com/slack/">Hack Club's Slack</a>, then follow the instructions to join.
       Only after joining Hack Club's Slack you may submit.</p>
       <div style={{display: 'flex'}}>
