@@ -109,10 +109,10 @@ export default function Home() {
       <p>You can launch Minecraft directly with frabric without an account!</p>
       <h4>- Can I use MCreator?</h4>
       <p>No. You must code the mod yourself</p>
-      <h4>- Can I use Forge, spigot, paper etc.?</h4>
+      <h4>- Can I use Forge, spigot, paper etc.? Can I use Kotlin?</h4>
       <p>Yup!</p>
-      <h4>- Can I use Kotlin?</h4>
-      <p>Of course!</p>
+      <h4>- Other questions?</h4>
+      <p>Join <a target="_blank" href="https://app.slack.com/client/T0266FRGM/C07NQ5QAYNQ">our slack channel</a> (#mc-modding) on <a target="_blank" href="https://hackclub.com/slack/">Hack Club's Slack</a>, follow the instructions on the slack to join.</p>
 
       <div style={{display: 'flex'}}>
         <a className="hoverable" id="form-link" href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"

@@ -303,3 +303,8 @@ button{
 .player1:hover, .player2:hover {
     opacity: 1;
 }
+
+h4 {
+	margin-bottom: 1px;
+	margin-top: 2px;
+}
