@@ -82,7 +82,7 @@ export default function Home() {
           other
           high schoolers</a> learning to build their first mods</p>
       <h3>Spend the time...</h3>
-      <p>Spend at least 8 hours on your mod! Track it with <a href="https://waka.hackclub.com/">Hackatime</a>, a teenager made fork of Wakatime.</p>
+      <p>Spend at least 8 hours on your mod! Track it with <a href="https://hackatime.hackclub.com/">Hackatime</a>, a teenager made fork of Wakatime.</p>
       <h3>Place the blocks...</h3>
       <p>
       <em>
@@ -93,7 +93,7 @@ export default function Home() {
 
       <h2>FAQ</h2>
       <h4>- How much time do I need to work on my mod?</h4>
-      <p>At least 8 hours! Track it with <a href="https://waka.hackclub.com/">Hackatime</a></p>
+      <p>At least 8 hours! Track it with <a href="https://hackatime.hackclub.com/">Hackatime</a></p>
       <h4>- What are the rewards?</h4>
       <p>Stickers for everyone! Plus you get to choose one of the following:</p>
       <ul>

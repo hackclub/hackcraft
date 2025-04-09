@@ -38,7 +38,7 @@ export default function Home() {
 	<p>After it has been downloaded onto your computer, open up the application, and click on the "Plugins" on the bar on the left side of your screen.</p>
 	<p>Search for "Minecraft Development", and click install on the plugin.</p>
 	<p>We also need to setup time tracking for your project. Search "Wakatime" and click install. After that, click Restart IDE.</p>
-	<p>After that, connect to your <a target="_blank" href="https://waka.hackclub.com/">hackatime</a> and setup Hackatime following the instructions on the website.</p>
+	<p>After that, connect to your <a target="_blank" href="https://hackatime.hackclub.com/">hackatime</a> and setup Hackatime following the instructions on the website.</p>
 	<p>Finally, it's time to create a new project! Click on the "New Project" button, and select "Minecraft" on the left side. Choose "JDK 21". (If you can't see the option, download the JDK <a href="https://adoptium.net/temurin/releases/?package=jdk&version=21">here</a>!)</p>
         <p>You can change the name and ids to whatever you like (remember to scroll down and change the group id too!), then select "Fabric" in "Templates". Your command creation dialogue should look like this:</p>
         <img src="images/project-creation.png" alt="Project Creation Pic" width="100%" />
