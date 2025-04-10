@@ -106,7 +106,7 @@ export default function Home() {
       <h4>- When does it start?</h4>
       <p>Now!</p>
       <h4>- How can I make a mod without owning Minecraft?</h4>
-      <p>You can launch Minecraft directly with frabric without an account!</p>
+      <p>You can launch Minecraft directly with fabric without an account!</p>
       <h4>- Can I use MCreator?</h4>
       <p>No. You must code the mod yourself</p>
       <h4>- Can I use Forge, spigot, paper etc.? Can I use Kotlin?</h4>
