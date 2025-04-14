@@ -92,7 +92,7 @@ export default function Home() {
       </p>
 
       <h2>FAQ</h2>
-      <h4>- How much time do I need to work on my mod?</h4>
+      <h4>- How much time do I need to spend on my mod?</h4>
       <p>At least 8 hours! Track it with <a href="https://hackatime.hackclub.com/">Hackatime</a></p>
       <h4>- What are the rewards?</h4>
       <p>Stickers for everyone! Plus you get to choose one of the following:</p>
