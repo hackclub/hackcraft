@@ -53,7 +53,7 @@ export default function Home() {
 	<p>Your game should now launch! Remember that everytime you make changes in your code and want to test it, you must relaunch Minecraft.</p>
 
 	<h3>What do I do next?</h3>
-	<p>Follow the Fabric tutorial for modding! It's excelent: if you want to add your first item, we highly suggest you follow the guide <a href="https://docs.fabricmc.net/develop/items/first-item" target="_blank">here</a>!</p>
+	<p>Follow the Fabric tutorial for modding! It's excellent: if you want to add your first item, we highly suggest you follow the guide <a href="https://docs.fabricmc.net/develop/items/first-item" target="_blank">here</a>!</p>
 	<p>Want to change some existing Minecraft behaviour? <a href="https://wiki.fabricmc.net/tutorial:mixin_introduction" target="_blank">Try using Mixins</a></p>
 	<p>Need automatic data generation? <a href="https://docs.fabricmc.net/develop/data-generation/setup" target="_blank">Datagen has you covered!</a></p>
 	<p>Want to add more features? <a href="https://docs.fabricmc.net/develop/sounds/using-sounds" target="_blank">Read everything here!</a></p>
