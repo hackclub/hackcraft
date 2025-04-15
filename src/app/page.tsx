@@ -105,8 +105,8 @@ export default function Home() {
       <p>Sorry! But it needs to be new</p>
       <h4>- When does it start?</h4>
       <p>Now!</p>
-      <h4>- Do I need the Minecraft launcher to test out my mod?</h4>
-      <p>You can launch Minecraft directly with fabric developement environement!</p>
+      <h4>- Do I need to use the Minecraft Launcher to test out my mod?</h4>
+      <p>You can launch Minecraft directly with fabric developement environement! No need to install any additional software.</p>
       <h4>- Can I use MCreator?</h4>
       <p>No. You must code the mod yourself</p>
       <h4>- Can I use Forge, spigot, paper etc.? Can I use Kotlin?</h4>
