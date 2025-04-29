@@ -44,7 +44,7 @@ export default function Home() {
         <img src="images/project-creation.png" alt="Project Creation Pic" width="100%" />
 	<p>Then, create the project. Look at what you've done: you've just setup the base of your fabric project!</p>
 	<p style={{fontSize: '1rem'}}><i>Note: If you see the error "Could not resolve net.fabricmc:fabric-loom:1.10-SNAPSHOT.", go to the file gradle &gt; wrapper &gt; gradle-wrapper.properties and change the distribution URL to "https\://services.gradle.org/distributions/gradle-8.14-milestone-4-bin.zip".</i></p>
-	<p>To developing Minecraft mods, we are going to use the <a href="https://fabricmc.net/">Fabric mod loader</a>. If there's something your confused about, go check their <a target="_blank" href="https://fabricmc.net/develop/">docs</a>!</p>
+	<p>To developing Minecraft mods, we are going to use the <a href="https://fabricmc.net/">Fabric mod loader</a>. If there's something you're confused about, go check their <a target="_blank" href="https://fabricmc.net/develop/">docs</a>!</p>
 
 	<p>Now, lets launch the game for the first time! You can find the launch profiles in the top-right corner of the window. Click the dropdown menu to see the available launch profiles.</p>
 	<p>There should be a client and server profile, click on the green play button next to the label that reads "Minecraft Client".</p>
