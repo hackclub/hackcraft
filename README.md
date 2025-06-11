@@ -13,3 +13,4 @@ To qualify:
     Your mod must be created on or after October 1st, 2024
 
 Check it out at [hack.club/hackcraft](https://hack.club/hackcraft)
+
