@@ -5,14 +5,10 @@ const data = await fetch(api_url)
 const entries = await data.json()
 
 export default function Gallery() {
-	const entryInfo = [
-	["Player Pearls", "A vanilla-friendly way to teleport/warp to your friends in survival.", "https://github.com/not-first/player-pearls","https://modrinth.com/mod/player-pearls","https://hc-cdn.hel1.your-objectstorage.com/s/v3/8e27a77b646e682a6a918b7e72bd6be17efce52f_svobvqg.mp4","https://github.com/not-first","https://hackclub.slack.com/archives/U07BBT06UKG","A vanilla-friendly way to teleport/warp to your friends in survival."],
-	]
-
   return (
     <div>
     {entries.map((data, index) => {
-      let info = data["fields"];
+      const info = data["fields"];
 
       let videoSrc = info["Demo video"];
       if (videoSrc.includes('youtube.com/watch') || videoSrc.includes('youtu.be')) {
@@ -20,6 +16,8 @@ export default function Gallery() {
         const videoId = url.searchParams.get('v') || url.pathname.split('/').pop();
         videoSrc = `https://www.youtube.com/embed/${videoId}`;
       }
+
+	console.log(info);
       
       return (
         <div key={index}>
