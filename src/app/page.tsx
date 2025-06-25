@@ -18,16 +18,13 @@ export default function Home() {
       <SplashText />
     </div>
     <div id="subtitle" style={{fontSize: '1.2em', bottom: '3.5em', position: 'relative'}}>
-      <span>Ship a mod</span>
-      <span>Get Minecraft</span>
+      Ended June 7th
     </div>
     <div style={{width: "auto", position: 'relative'}}>
       <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px"}} href="./guide">
        <button className="hoverable">Tutorial!</button></a>
       <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginRight: "3px", marginLeft: "3px"}} href="./gallery">
        <button className="hoverable">Gallery</button></a>
-      <a style={{bottom: '3em', position: 'relative', display: "inline-block", marginLeft: "3px"}} href="https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form"
-        target="_blank"><button className="hoverable">Submit!</button></a>
     </div>
   </div>
   <div id="content">
