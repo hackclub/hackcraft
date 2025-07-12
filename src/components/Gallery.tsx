@@ -5,7 +5,7 @@ const data = await fetch(api_url)
 const entries = await data.json()
 
 export default function Gallery() {
-  return (
+  return ( 
     <div>
     {entries.map((data, index) => {
       const info = data["fields"];
