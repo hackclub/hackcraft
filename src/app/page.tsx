@@ -132,9 +132,19 @@ export default function HomePage() {
 						suppressHydrationWarning>
 						just like these mods
 					</a>
-					.<h3>Craft a mod...</h3>
+					.<h3>Check out the mods teens made last time!</h3>
+					<video controls src='/video.mp4' width='100%' />
+					<h3>Craft a mod...</h3>
 					<p>
-						Never made a mod? It's the perfect time to build one. For inspiration, check out <Link href='/gallery'>the gallery</Link>!
+						Never made a mod? It's the perfect time to build one. For inspiration, check out{' '}
+						<Link href='/gallery' target='_blank'>
+							the gallery
+						</Link>{' '}
+						or{' '}
+						<a href='https://discord.com/channels/507304429255393322/1079906503076626573' target='_blank'>
+							Fabric's Discord
+						</a>
+						!
 					</p>
 					<p>
 						More of a social coder? You can also <a href='https://hackclub.com/slack?event=HackCraft'>hang out online with other high schoolers</a> learning to build their first mods.
@@ -151,9 +161,9 @@ export default function HomePage() {
 						<a href='https://modrinth.com' target='_blank'>
 							Modrinth
 						</a>{' '}
-						and share your source code with <a href='https://git-scm.com/'>Git</a> to a platform like <a href='https://github.com/'>GitHub</a> to get stickers and a Minecraft account or
-						server. On top of that if you get 700 downloads in the first month, you get <a href='https://www.terraria.org/'>Terraria</a> for free! (Only 500 needed if you add the{' '}
-						<a href='TODO'>Hackcraft banner</a> to your mod)
+						and share your source code to a platform like <a href='https://github.com/'>GitHub</a> to get stickers and a Minecraft account or server. On top of that if you get 600
+						downloads in the first month, you get <a href='https://www.terraria.org/'>Terraria</a> for free! (Only 400 needed if you add the <a href='TODO'>Hackcraft banner</a> to your
+						mod)
 					</p>
 					<h3>Play together...</h3>
 					<p>At the end of the event, we will host a fabric server on 1.21.8 to showcase your mod and play with friends!</p>

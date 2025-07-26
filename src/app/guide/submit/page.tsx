@@ -30,6 +30,7 @@ export default function Submit() {
 				<div className='section' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem' }}>
 					<h2>Before you submit</h2>
 					<ul>
+						<li>Make sure your mod is good :3</li>
 						<li>Confirm that you did not make it with AI.</li>
 						<li>Test if your mod works properly on a server and outside of a development environment.</li>
 						<li>Make sure your mod has the necessary 3 features or 5 if you are not on 1.21.8 fabric.</li>
