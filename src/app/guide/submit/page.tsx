@@ -11,7 +11,7 @@ export default function Submit() {
 				<a className='banner' href='https://hackclub.com/'>
 					<img src='https://contribute.hackclub.com/images/flag-orpheus-top.png' alt="Dinosaur arm holding flag that reads 'Hack Club'" />
 				</a>
-				<Link className='back' href='/guide'>
+				<Link className='back' href='/guide#2'>
 					back
 				</Link>
 			</div>
@@ -47,9 +47,7 @@ export default function Submit() {
 							skip
 						</a>
 					</div>
-					<p style={{ fontSize: '1rem' }}>
-						<i>You are allowed to use another git provider, but we recommend GitHub.</i>
-					</p>
+					<i style={{ fontSize: '1rem' }}>You are allowed to use another git provider, but we recommend GitHub.</i>
 					<p>Go to Menu &gt; Git &gt; GitHub &gt; Share Project On GitHub, disable Private and Share, this should create a Git repo for you.</p>
 					<img src='/images/share-on-github.png' alt='Share on GitHub' width='100%' />
 					<p>If you ever need to update your mod click the "Commit" button on the left, select all changes, write a message and press "Commit and Push".</p>

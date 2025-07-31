@@ -122,17 +122,10 @@ export default function HomePage() {
 					<p className='player1'>Change the code, and change the universe. You can do whatever you want. There&apos;s unlimited freedom.</p>
 					<p className='player2'>Go out and make something cool.</p>
 					<p className='player1'>Join others as they create their own universes.</p>
-					<a
-						href={featuredMods[Math.floor(Math.random() * featuredMods.length)]}
-						onClick={e => {
-							const anchor = e.target as HTMLAnchorElement;
-							anchor.href = featuredMods[Math.floor(Math.random() * featuredMods.length)];
-						}}
-						target='_blank'
-						suppressHydrationWarning>
-						just like these mods
-					</a>
-					.<h3>Check out the mods teens made last time!</h3>
+					<div onClick={() => open(featuredMods[Math.floor(Math.random() * featuredMods.length)], '_blank')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+						just like these mods.
+					</div>
+					<h3>Check out the mods teens made last time!</h3>
 					<video controls src='/video.mp4' width='100%' />
 					<h3>Craft a mod...</h3>
 					<p>
@@ -153,7 +146,7 @@ export default function HomePage() {
 					<p>
 						Create at least 3 features for your mod, or 5 if you are not on 1.21.8 fabric. A feature is a functional thing written in code that does something interesting in the game (at
 						least 5 lines of code, JSON does not count). This can be a mixin, an item/block interaction, entity AI, rendering code, you name it! You can only count every feature once, so
-						creating multiple items with similar features will only count as one feature.
+						creating multiple items with similar features will only count as one feature. Anything you got from a tutorial or vanilla does <b>not</b> count.
 					</p>
 					<h3>Get the game...</h3>
 					<p>
@@ -162,8 +155,8 @@ export default function HomePage() {
 							Modrinth
 						</a>{' '}
 						and share your source code to a platform like <a href='https://github.com/'>GitHub</a> to get stickers and a Minecraft account or server. On top of that if you get 600
-						downloads in the first month, you get <a href='https://www.terraria.org/'>Terraria</a> for free! (Only 400 needed if you add the <a href='TODO'>Hackcraft banner</a> to your
-						mod)
+						downloads in the first month, you get <a href='https://www.terraria.org/'>Terraria</a> for free! (Only 400 needed if you add the Hackcraft banner (details will follow later!)
+						to your mod)
 					</p>
 					<h3>Play together...</h3>
 					<p>At the end of the event, we will host a fabric server on 1.21.8 to showcase your mod and play with friends!</p>
