@@ -31,18 +31,30 @@ export default function GuidePage() {
 			</div>
 			<div className='container' style={{ backgroundImage: 'url("/images/cobblestone.png")', backgroundRepeat: 'repeat' }}>
 				<div className='section' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem' }}>
+					<i style={{ fontSize: '1rem' }}>
+						This tutorial assumes you have basic knowledge of Java, if you don't know Java, we recommend you learn it first. You can find a good tutorial{' '}
+						<a href='https://www.learnjavaonline.org/' target='_blank'>
+							Online
+						</a>
+						{', '}
+						<a href='https://academy.jetbrains.com/?tag=Java' target='_blank'>
+							In IDE
+						</a>
+						{', '}
+						<a href='https://learnxinyminutes.com/java' target='_blank'>
+							Or here if you are looking for a quick overview by example.
+						</a>
+					</i>
 					<div className='section-title' id='1'>
 						<h3>Setting up your project</h3>
 						<a href='#2' className='skip'>
 							skip
 						</a>
 					</div>
-					<p style={{ fontSize: '1rem' }}>
-						<i>
-							Hackcraft is using 1.21.8, this is a relatively new version so some tutorials may be out of date. If something is not right, try looking it up on the internet or if you
-							can't find anything, ask in #mc-modding.
-						</i>
-					</p>
+					<i style={{ fontSize: '1rem' }}>
+						Hackcraft is using 1.21.8, this is a relatively new version so some tutorials may be out of date. If something is not right, try looking it up on the internet or if you can't
+						find anything, ask in #mc-modding.
+					</i>
 					<p>
 						First, we will require a powerful IDE. For this guide, we will use{' '}
 						<a target='_blank' href='https://www.jetbrains.com/idea/download/'>
@@ -53,6 +65,7 @@ export default function GuidePage() {
 					<p>
 						Make sure to download the Community Edition, or apply for <a href='https://www.jetbrains.com/academy/student-pack/'>the student pack</a>.
 					</p>
+					<i style={{ fontSize: '1rem' }}>You can use another IDE but IntelliJ is by far the best especially for mixin.</i>
 					<p>After it has been downloaded onto your computer, open up the application, and click on the "Plugins" on the bar on the left side of your screen.</p>
 					<p>Search for "Minecraft Development", and click install on the plugin.</p>
 					<p>We also need to setup time tracking for your project. Search "Wakatime" and click install. After that, click Restart IDE.</p>
@@ -71,12 +84,11 @@ export default function GuidePage() {
 						</a>
 						!
 					</p>
-					<p style={{ fontSize: '1rem' }}>
-						<i>
-							Fabric is a lightweight modular and modern modding toolchain that does almost nothing on its own, instead it relies more on vanillas infrastructure and a separate API mod
-							to fill in the gaps. If you are coming from Forge, you will notice that Fabric is a lot simpler and flexible making the switch very easy.
-						</i>
-					</p>
+
+					<i style={{ fontSize: '1rem' }}>
+						Fabric is a lightweight modular and modern modding toolchain that does almost nothing on its own, instead it relies more on vanillas infrastructure and a separate API mod to
+						fill in the gaps. If you are coming from Forge, you will notice that Fabric is a lot simpler and flexible making the switch very easy.
+					</i>
 					<p>
 						Finally, it's time to create a new project! Click on the "New Project" button, and select "Minecraft" on the left side. Choose "JDK 21". (If you can't see the option, download
 						the JDK <a href='https://adoptium.net/temurin/releases/?package=jdk&version=21'>here</a>!)
@@ -107,6 +119,11 @@ export default function GuidePage() {
 				<div className='section' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem', marginTop: '1rem' }}>
 					<h3 id='2'>What do I do next?</h3>
 					<p>
+						Quick heads up. There will be a server at the end showcasing all 1.21.8 fabric mods that are not too intrusive on gameplay (or opt-in). We urge you to take your time to plan
+						out something that is <i>fun</i> above everything, think playful mobs, movement, fun PvP abilities, minigames, as long as it is <i>fun</i>. Keep in mind most people will only
+						see your mod for a short amount of time, lets make this awesome!
+					</p>
+					<p>
 						Follow the Fabric tutorial for modding! It's excellent: if you want to add your first item, we highly suggest you follow the guide{' '}
 						<a href='https://docs.fabricmc.net/develop/items/first-item' target='_blank'>
 							here
@@ -115,9 +132,9 @@ export default function GuidePage() {
 					</p>
 					<p>
 						Want to change some existing Minecraft behaviour?{' '}
-						<a href='https://wiki.fabricmc.net/tutorial:mixin_introduction' target='_blank'>
-							Try using Mixins
-						</a>
+						<Link className='hoverable' href='/guide/mixin'>
+							Try using Mixin!
+						</Link>
 					</p>
 					<p>
 						Want to create your own textures and models?{' '}

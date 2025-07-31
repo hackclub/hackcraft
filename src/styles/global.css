@@ -24,6 +24,11 @@ body {
 	font-weight: bold;
 }
 
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: url('/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
 .splash {
 	font-family: 'Minecraftia', sans-serif;
 	font-size: 1.25rem;
@@ -355,4 +360,49 @@ button:before {
 h4 {
 	margin-bottom: 1px;
 	margin-top: 2px;
+}
+
+pre {
+	background-color: #1e1f22;
+	padding: 1em;
+	border-radius: 0.5em;
+}
+
+code {
+	font-family: 'JetBrainsMono', monospace;
+	font-size: medium;
+	line-height: 1.2;
+	background-color: #1e1f22;
+	color: #bcbec4;
+	padding: 3px;
+	border-radius: 5px;
+	margin-right: 3px;
+}
+
+.annotation {
+	color: #b3ae60;
+}
+
+.string {
+	color: #6aab73;
+}
+
+.keyword {
+	color: #cf8e6d;
+}
+
+.field {
+	color: #c77dbb;
+}
+
+.function {
+	color: #56a8f5;
+}
+
+.number {
+	color: #2aacb8;
+}
+
+.comment {
+	color: #7a7e85;
 }
