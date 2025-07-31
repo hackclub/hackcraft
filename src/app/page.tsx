@@ -179,6 +179,8 @@ export default function HomePage() {
 					<p>No. You must code the mod yourself.</p>
 					<h4>- Can I use libraries? Can I use Kotlin?</h4>
 					<p>Yup!</p>
+					<h4>- Can I make a Shader?</h4>
+					<p>Of course! Shaders are awesome!</p>
 					<h4>- Other questions?</h4>
 					<p>
 						Join{' '}
