@@ -26,7 +26,7 @@ export default function GuidePage() {
 			<div className='container' style={{ backgroundImage: 'url("/images/dirt.png")', backgroundRepeat: 'repeat' }}>
 				<div className='section' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem' }}>
 					<h2>No Experience?</h2>
-					<p>Don't know how to starting modding Minecraft? We've got you covered!</p>
+					<p>Don't know how to start modding Minecraft? We've got you covered!</p>
 				</div>
 			</div>
 			<div className='container' style={{ backgroundImage: 'url("/images/cobblestone.png")', backgroundRepeat: 'repeat' }}>
@@ -52,7 +52,7 @@ export default function GuidePage() {
 						</a>
 					</div>
 					<i style={{ fontSize: '1rem' }}>
-						Hackcraft is using 1.21.8, this is a relatively new version so some tutorials may be out of date. If something is not right, try looking it up on the internet or if you can't
+						Hackcraft uses 1.21.8, this is a relatively new version so some tutorials may be out of date. If something is not right, try looking it up on the internet or if you can't
 						find anything, ask in #mc-modding.
 					</i>
 					<p>
@@ -65,7 +65,7 @@ export default function GuidePage() {
 					<p>
 						Make sure to download the Community Edition, or apply for <a href='https://www.jetbrains.com/academy/student-pack/'>the student pack</a>.
 					</p>
-					<i style={{ fontSize: '1rem' }}>You can use another IDE but IntelliJ is by far the best especially for mixin.</i>
+					<i style={{ fontSize: '1rem' }}>You can use another IDE but IntelliJ is by far the best, especially for mixins.</i>
 					<p>After it has been downloaded onto your computer, open up the application, and click on the "Plugins" on the bar on the left side of your screen.</p>
 					<p>Search for "Minecraft Development", and click install on the plugin.</p>
 					<p>We also need to setup time tracking for your project. Search "Wakatime" and click install. After that, click Restart IDE.</p>
