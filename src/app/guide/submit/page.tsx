@@ -84,7 +84,7 @@ export default function Submit() {
 				<div className='section' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '1rem 1rem 1rem 1rem' }}>
 					<h2 id='3'>Ready to submit?</h2>
 					<div style={{ display: 'flex' }}>
-						<a className='hoverable' id='form-link' href='https://airtable.com/appROpbCKgNm7r5ln/pagkMesml9lCVjZDP/form' target='_blank'>
+						<a className='hoverable' id='form-link' href='https://submit.hackclub.com/hackcraft' target='_blank'>
 							Submit Now!
 						</a>
 					</div>
