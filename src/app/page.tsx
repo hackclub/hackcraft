@@ -88,8 +88,8 @@ export default function HomePage() {
 					<Link style={{ bottom: '3em', position: 'relative', display: 'inline-block', marginRight: '3px', marginLeft: '3px' }} href='/gallery'>
 						<button className='hoverable'>Gallery</button>
 					</Link>
-					<Link style={{ bottom: '3em', position: 'relative', display: 'inline-block', marginRight: '3px', marginLeft: '3px' }} href='/guide/submit'>
-						<button className='hoverable'>Submit</button>
+					<Link style={{ bottom: '3em', position: 'relative', display: 'inline-block', marginRight: '3px', marginLeft: '3px' }} href='/'>
+						<button className='hoverable'>V3 ended!</button>
 					</Link>
 				</div>
 			</div>
