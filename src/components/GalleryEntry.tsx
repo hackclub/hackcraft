@@ -1,64 +1,58 @@
-'use client';
+"use client";
 
-import LazyVideo from '~/components/LazyVideo';
+import LazyVideo from "~/components/LazyVideo";
+import { useRef } from "react";
 
 interface GalleryEntryProps {
-	info: Record<string, string>;
-	index: number;
+  info: Record<string, string>;
 }
 
-export default function GalleryEntry({ info, index }: GalleryEntryProps) {
-	return (
-		<div>
-			<p
-				style={{ whiteSpace: 'pre-line', position: 'relative', cursor: 'pointer', textDecoration: 'underline dotted', textDecorationThickness: '3px' }}
-				onMouseEnter={e => {
-					const tooltip = document.createElement('div');
-					tooltip.innerText = info['Description'];
-					tooltip.style.position = 'absolute';
-					tooltip.style.background = 'rgba(0, 0, 0, 0.7)';
-					tooltip.style.color = 'white';
-					tooltip.style.padding = '10px';
-					tooltip.style.borderRadius = '5px';
-					tooltip.style.top = '100%';
-					tooltip.style.left = '0';
-					tooltip.style.right = '0';
-					tooltip.style.marginLeft = 'auto';
-					tooltip.style.marginRight = 'auto';
-					tooltip.style.textAlign = 'center';
-					tooltip.style.zIndex = '1000';
-					tooltip.style.fontSize = '0.8em';
-					tooltip.style.opacity = '0';
-					tooltip.style.transition = 'opacity 0.3s ease-in-out';
-					tooltip.id = `tooltip-${index}`;
-					const target = e.target as HTMLElement;
-					target.appendChild(tooltip);
-					setTimeout(() => {
-						tooltip.style.opacity = '1';
-					}, 10);
-				}}
-				onMouseLeave={() => {
-					const tooltip = document.getElementById(`tooltip-${index}`);
-					if (tooltip) {
-						tooltip.style.opacity = '0';
-						setTimeout(() => {
-							if (tooltip.parentNode) {
-								tooltip.parentNode.removeChild(tooltip);
-							}
-						}, 300);
-					}
-				}}>
-				{info['Name']}
-			</p>
-			<LazyVideo src={info['Demo video']} />
-			<br />
-			<a href={info['Code link']} target='_blank' rel='noopener noreferrer'>
-				GitHub
-			</a>{' '}
-			<a href={info['Play link']} target='_blank' rel='noopener noreferrer'>
-				Modrinth
-			</a>{' '}
-			<hr />
-		</div>
-	);
+export default function GalleryEntry({ info }: GalleryEntryProps) {
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
+
+  const moveTooltip = e => {
+    if (!tooltipRef.current) return;
+    const x = e.clientX + 12;
+    const y = e.clientY + 12;
+    tooltipRef.current.style.left = `${x}px`;
+    tooltipRef.current.style.top = `${y}px`;
+  };
+
+  const showTooltip = e => {
+    if (!info["Description"] || !info["Short Description"]) return;
+    if (!tooltipRef.current) {
+      const el = document.createElement("div");
+      el.id = "minetip-tooltip";
+      el.textContent = info["Description"] ?? "";
+      document.body.appendChild(el);
+
+      tooltipRef.current = el;
+    }
+    moveTooltip(e);
+  };
+
+  const hideTooltip = () => {
+    tooltipRef.current?.parentNode?.removeChild(tooltipRef.current);
+    tooltipRef.current = null;
+  };
+
+  return (
+    <div>
+      <p
+        onMouseEnter={showTooltip}
+        onMouseMove={moveTooltip}
+        onMouseLeave={hideTooltip}>
+        {info["Short Description"] || info["Description"]}
+      </p>
+      <LazyVideo src={info["Demo video"]} />
+      <br />
+      <a href={info["Code link"]} target="_blank" rel="noopener noreferrer">
+        Code
+      </a>{" "}
+      <a href={info["Play link"]} target="_blank" rel="noopener noreferrer">
+        Play
+      </a>{" "}
+      <hr />
+    </div>
+  );
 }

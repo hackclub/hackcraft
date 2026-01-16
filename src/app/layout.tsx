@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "~/styles/global.css";
 
 export const metadata: Metadata = {
   title: "Minecraft: YSWS Edition",
@@ -13,6 +14,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <a href="https://hackclub.com/">
+          <img
+            className="banner"
+            src="https://assets.hackclub.com/flag-orpheus-top.svg"
+            alt="Hack Club"
+          />
+        </a>
         {children}
       </body>
     </html>

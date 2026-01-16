@@ -1,10 +1,20 @@
 :root {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 1) 100%), url("../../../public/images/dirt.png");
-  background-repeat: repeat;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.6) 20%,
+      rgba(0, 0, 0, 0.6) 80%,
+      rgba(0, 0, 0, 1) 100%
+    ),
+    url("../../../public/images/dirt.png");
+  background-repeat: no-repeat, repeat;
+  background-size: cover, 400px;
+  image-rendering: pixelated;
 }
 
 .poem {
-  margin: 50vh 18rem 20vh 18rem;
+  margin: 50vh 18rem 15vh 18rem;
 
   @media only screen and (max-width: 1000px) {
     margin-left: 1.5rem;
@@ -29,19 +39,19 @@
   font-size: x-large;
   color: white;
   margin: 4rem 0rem 4rem 0rem;
-  font-family: 'Minecraftia', sans-serif;
+  font-family: "Minecraftia", sans-serif;
 }
 
 @font-face {
-  font-family: 'Minecraftia';
-  src: url('/fonts/Minecraftia-Regular.ttf') format('truetype');
+  font-family: "Minecraftia";
+  src: url("/fonts/Minecraftia-Regular.ttf") format("truetype");
 }
 
 .player1 {
-  color: #1AA1A9;
+  color: #1aa1a9;
 }
 
 .player2 {
   text-align: right;
-  color: #237A24;
+  color: #237a24;
 }

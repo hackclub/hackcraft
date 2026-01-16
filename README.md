@@ -5,4 +5,3 @@
 <hr />
 
 Check it out at https://hackcraft.hackclub.com
-
