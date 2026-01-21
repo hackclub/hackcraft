@@ -444,3 +444,19 @@ code {
   border-image: linear-gradient(rgba(80, 0, 255, 0.31), rgba(40, 0, 127, 0.31))
     1;
 }
+
+.event {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: #cdc2bed0;
+  color: black;
+  padding: 8px;
+  padding-left: 16px;
+  padding-right: 64px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}

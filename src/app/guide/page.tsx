@@ -8,7 +8,7 @@ export default function GuidePage() {
   return (
     <>
       <TiledDiv background="grass" id="navbar">
-        <div style={{ paddingTop: "10em", position: "relative" }}>
+        <div style={{ top: "5em", position: "relative" }}>
           <Link href="/">
             <img src="/images/logo.png" alt="Minecraft Logo" width="100%" />
           </Link>

@@ -11,7 +11,7 @@ export default function GuidePage() {
         <Link className="back" href="/guide#2">
           back
         </Link>
-        <div style={{ paddingTop: "10em", position: "relative" }}>
+        <div style={{ top: "5em", position: "relative" }}>
           <Link href="/">
             <img src="/images/logo.png" alt="Minecraft Logo" width="100%" />
           </Link>
