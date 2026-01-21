@@ -71,7 +71,7 @@ export default function HomePage() {
         className="event"
         href="https://hackclub.slack.com/archives/C07NQ5QAYNQ/p1769001218794009"
         style={{ textDecoration: "none" }}>
-        <b>Mobbin</b>
+        <b>Mobbing</b>
         <span>Ship a mob, get merch!</span>
         <i style={{ fontSize: "medium" }}>21 Jan - 11 Feb</i>
         <svg
