@@ -70,6 +70,7 @@ export default function HomePage() {
       <a
         className="event"
         href="https://hackclub.slack.com/archives/C07NQ5QAYNQ/p1769001218794009"
+        target="_blank"
         style={{ textDecoration: "none" }}>
         <b>Mobbin</b>
         <span>Ship a mob, get merch!</span>
@@ -213,7 +214,7 @@ export default function HomePage() {
               (at least 5 lines of code, JSON does not count). This can be a
               mixin, an item/block interaction, entity AI, rendering code, you
               name it! You can only count every feature once, so creating
-              multiple items with similar features will only count as one
+              multiple things with similar features will only count as one
               feature. Anything you got from a tutorial or vanilla does{" "}
               <b>not</b> count.
             </p>

@@ -24,6 +24,7 @@ export default function Submit() {
         </div>
         <div className="section">
           <h2>Before you submit</h2>
+          <b style={{ color: "red" }}>Very important!</b>
           <ul>
             <li>Make sure your mod is good :3</li>
             <li>
@@ -33,10 +34,23 @@ export default function Submit() {
               Test if your mod works properly on a server and outside of a
               development environment.
             </li>
-            <li>Make sure your mod has the necessary 3 features.</li>
+            <li>
+              Make sure your mod has the necessary 3 features, "works on fabric
+              1.21.11" or similar is <b>not</b> a feature. Anything similar to a
+              tutorial doesn't count.
+            </li>
             <li>Check if your mod is survival-friendly.</li>
             <li>
               Ensure you are in #mc-modding so you can receive your prize.
+            </li>
+            <li>
+              Test that your mod actually works for the versions you say it
+              works for 😔
+            </li>
+            <li>
+              Please also confirm that your mod is coherent and does not contain
+              any tutorial items or files (Like ExampleMixin, suspicious
+              substances, chisels, ...)
             </li>
           </ul>
         </div>
