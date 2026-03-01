@@ -24,6 +24,7 @@ export default function GuidePage() {
           style={{
             marginBottom: "1rem",
             width: "100%",
+            maxWidth: "90vw",
           }}>
           <h2>No Experience?</h2>
           <p>

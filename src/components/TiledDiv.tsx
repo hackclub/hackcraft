@@ -19,7 +19,12 @@ export default function TiledDiv(
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    const resize = () => (el.style.minHeight = "");
+    window.addEventListener("resize", resize);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
   return (

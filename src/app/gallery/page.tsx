@@ -15,12 +15,18 @@ export default async function GalleryPage() {
         <Link className="back" href="/">
           back
         </Link>
-        <h1>See what others made!</h1>
+        <h1 style={{ textAlign: "center" }}>See what others made!</h1>
       </TiledDiv>
       <TiledDiv id="header" background="dirt">
         <div
           className="showcase"
-          style={{ textAlign: "center", padding: "1em", width: "90%" }}>
+          style={{
+            textAlign: "center",
+            padding: "1em",
+            width: "90%",
+            display: "block",
+            overflow: "hidden",
+          }}>
           {Array.isArray(entries) ? (
             entries
               .sort(() => Math.random() - 0.5)

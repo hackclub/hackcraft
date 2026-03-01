@@ -37,12 +37,19 @@ body {
   font-family: "Minecraftia", sans-serif;
   font-size: 1.25rem;
   color: #ffff55;
-  transform: rotate(-7deg);
   animation: splash 0.25s alternate infinite;
   cursor: pointer;
   position: absolute;
   bottom: 25%;
   right: -65px;
+}
+
+@media (max-width: 900px) {
+  .splash {
+    right: 0.75rem;
+    bottom: 20%;
+    font-size: 1rem;
+  }
 }
 
 @keyframes splash {
@@ -149,8 +156,6 @@ button:before {
   margin-top: 2em;
   margin-left: auto;
   margin-right: auto;
-  /* background-color: #373737; */
-  /* background: #b8b8b8; */
   background-color: rgb(49, 174, 31);
   color: rgba(94, 94, 94);
   font-family: "Minecraftia", sans-serif;
@@ -201,7 +206,7 @@ button:before {
   max-width: 50rem;
   margin: 0 auto;
 }
-@media (max-width: 32srem) {
+@media (max-width: 32rem) {
   .grid-steps {
     grid-template-columns: 1fr;
   }
@@ -264,6 +269,7 @@ button:before {
   justify-content: center;
   gap: 1.5em;
   font-family: "Minecraftia", sans-serif;
+  text-align: center;
 }
 
 .yt-embed {
