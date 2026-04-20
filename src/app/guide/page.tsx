@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProjectGenerator from "~/components/ProjectGenerator";
 import SplashText from "~/components/SplashText";
 import TiledDiv from "~/components/TiledDiv";
 
@@ -24,7 +25,6 @@ export default function GuidePage() {
           style={{
             marginBottom: "1rem",
             width: "100%",
-            maxWidth: "90vw",
           }}>
           <h2>No Experience?</h2>
           <p>
@@ -63,16 +63,14 @@ export default function GuidePage() {
             </a>
             .
           </p>
-          <p>
-            Make sure to download the Community Edition, or apply for{" "}
-            <a href="https://www.jetbrains.com/academy/student-pack/">
-              the student pack
-            </a>
-            .
-          </p>
           <i style={{ fontSize: "1rem" }}>
             You can use another IDE but IntelliJ is by far the best, especially
-            for mixins.
+            for mixins. <br /> Tip: You can get Ultimate edition for free with
+            the{" "}
+            <a href="https://www.jetbrains.com/academy/student-pack">
+              student pack
+            </a>
+            .
           </i>
           <p>
             After it has been downloaded onto your computer, open up the
@@ -94,6 +92,12 @@ export default function GuidePage() {
             and setup Hackatime following the instructions on the website if you
             haven't already.
           </p>
+          <i style={{ fontSize: "1rem" }}>
+            Wakatime is the plugin you should install. Hackatime is our custom
+            server that recieves the data it sends. If you get asked for an API
+            key use that of hackatime, you never need to create a wakatime
+            account.
+          </i>
           <p>
             To developing Minecraft mods, we are going to use the{" "}
             <a href="https://fabricmc.net/">Fabric mod loader</a> and its API.
@@ -111,44 +115,12 @@ export default function GuidePage() {
             are coming from Forge, you will notice that Fabric is a lot simpler
             and flexible making the switch very easy.
           </i>
+          <p>Finally, it's time to create a new project!</p>
+          <ProjectGenerator />
           <p>
-            Finally, it's time to create a new project! Click on the "New
-            Project" button, and select "Minecraft" on the left side. Choose
-            "JDK 21". (If you can't see the option, download the JDK{" "}
-            <a href="https://adoptium.net/temurin/releases/?package=jdk&version=21">
-              here
-            </a>
-            !)
+            Extract your zip file, open the folder with Intellij and take a look
+            at your beautiful mod.
           </p>
-          <p>
-            You can change the name and ids to whatever you like except for
-            something generic like "hackcraft" (remember to scroll down and
-            change the group id too!), then select "Fabric" in "Templates" and
-            enable Git. Your command creation dialogue should look like this:
-          </p>
-          <img
-            src="/images/project-creation.png"
-            alt="Project Creation Pic"
-            width="100%"
-          />
-          <p>
-            If you don't know what datagen or split sources are, disable them.
-            If you don't care about licensing MIT is a good option.
-          </p>
-          <p>
-            Then, create the project. Look at what you've done: you've just
-            setup the base of your fabric project!
-          </p>
-          <p style={{ fontSize: "1rem" }}>
-            <i>
-              Note: If you see the error "Could not resolve
-              net.fabricmc:fabric-loom:1.10-SNAPSHOT.", go to the file gradle
-              &gt; wrapper &gt; gradle-wrapper.properties and change the
-              distribution URL to
-              "https\://services.gradle.org/distributions/gradle-8.14.3-bin.zip".
-            </i>
-          </p>
-
           <p>
             Now, lets launch the game for the first time! You can find the
             launch profiles in the top-right corner of the window. Click the

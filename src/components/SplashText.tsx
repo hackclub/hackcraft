@@ -28,8 +28,8 @@ export default function SplashText() {
     "so, you going to blanketcon?",
     "Now version 4!",
     "Like V3, but V4!",
-    "Over 190 prizes granted!",
-    "Over 4000$ granted!",
+    "Over 250 prizes granted!",
+    "Over 5000$ granted!",
     "Contains more than 3 features!",
   ];
 

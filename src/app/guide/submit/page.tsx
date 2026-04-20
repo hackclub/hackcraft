@@ -35,11 +35,9 @@ export default function Submit() {
               development environment.
             </li>
             <li>
-              Make sure your mod has the necessary 3 features, "works on fabric
-              1.21.11" or similar is <b>not</b> a feature. Anything similar to a
-              tutorial doesn't count.
+              Check if your mod is survival-friendly and everything that should
+              be obtainable actually is.
             </li>
-            <li>Check if your mod is survival-friendly.</li>
             <li>
               Ensure you are in #mc-modding so you can receive your prize.
             </li>
@@ -131,7 +129,7 @@ export default function Submit() {
             <a
               className="hoverable"
               id="form-link"
-              href="https://submit.hackclub.com/hackcraft"
+              href="https://submit.hackclub.com/hackcraft-ysws"
               target="_blank">
               Submit Now!
             </a>

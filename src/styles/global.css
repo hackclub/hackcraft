@@ -95,6 +95,8 @@ body {
 a {
   color: inherit;
   text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: all 0.1s ease;
 }
 
 a:hover {
@@ -103,6 +105,8 @@ a:hover {
 
 li {
   list-style-type: square;
+  margin-left: 1rem;
+  line-height: 1.6;
 }
 
 button {
@@ -116,11 +120,13 @@ button {
   border: 0;
   position: relative;
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button:hover {
   cursor: pointer;
   color: #ffffa0;
+  transform: translateY(-3px);
 }
 
 button:after,
@@ -171,11 +177,12 @@ button:before {
 }
 
 .hoverable {
-  transition: 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hoverable:hover {
   transform: translateY(-5px);
+  filter: brightness(1.1);
 }
 
 .mc-number {
@@ -190,8 +197,11 @@ button:before {
   max-width: 42em;
   margin-left: auto;
   margin-right: auto;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .showcase {
@@ -220,6 +230,13 @@ button:before {
   position: relative;
   aspect-ratio: 2 / 1;
   background-size: cover;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.item-step:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
 .item-text {
@@ -270,12 +287,6 @@ button:before {
   gap: 1.5em;
   font-family: "Minecraftia", sans-serif;
   text-align: center;
-}
-
-.yt-embed {
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 1em;
 }
 
 .spacer {

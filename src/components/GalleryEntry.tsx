@@ -44,7 +44,7 @@ export default function GalleryEntry({ info }: GalleryEntryProps) {
         onMouseLeave={hideTooltip}>
         {info["Short Description"] || info["Description"]}
       </p>
-      <LazyVideo src={info["Demo video"]} />
+      {info["Demo video"] && <LazyVideo src={info["Demo video"]} />}
       <br />
       <a href={info["Code link"]} target="_blank" rel="noopener noreferrer">
         Code

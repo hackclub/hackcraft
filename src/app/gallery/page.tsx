@@ -2,6 +2,7 @@ import Link from "next/link";
 import GalleryEntry from "~/components/GalleryEntry";
 import TiledDiv from "~/components/TiledDiv";
 
+//TODO table changed, merge data
 const api_url =
   "https://api2.hackclub.com/v0.1/MC%20Modding/Submissions?select={%22filterByFormula%22:%22{Status}=%27Approved%27%22}";
 

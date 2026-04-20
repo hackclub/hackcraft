@@ -184,7 +184,7 @@ export default function GuidePage() {
           </p>
           <p>
             If you need to access a super class you can extend it in your mixin
-            (Make sure your it is abstract!).
+            (Make sure it is abstract!).
           </p>
           <h4>Additional reading</h4>
           <ul>

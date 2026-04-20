@@ -3,67 +3,6 @@ import SplashText from "~/components/SplashText";
 import Link from "next/link";
 import TiledDiv from "~/components/TiledDiv";
 
-const featuredMods = [
-  "https://github.com/MelnCat/IncompleteCombustion",
-  "https://modrinth.com/mod/cameratweaks",
-  "https://modrinth.com/mod/2d-minecraft",
-  "https://modrinth.com/mod/omnilook",
-  "https://modrinth.com/mod/extra-ores-items",
-  "https://modrinth.com/mod/magic-craft",
-  "https://modrinth.com/mod/farmers-delight-kacchi",
-  "https://modrinth.com/mod/portal-gun-mod",
-  "https://modrinth.com/mod/skibidi-brainrot-mod",
-  "https://modrinth.com/mod/villager-tower-mod",
-  "https://modrinth.com/mod/night-vision-revamp",
-  "https://modrinth.com/mod/skillsmod",
-  "https://modrinth.com/mod/nuggetmod",
-  "https://modrinth.com/mod/abyssium",
-  "https://modrinth.com/mod/namemanager",
-  "https://modrinth.com/mod/simplespotifycontroller",
-  "https://modrinth.com/mod/mc-death-note-mod",
-  "https://modrinth.com/mod/snowball-hole-filler",
-  "https://modrinth.com/mod/not-apples",
-  "https://modrinth.com/mod/big-ships",
-  "https://modrinth.com/mod/player-pearls",
-  "https://modrinth.com/mod/schrodingers-chest",
-  "https://modrinth.com/mod/chrono-domain",
-  "https://modrinth.com/mod/nibbles-deep-dark",
-  "https://modrinth.com/mod/js-turret",
-  "https://modrinth.com/mod/tecnogui",
-  "https://modrinth.com/mod/aviros",
-  "https://modrinth.com/mod/eatermod",
-  "https://modrinth.com/mod/planecraft",
-  "https://modrinth.com/mod/magic-wands",
-  "https://modrinth.com/mod/onomatopoeia",
-  "https://modrinth.com/mod/lets-go-gambling!",
-  "https://modrinth.com/mod/simpleedits",
-  "https://modrinth.com/mod/wakatime-mod",
-  "https://modrinth.com/mod/mc-game-of-life-sim",
-  "https://modrinth.com/mod/ferret-friends",
-  "https://modrinth.com/plugin/voteupdate",
-  "https://modrinth.com/mod/quick-f3",
-  "https://modrinth.com/mod/echoes-of-time",
-  "https://modrinth.com/mod/potato-perks",
-  "https://modrinth.com/mod/server-playtime-manager",
-  "https://modrinth.com/mod/explorie",
-  "https://modrinth.com/mod/rainbow-wood",
-  "https://modrinth.com/mod/chatdebug",
-  "https://modrinth.com/plugin/world-border-expansion",
-  "https://modrinth.com/mod/tecnomap",
-  "https://modrinth.com/plugin/command-reporter",
-  "https://modrinth.com/mod/railcraft",
-  "https://modrinth.com/mod/gateway",
-  "https://modrinth.com/plugin/mcgambling",
-  "https://modrinth.com/mod/minecraft-rivals",
-  "https://modrinth.com/mod/arsenal-and-anvil",
-  "https://modrinth.com/mod/enderchestheadsup",
-  "https://modrinth.com/mod/project-gorilla",
-  "https://modrinth.com/mod/divinetowers",
-  "https://modrinth.com/mod/studycraft",
-  "https://modrinth.com/mod/chronoelegy",
-  "https://modrinth.com/mod/mwhrd",
-];
-
 export default function HomePage() {
   return (
     <>
@@ -163,16 +102,9 @@ export default function HomePage() {
             <p className="player1">
               Join others as they create their own universes.
             </p>
-            <div
-              onClick={() =>
-                open(
-                  featuredMods[Math.floor(Math.random() * featuredMods.length)],
-                  "_blank",
-                )
-              }
-              style={{ cursor: "pointer", textDecoration: "underline" }}>
+            <a href="/gallery" target="_blank">
               just like these mods.
-            </div>
+            </a>
             <h3>Check out the mods teens made last time!</h3>
             <video controls src="/video.mp4" width="100%" />
             <h3>Craft a mod...</h3>
@@ -199,15 +131,8 @@ export default function HomePage() {
             </p>
             <h3 id="feature">Place the blocks...</h3>
             <p>
-              Create at least 3 features for your mod. A feature is a functional
-              thing written in code that does something interesting in the game
-              (at least 5 lines of code, JSON does not count). This can be a
-              mixin, an item/block interaction, entity AI, rendering code, you
-              name it! You can only count every feature once, so creating
-              multiple things with similar features will only count as one
-              feature. Anything you got from a tutorial or vanilla does{" "}
-              <b>not</b> count. Blocks/items that don't do anything don't count
-              either.
+              Create a mod. Try to make something polished that is fun or cool
+              that people actually want to download.
             </p>
             <h3>Get the game...</h3>
             <p>
@@ -218,7 +143,7 @@ export default function HomePage() {
               and share your source code to a platform like{" "}
               <a href="https://github.com/">GitHub</a> to get stickers and a
               game like minecraft or hytale or a server. On top of that if you
-              get 200 downloads in the first month, you get{" "}
+              get 300 downloads in the first month, you get{" "}
               <a href="https://www.terraria.org/">Terraria</a> for free!
             </p>
             <h2>FAQ</h2>

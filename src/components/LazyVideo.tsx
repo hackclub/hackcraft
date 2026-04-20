@@ -33,7 +33,7 @@ export default function LazyVideo({ src }: { src: string }) {
           <a href={src}>Video</a>
         ) : src.includes("youtube.com") ? (
           <iframe
-            style={{ width: "75%", aspectRatio: "16/9" }}
+            style={{ width: "75%", aspectRatio: "16/9", border: "none" }}
             src={src}
             title="YouTube video player"
             allowFullScreen></iframe>
