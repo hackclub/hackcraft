@@ -129,7 +129,7 @@ export default function HomePage() {
               </a>{" "}
               learning to build their first mods.
             </p>
-            <h3 id="feature">Place the blocks...</h3>
+            <h3>Place the blocks...</h3>
             <p>
               Create a mod. Try to make something polished that is fun or cool
               that people actually want to download.
@@ -149,7 +149,7 @@ export default function HomePage() {
             <h2>FAQ</h2>
             <h4>- How much time do I need to spend on my mod?</h4>
             <p>
-              Doesn't matter, as long as you have at least 3 features!
+              Doesn't matter!
               <br />
               <b>You still need Hackatime tho!</b>
             </p>
