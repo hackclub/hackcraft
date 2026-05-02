@@ -126,6 +126,11 @@ export default function GuidePage() {
             launch profiles in the top-right corner of the window. Click the
             dropdown menu to see the available launch profiles.
           </p>
+          <i style={{ fontSize: "1rem" }}>
+            Getting no JDK or version 25 not supported errors? Go to File &gt;
+            Project Structure and set your JDK to a compatible version or
+            download a new JDK (I recommend JBR 25).
+          </i>
           <p>
             There should be a client and server profile, click on the green play
             button next to the label that reads "Minecraft Client".

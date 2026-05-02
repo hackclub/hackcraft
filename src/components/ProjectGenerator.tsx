@@ -92,20 +92,6 @@ loom {
 	decompilerOptions.named("vineflower") {
 		options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
 	}
-
-	runs {
-		afterEvaluate {
-			configureEach {
-				//vmArg("-javaagent:<path to fabrics sponge mixin jar under external libraries>") // Allows mixin hotswapping
-				//vmArg("-XX:+AllowEnhancedClassRedefinition") // Better class hotswapping, requires https://github.com/JetBrains/JetBrainsRuntime
-				vmArg("-DMC_DEBUG_ENABLED")
-				vmArg("-DMC_DEBUG_HOTKEYS")
-				vmArg("-DMC_DEBUG_VERBOSE_COMMAND_ERRORS")
-				vmArg("-DMC_DEBUG_DEV_COMMANDS")
-				//vmArg("-Dmixin.debug.export=true") // Exports the result of mixins to run/.mixin/out
-			}
-		}
-	}
 }
 
 dependencies {
