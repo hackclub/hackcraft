@@ -66,8 +66,9 @@ export default function Submit() {
             GitHub.
           </i>
           <p>
-            Go to Menu &gt; Git &gt; GitHub &gt; Share Project On GitHub,
-            disable Private and Share, this should create a Git repo for you.
+            In Intellij, go to Menu &gt; Git &gt; GitHub &gt; Share Project On
+            GitHub, disable Private and Share, this should create a Git repo for
+            you.
           </p>
           <img
             src="/images/share-on-github.png"
@@ -75,12 +76,16 @@ export default function Submit() {
             width="100%"
           />
           <p>
-            If you ever need to update your mod click the "Commit" button on the
-            left, select all changes, write a message and press "Commit and
-            Push".
+            If you aren't using Intellij, create an empty (don't add any files
+            yet) repository on GitHub and run the commands GitHub prompts you to
+            in your project folder.
           </p>
         </div>
-        <div className="section">
+        <div
+          className="section"
+          style={{
+            marginTop: "1rem",
+          }}>
           <div id="2" className="section-title">
             <h3>Publishing to Modrinth</h3>
             <a href="#3" className="skip">

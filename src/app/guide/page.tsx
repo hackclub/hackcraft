@@ -142,13 +142,26 @@ export default function GuidePage() {
             changes in your code and want to test it, you must relaunch
             Minecraft.
           </p>
+
+          <h3 id="2">Before you continue</h3>
+          <p>
+            You should commit your changes often. Before you can do this, first
+            you need to setup your Git repository. You can do this by running{" "}
+            <code>git init</code> in your project folder in a terminal.
+          </p>
+          <p>
+            Then to commit your changes, run <code>git add .</code> and{" "}
+            <code>git commit</code> in your terminal. Alternatively, you can use
+            the "commit" tab in Intellij on the left, select the files you want
+            to commit, write a commit message and click the "commit" button.
+          </p>
         </div>
         <div
           className="section"
           style={{
             marginTop: "1rem",
           }}>
-          <h3 id="2">What do I do next?</h3>
+          <h3>What do I do next?</h3>
           <p>
             Follow the Fabric tutorial for modding! It's excellent: if you want
             to add your first item, we highly suggest you follow the guide{" "}

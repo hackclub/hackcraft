@@ -234,7 +234,7 @@ THE SOFTWARE.`,
   zip.file("README.md", "");
   const url = URL.createObjectURL(await zip.generateAsync({ type: "blob" }));
   const a = document.createElement("a");
-  a.download = "template.zip";
+  a.download = modid + ".zip";
   a.href = url;
   a.dispatchEvent(new MouseEvent("click"));
   setTimeout(() => URL.revokeObjectURL(url), 60000);
