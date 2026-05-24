@@ -2,16 +2,11 @@
 import SplashText from "~/components/SplashText";
 import Link from "next/link";
 import TiledDiv from "~/components/TiledDiv";
+import Page from "~/components/Page";
 
 export default function HomePage() {
   return (
-    <>
-      <TiledDiv background="grass" id="navbar">
-        <div style={{ top: "5em", position: "relative" }}>
-          <img src="/images/logo.png" alt="Minecraft Logo" width="100%" />
-          <SplashText />
-        </div>
-      </TiledDiv>
+    <Page>
       <TiledDiv id="header" background="dirt">
         <div id="subtitle" style={{ fontSize: "1.2em" }}>
           <span>Ship a mod</span>
@@ -183,19 +178,6 @@ export default function HomePage() {
           </div>
         </div>
       </TiledDiv>
-      <TiledDiv id="footer" background="bedrock">
-        <em className="player1 love">And the universe said I love you...</em>
-        <p style={{ display: "flex", gap: "4px", justifyContent: "center" }}>
-          Made with{" "}
-          <img
-            src="/images/dancing_parrot.gif"
-            alt="minecraft parrot"
-            title="A minecraft parrot"
-            height="20px"
-          />{" "}
-          by <a href="https://hackclub.com">Hack Club</a>.
-        </p>
-      </TiledDiv>
-    </>
+    </Page>
   );
 }

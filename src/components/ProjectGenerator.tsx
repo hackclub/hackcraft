@@ -7,15 +7,23 @@ export default function ProjectGenerator() {
   let group = "";
 
   return (
-    <div style={{ fontSize: "1rem" }}>
-      <input
-        type="text"
-        placeholder="Project name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
-      <span style={{ fontSize: "1rem" }}>
-        {" "}
+    <>
+      <div
+        style={{
+          fontSize: "1rem",
+          display: "grid",
+          gridTemplateColumns: "1fr auto",
+          gap: "0.3rem",
+          width: "50rem",
+          marginBottom: "1rem",
+          alignItems: "center",
+        }}>
+        <input
+          type="text"
+          placeholder="Project name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />{" "}
         {name.toLowerCase().includes("hackcraft")
           ? "A little more original please!"
           : "Mod id: " +
@@ -23,19 +31,19 @@ export default function ProjectGenerator() {
               .toLowerCase()
               .replaceAll(/\s+/g, "-")
               .replaceAll(/[^a-za-z0-9-_]/g, "")}
-      </span>
-      <br />
-      <input
-        type="text"
-        placeholder="Group"
-        onChange={e => (group = e.target.value)}
-      />
-      <i> Examples: com.yourwebsite, io.github.username, me.name</i>
-      <br />
-      Version: 26.1.2
-      <br />
+        <br />
+        <input
+          type="text"
+          placeholder="Group"
+          onChange={e => (group = e.target.value)}
+        />
+        <i> Examples: com.yourwebsite, io.github.username, me.name</i>
+        <br />
+        Version: 26.1.2
+        <br />
+      </div>
       <button onClick={() => generate(group, name)}>Download template</button>
-    </div>
+    </>
   );
 }
 

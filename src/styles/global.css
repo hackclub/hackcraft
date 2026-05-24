@@ -158,20 +158,19 @@ button:before {
   box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.15);
 }
 
-#form-link {
+.form-link {
   margin-top: 2em;
   margin-left: auto;
   margin-right: auto;
   background-color: rgb(49, 174, 31);
-  color: rgba(94, 94, 94);
   font-family: "Minecraftia", sans-serif;
   line-height: 0;
   text-decoration: none;
   padding: 1.5em;
-  border: rgb(94, 94, 94) 3px solid;
+  border: 3px solid rgba(141, 253, 92, 0.8);
 }
 
-#form-link:hover {
+.form-link:hover {
   color: #ffffa0;
 }
 
@@ -459,6 +458,32 @@ code {
     1;
   border-image: linear-gradient(rgba(80, 0, 255, 0.31), rgba(40, 0, 127, 0.31))
     1;
+}
+
+label {
+  font-family: "Minecraftia", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+input,
+textarea,
+select {
+  background: rgba(9, 9, 9, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  padding: 0.65rem 0.75rem;
+  font-family: "Minecraft", sans-serif;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 6rem;
 }
 
 .event {

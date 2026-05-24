@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Page from "~/components/Page";
 import SplashText from "~/components/SplashText";
 import TiledDiv from "~/components/TiledDiv";
 
@@ -6,18 +7,7 @@ export const revalidate = 60;
 
 export default function Submit() {
   return (
-    <>
-      <Link className="back" href="/guide#2">
-        back
-      </Link>
-      <TiledDiv background="grass" id="navbar">
-        <div style={{ top: "5em", position: "relative" }}>
-          <Link href="/">
-            <img src="/images/logo.png" alt="Minecraft Logo" width="100%" />
-          </Link>
-          <SplashText />
-        </div>
-      </TiledDiv>
+    <Page back="/guide#2">
       <TiledDiv id="header" background="dirt">
         <div id="subtitle" style={{ fontSize: "1.2em", marginBottom: "5em" }}>
           <span>Submitting</span>
@@ -132,8 +122,7 @@ export default function Submit() {
           <h2 id="3">Ready to submit?</h2>
           <div style={{ display: "flex" }}>
             <a
-              className="hoverable"
-              id="form-link"
+              className="hoverable form-link"
               href="https://submit.hackclub.com/hackcraft-ysws"
               target="_blank">
               Submit Now!
@@ -141,19 +130,6 @@ export default function Submit() {
           </div>
         </div>
       </TiledDiv>
-      <TiledDiv id="footer" background="bedrock">
-        <em className="player1 love">And the universe said I love you...</em>
-        <p style={{ display: "flex", gap: "4px", justifyContent: "center" }}>
-          Made with{" "}
-          <img
-            src="/images/dancing_parrot.gif"
-            alt="minecraft parrot"
-            title="A minecraft parrot"
-            height="20px"
-          />{" "}
-          by <a href="https://hackclub.com">Hack Club</a>.
-        </p>
-      </TiledDiv>
-    </>
+    </Page>
   );
 }
