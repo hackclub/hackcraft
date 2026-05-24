@@ -12,12 +12,11 @@ export default function TiledDiv(
     if (!el) return;
 
     const observer = new ResizeObserver(entries => {
-      const height = entries[0].contentRect.height;
-      const top = el.getBoundingClientRect().top;
       el.style.minHeight =
-        (props.background != "bedrock" || height > window.innerHeight - top
-          ? Math.ceil(height / 25) * 25
-          : window.innerHeight - top) + "px";
+        (props.background != "bedrock" ||
+        el.getBoundingClientRect().bottom > window.innerHeight
+          ? Math.ceil(el.clientHeight / 25) * 25
+          : window.innerHeight - el.getBoundingClientRect().top) + "px";
     });
 
     observer.observe(el);

@@ -21,7 +21,13 @@ export default function Page(
         </div>
       </TiledDiv>
       {props.children}
-      <TiledDiv id="footer" background="bedrock">
+      <TiledDiv
+        background="bedrock"
+        style={{
+          paddingTop: "1em",
+          textAlign: "center",
+          backgroundRepeat: "repeat-x",
+        }}>
         <em className="player1 love">And the universe said I love you...</em>
         <p style={{ display: "flex", gap: "4px", justifyContent: "center" }}>
           Made with{" "}

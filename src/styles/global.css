@@ -1,4 +1,5 @@
 body {
+  background-color: #000000;
   color: white;
   margin: 0;
   font-family: "Minecraft", sans-serif;
@@ -80,12 +81,6 @@ body {
   align-items: center;
   flex-direction: column;
   padding-top: 2em;
-}
-
-#footer {
-  padding-top: 1em;
-  text-align: center;
-  background-repeat: repeat-x;
 }
 
 .showcase {
@@ -500,4 +495,43 @@ textarea {
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
+}
+
+.muted {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Minecraftia", sans-serif;
+  font-size: 0.9rem;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.project-links a {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0.2rem 0.45rem;
+  background: rgba(15, 15, 15, 0.6);
+  font-size: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.screenshots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
+  gap: 0.5rem;
+  display: flex;
+  gap: 0;
+}
+
+.screenshots img {
+  width: 100%;
+  height: 5rem;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  margin-left: -0.9rem;
 }
