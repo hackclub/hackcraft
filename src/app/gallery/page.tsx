@@ -1,5 +1,4 @@
-import Link from "next/link";
-import GalleryEntry from "~/components/GalleryEntry";
+import GalleryEntry from "./GalleryEntry";
 import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
 

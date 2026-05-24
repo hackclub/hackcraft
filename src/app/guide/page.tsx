@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Page from "~/components/Page";
-import ProjectGenerator from "~/components/ProjectGenerator";
+import ProjectGenerator from "./ProjectGenerator";
 import TiledDiv from "~/components/TiledDiv";
 
 export const revalidate = 60;

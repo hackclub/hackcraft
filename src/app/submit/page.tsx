@@ -2,7 +2,7 @@ import Airtable from "airtable";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import ProjectCard from "~/components/ProjectCard";
+import ProjectCard from "./ProjectCard";
 import TiledDiv from "~/components/TiledDiv";
 import Page from "~/components/Page";
 

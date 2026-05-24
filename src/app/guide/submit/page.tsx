@@ -1,6 +1,4 @@
-import Link from "next/link";
 import Page from "~/components/Page";
-import SplashText from "~/components/SplashText";
 import TiledDiv from "~/components/TiledDiv";
 
 export const revalidate = 60;
