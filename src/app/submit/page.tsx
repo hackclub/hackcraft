@@ -48,7 +48,7 @@ export default async function Submit() {
   }
 
   return (
-    <Page back="/api/hca/logout" backText="logout">
+    <Page back="/api/logout" backText="logout">
       {!identity?.ysws_eligible ? (
         <TiledDiv id="header" background="dirt">
           <div

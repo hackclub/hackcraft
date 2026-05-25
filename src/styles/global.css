@@ -153,6 +153,12 @@ button:before {
   box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.15);
 }
 
+button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.5) brightness(0.7);
+  transform: none;
+}
+
 .form-link {
   margin-top: 2em;
   margin-left: auto;

@@ -9,6 +9,13 @@ export async function GET(request: Request) {
     maxAge: 0,
     path: "/",
   });
+  response.cookies.set("hackatime_access_token", "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    maxAge: 0,
+    path: "/",
+  });
 
   return response;
 }
