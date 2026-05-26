@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { exchangeCodeForToken } from "~/lib/api";
 
 export async function GET(request: Request) {
   const code = new URL(request.url).searchParams.get("code");
@@ -7,24 +8,17 @@ export async function GET(request: Request) {
   );
   if (!code) return response;
 
-  const res = await fetch("https://hackatime.hackclub.com/oauth/token", {
-    method: "POST",
-    body: new URLSearchParams({
-      client_id: process.env.HACKATIME_CLIENT_ID!,
-      client_secret: process.env.HACKATIME_CLIENT_SECRET!,
-      redirect_uri: "https://localhost:3000/api/hackatime/callback",
-      code,
-      grant_type: "authorization_code",
-    }),
-  }).then(r => r.json());
-
-  response.cookies.set("hackatime_access_token", res.access_token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "lax",
-    maxAge: 2592000,
-    path: "/",
-  });
+  response.cookies.set(
+    "hackatime_access_token",
+    await exchangeCodeForToken("hackatime", code),
+    {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      maxAge: 2592000,
+      path: "/",
+    },
+  );
 
   return response;
 }

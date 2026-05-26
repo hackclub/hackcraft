@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Project } from "~/lib/api";
 
 function Validation({
   validation,
@@ -37,12 +38,12 @@ function Validation({
 
 export default function ProjectForm({
   id,
-  record,
+  project,
   fields,
   action,
 }: {
   id: string;
-  record?: any;
+  project?: Project;
   fields: {
     events: string[];
     prizes: string[];
@@ -51,21 +52,16 @@ export default function ProjectForm({
   action: (formData: FormData) => void | Promise<void>;
 }) {
   const [values, setValues] = useState({
-    playable_url: record?.["Playable URL"] || "",
-    code_url: record?.["Code URL"] || "",
-    description: record?.Description || "",
-    hour_override:
-      record?.["Optional - Override Hours Spent"] !== undefined
-        ? String(record?.["Optional - Override Hours Spent"])
-        : "",
-    event: record?.Event || "",
-    prize: record?.Prize || "",
-    hackatime_projects: record?.Hackatime?.split(",") || [],
-    screenshots:
-      record?.Screenshot?.map((shot: { url?: string }) => shot?.url || "")
-        .filter(Boolean)
-        .join("\n") || "",
-    notes: record?.Notes || "",
+    code_url: "",
+    playable_url: "",
+    hackatime_projects: [] as Project["hackatime_projects"],
+    event: undefined,
+    prize: undefined,
+    hour_override: 0,
+    description: "",
+    notes: "",
+    ...project,
+    screenshots: project?.screenshots?.map(s => s.url).join("\n") ?? "",
   });
 
   const getHours = (projectNames: string[]) =>
@@ -280,7 +276,7 @@ export default function ProjectForm({
                     if (
                       Math.abs(
                         getHours(values.hackatime_projects) -
-                          parseFloat(values.hour_override) || 0,
+                          values.hour_override,
                       ) < 0.5
                     )
                       updateField(
