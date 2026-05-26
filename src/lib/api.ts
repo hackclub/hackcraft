@@ -79,7 +79,7 @@ export async function getAccessToken(type: "hca" | "hackatime") {
   const access_token = (await cookies()).get(`${type}_access_token`)?.value;
   if (!access_token)
     redirect(
-      `https://${type == "hca" ? "auth" : type}.hackclub.com/oauth/authorize?client_id=${process.env[type.toUpperCase() + "_CLIENT_ID"]}&redirect_uri=https%3A%2F%2Flocalhost%3A3000%2Fapi%2F${type}%2Fcallback&response_type=code&scope=${type == "hca" ? "name+email+slack_id+verification_status" : "profile+read"}`,
+      `https://${type == "hca" ? "auth" : type}.hackclub.com/oauth/authorize?client_id=${process.env[type.toUpperCase() + "_CLIENT_ID"]}&redirect_uri=https%3A%2F%2Fhackcraft.hackclub.com%2Fapi%2F${type}%2Fcallback&response_type=code&scope=${type == "hca" ? "name+email+slack_id+verification_status" : "profile+read"}`,
     );
   return access_token;
 }
@@ -126,7 +126,7 @@ export function exchangeCodeForToken(
       body: new URLSearchParams({
         client_id: process.env[type.toUpperCase() + "_CLIENT_ID"]!,
         client_secret: process.env[type.toUpperCase() + "_CLIENT_SECRET"]!,
-        redirect_uri: `https://localhost:3000/api/${type}/callback`,
+        redirect_uri: `https://hackcraft.hackclub.com/api/${type}/callback`,
         code,
         grant_type: "authorization_code",
       }),
