@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
-import { claimStickers, getIdentity } from "~/lib/api";
+import { claimStickers } from "~/lib/api";
+import { getIdentity } from "~/lib/util";
 
 export default async function Stickers(props: {
   searchParams: Promise<{ error?: string; success?: string }>;
