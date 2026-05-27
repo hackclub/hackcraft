@@ -200,7 +200,7 @@ export default function GuidePage() {
           </ul>
           <p>Here is an example of what Mixin does under the hood:</p>
           <img
-            src="/images/mixin-example.png"
+            src="/images/mixin-example.webp"
             alt="Mixin example"
             style={{ width: "100%", borderRadius: "8px" }}
           />

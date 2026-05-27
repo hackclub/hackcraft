@@ -127,7 +127,7 @@ export default function GuidePage() {
             There should be a client and server profile, click on the green play
             button next to the label that reads "Minecraft Client".
           </p>
-          <img src="/images/run-mc.png" alt="Run Minecraft" width="100%" />
+          <img src="/images/run-mc.webp" alt="Run Minecraft" width="100%" />
 
           <p>
             Your game should now launch! Remember that everytime you make

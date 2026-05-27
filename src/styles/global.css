@@ -13,25 +13,25 @@ body {
 
 @font-face {
   font-family: "Minecraftia";
-  src: url("/fonts/Minecraftia-Regular.ttf") format("truetype");
+  src: url("/fonts/Minecraftia-Regular.woff2") format("woff2");
   font-weight: normal;
 }
 
 @font-face {
   font-family: "Minecraft";
-  src: url("/fonts/Minecraft-Regular.otf") format("opentype");
+  src: url("/fonts/Minecraft-Regular.woff2") format("woff2");
   font-weight: normal;
 }
 
 @font-face {
   font-family: "Minecraft";
-  src: url("/fonts/Minecraft-Bold.otf") format("opentype");
+  src: url("/fonts/Minecraft-Bold.woff2") format("woff2");
   font-weight: bold;
 }
 
 @font-face {
   font-family: "JetBrainsMono";
-  src: url("/fonts/JetBrainsMono-Regular.ttf") format("truetype");
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
 }
 
 .splash {

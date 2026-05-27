@@ -59,7 +59,7 @@ export default function Submit() {
             you.
           </p>
           <img
-            src="/images/share-on-github.png"
+            src="/images/share-on-github.webp"
             alt="Share on GitHub"
             width="100%"
           />
@@ -85,7 +85,7 @@ export default function Submit() {
             icon (the elephant) on the left of your screen and double click
             build to create a jar containing all your work.
           </p>
-          <img src="/images/build.png" alt="Building the mod" width="100%" />
+          <img src="/images/build.webp" alt="Building the mod" width="100%" />
           <p>
             Go to <a href="https://modrinth.com/">Modrinth</a> and click the +
             in the top left (sign in if you haven't already) and create a new

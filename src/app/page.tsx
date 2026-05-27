@@ -50,25 +50,25 @@ export default function HomePage() {
         <div className="grid-steps" style={{ padding: "1em" }}>
           <div
             className="item-step hoverable"
-            style={{ backgroundImage: "url(/images/code.png)" }}>
+            style={{ backgroundImage: "url(/images/code.webp)" }}>
             <div className="mc-number">1</div>
             <p className="item-text">Make a mod</p>
           </div>
           <div
             className="item-step hoverable"
-            style={{ backgroundImage: "url(/images/time.png)" }}>
+            style={{ backgroundImage: "url(/images/time.webp)" }}>
             <div className="mc-number">2</div>
             <p className="item-text">Track time</p>
           </div>
           <div
             className="item-step hoverable"
-            style={{ backgroundImage: "url(/images/modrinth.png)" }}>
+            style={{ backgroundImage: "url(/images/modrinth.webp)" }}>
             <div className="mc-number">3</div>
             <p className="item-text">Publish it on Modrinth</p>
           </div>
           <div
             className="item-step hoverable"
-            style={{ backgroundImage: "url(/images/shop.png)" }}>
+            style={{ backgroundImage: "url(/images/minecraft.webp)" }}>
             <div className="mc-number">4</div>
             <p className="item-text">Get Minecraft!</p>
           </div>
@@ -99,7 +99,7 @@ export default function HomePage() {
               just like these mods.
             </a>
             <h3>Check out the mods teens made last time!</h3>
-            <video controls src="/video.mp4" width="100%" />
+            <video controls src="/video.mp4" preload="metadata" width="100%" />
             <h3>Craft a mod...</h3>
             <p>
               Never made a mod? It's the perfect time to build one. For

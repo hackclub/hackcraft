@@ -94,7 +94,7 @@ export default function Page() {
         <p className="poem-text player1">The most incredible thing.</p>
         <p className="poem-text player2">The Universe.</p>
         <Link href="/">
-          <img src="/images/logo.png" className="mc-ysws-logo" />
+          <img src="/images/logo.webp" className="mc-ysws-logo" />
         </Link>
       </div>
     </div>

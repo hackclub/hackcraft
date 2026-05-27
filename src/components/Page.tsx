@@ -15,7 +15,7 @@ export default function Page(
         )}
         <div style={{ top: "5em", position: "relative" }}>
           <Link href="/">
-            <img src="/images/logo.png" alt="Minecraft Logo" width="100%" />
+            <img src="/images/logo.webp" alt="Minecraft Logo" width="100%" />
           </Link>
           <SplashText />
         </div>
@@ -32,10 +32,11 @@ export default function Page(
         <p style={{ display: "flex", gap: "4px", justifyContent: "center" }}>
           Made with{" "}
           <img
-            src="/images/dancing_parrot.gif"
+            src="/images/dancing_parrot.webp"
             alt="minecraft parrot"
             title="A minecraft parrot"
             height="20px"
+            loading="lazy"
           />{" "}
           by <a href="https://hackclub.com">Hack Club</a>.
         </p>
