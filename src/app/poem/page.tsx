@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import "./page.css";
 import Link from "next/link";
@@ -76,7 +76,9 @@ export default function Page() {
     <div id="poem">
       <div className="poem">
         <p className="poem-text player1">I see the player you mean.</p>
-        <Name />
+        <Suspense>
+          <Name />
+        </Suspense>
         <p className="poem-text player1">
           Yes. Take care. It has reached another power level.
         </p>
