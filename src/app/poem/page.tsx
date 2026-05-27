@@ -1,70 +1,82 @@
 "use client";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useEffect, useState } from "react";
 
 import "./page.css";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const CHARS =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789èêěęėëéřþțťýùûůűüúìîïíòôõöøōóąăåäãâáàßșšşśðďğĺľłźžż¢çčćñňńÈÊĚĘÉŘÞȚŤÝÚŮŰÜÍİÎÓÖØÔĄĂÅÄÂÁÀŚȘŠŞÐĎĞĽŁŹŽŻÇČĆŃ[]{}()§¬&%$#"|';
 
-export default function Page() {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-  const tl = gsap.timeline();
+function Name() {
+  const [username, setUsername] = useState("herobrine");
+  const searchParams = useSearchParams();
+  const name = searchParams.get("name");
 
-  useGSAP(() => {
-    gsap.utils.toArray<HTMLElement>(".poem-text").forEach(e =>
-      tl.to(e, {
-        opacity: 1,
-        scrollTrigger: {
-          trigger: e,
-          markers: false,
-          start: "top center",
-          end: "+=24 center",
-          scrub: 1,
-          toggleActions: "play reverse play reset",
-        },
-      }),
-    );
-
-    tl.to(".mc-ysws-logo", {
-      opacity: 1,
-      scrollTrigger: {
-        trigger: "img",
-        markers: false,
-        start: "top center",
-        end: "top top",
-        scrub: 1,
-        toggleActions: "play pause none none",
-      },
-    });
-
+  useEffect(() => {
+    if (name) return;
     const interval = setInterval(() => {
-      window.scrollBy(0, 1.5);
-      setUsername(
-        username
-          ?.split("")
+      setUsername(currentName =>
+        currentName
+          .split("")
           .map(() => CHARS[Math.floor(Math.random() * CHARS.length)])
           .join(""),
       );
-    }, 35);
+    }, 60);
     return () => clearInterval(interval);
-  });
+  }, [name]);
 
-  const [username, setUsername] = useState("herobrine");
-  const searchParams = useSearchParams();
+  return (
+    <p className="poem-text player2 poem-custom-username">
+      {name || username}?
+    </p>
+  );
+}
+
+export default function Page() {
+  useEffect(() => {
+    const observedElements = Array.from(
+      document.querySelectorAll<HTMLElement>(".poem-text, .mc-ysws-logo"),
+    );
+
+    const updateOpacity = () => {
+      for (const element of observedElements) {
+        element.style.opacity = String(
+          Math.max(
+            0,
+            Math.min(
+              1,
+              (window.innerHeight / 2 - element.getBoundingClientRect().top) /
+                72,
+            ),
+          ),
+        );
+      }
+    };
+
+    const onScroll = () => requestAnimationFrame(updateOpacity);
+
+    updateOpacity();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    const interval = setInterval(() => {
+      window.scrollBy(0, 1.5);
+      updateOpacity();
+    }, 35);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div id="poem">
       <div className="poem">
         <p className="poem-text player1">I see the player you mean.</p>
-        <p className="poem-text player2 poem-custom-username">
-          {searchParams.get("name") || username}?
-        </p>
+        <Name />
         <p className="poem-text player1">
           Yes. Take care. It has reached another power level.
         </p>

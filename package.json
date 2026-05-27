@@ -10,9 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@gsap/react": "^2.1",
     "airtable": "^0.12",
-    "gsap": "^3.15",
     "jszip": "^3.10",
     "next": "^16.2",
     "react": "^19.2",

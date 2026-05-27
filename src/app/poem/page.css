@@ -35,15 +35,11 @@ body {
 
 .poem-text {
   opacity: 0;
+  transition: opacity 120ms linear;
   font-size: x-large;
   color: white;
   margin: 4rem 0rem 4rem 0rem;
   font-family: "Minecraftia", sans-serif;
-}
-
-@font-face {
-  font-family: "Minecraftia";
-  src: url("/fonts/Minecraftia-Regular.ttf") format("truetype");
 }
 
 .player1 {
