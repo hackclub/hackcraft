@@ -1,98 +1,11 @@
 import Airtable, { Record } from "airtable";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { FIELDS, getIdentity, Identity, Project } from "./util";
+import crypto from "crypto";
 
-const airtable = new Airtable({
+const base = new Airtable({
   apiKey: process.env.AIRTABLE_API_KEY,
-});
-
-const base = airtable.base("appROpbCKgNm7r5ln");
+}).base("appROpbCKgNm7r5ln");
 const submissions = base("tblx8k1fmPtQgDeUu");
-
-export const FIELDS = {
-  slackId: "Slack ID",
-  codeUrl: "Code URL",
-  playableUrl: "Playable URL",
-  screenshots: "Screenshot",
-  event: "Event",
-  prize: "Prize",
-  status: "Status",
-  hackatimeProjects: "Hackatime",
-  hourOverride: "Optional - Override Hours Spent",
-  description: "Description",
-  notes: "Notes",
-  firstName: "First Name",
-  lastName: "Last Name",
-  email: "Email",
-  birthday: "Birthday",
-  addressLine1: "Address (Line 1)",
-  addressLine2: "Address (Line 2)",
-  city: "City",
-  state: "State / Province",
-  postalCode: "ZIP / Postal Code",
-  country: "Country",
-  username: "Username",
-  stickers: "Stickers",
-  feedback: "How can we improve?",
-  referral: "How did you hear about this?",
-} as const;
-
-export type Identity = {
-  slack_id: string;
-  primary_email: string;
-  first_name: string;
-  last_name: string;
-  birthday?: string;
-  ysws_eligible: boolean;
-  verification_status: string;
-  addresses?: {
-    id: string;
-    primary?: boolean;
-    first_name?: string;
-    last_name?: string;
-    line_1?: string;
-    line_2?: string;
-    city?: string;
-    state?: string;
-    postal_code?: string;
-    country?: string;
-  }[];
-};
-
-export type Project = {
-  id: string;
-  slack_id: string;
-  code_url: string;
-  playable_url: string;
-  screenshots: { url: string }[];
-  event?: string;
-  prize?: string;
-  status: string;
-  hackatime_projects: string[];
-  hour_override: number;
-  description: string;
-  notes: string;
-};
-
-export async function getAccessToken(type: "hca" | "hackatime") {
-  "use server";
-  const access_token = (await cookies()).get(`${type}_access_token`)?.value;
-  if (!access_token)
-    redirect(
-      `https://${type == "hca" ? "auth" : type}.hackclub.com/oauth/authorize?client_id=${process.env[type.toUpperCase() + "_CLIENT_ID"]}&redirect_uri=https%3A%2F%2Fhackcraft.hackclub.com%2Fapi%2F${type}%2Fcallback&response_type=code&scope=${type == "hca" ? "name+email+slack_id+verification_status" : "profile+read"}`,
-    );
-  return access_token;
-}
-
-export async function getIdentity() {
-  const { identity } = await fetch(`https://auth.hackclub.com/api/v1/me`, {
-    headers: {
-      Authorization: "Bearer " + (await getAccessToken("hca")),
-    },
-  }).then(r => r.json());
-
-  return identity as Identity;
-}
 
 function mapSubmissionRecord(record: Record<any>): Project {
   return {
@@ -113,6 +26,16 @@ function mapSubmissionRecord(record: Record<any>): Project {
     description: record.get(FIELDS.description) as string,
     notes: record.get(FIELDS.notes) as string,
   };
+}
+
+async function getApprovedRecord(slackId: string) {
+  const [record] = await submissions
+    .select({
+      filterByFormula: `AND({${FIELDS.slackId}}="${slackId}",${FIELDS.status}="Approved")`,
+    })
+    .all();
+
+  return record;
 }
 
 export function exchangeCodeForToken(
@@ -147,15 +70,28 @@ export async function getRecord(rec: string): Promise<Project | undefined> {
   }
 }
 
-export function approvedProjects(slackId: string) {
-  return submissions
-    .select({
-      filterByFormula: `AND({${FIELDS.slackId}}="${slackId}",${FIELDS.status}="Approved")`,
-    })
-    .all();
+export async function updateApprovedProjectField(
+  slackId: string,
+  field: "feedback" | "referral",
+  value: string,
+) {
+  const record = await getApprovedRecord(slackId);
+  if (!record) return false;
+
+  await record.patchUpdate({
+    [field === "feedback" ? FIELDS.feedback : FIELDS.referral]: value,
+  });
+
+  return !!(
+    (
+      record.get(
+        field === "feedback" ? FIELDS.referral : FIELDS.feedback,
+      ) as string
+    )?.trim().length > 0
+  );
 }
 
-export async function getSubmissions(slackId: string, email: string) {
+export async function getSubmissionsForUser(slackId: string, email: string) {
   const records = await submissions
     .select({
       filterByFormula: `OR({${FIELDS.slackId}}="${slackId}",{${FIELDS.email}}="${email}")`,
@@ -165,7 +101,7 @@ export async function getSubmissions(slackId: string, email: string) {
   return records.map(mapSubmissionRecord);
 }
 
-export async function saveProjectSubmission({
+export async function saveProject({
   id,
   identity,
   data,
@@ -178,14 +114,14 @@ export async function saveProjectSubmission({
   else {
     const req = await submissions.find(id);
     if (
-      req.get(FIELDS.status) != "Approved" ||
+      req.get(FIELDS.status) != "Approved" &&
       req.get(FIELDS.slackId) == identity.slack_id
     )
       await req.patchUpdate(data);
   }
 }
 
-export async function getSubmissionFormFields() {
+export async function getFormOptions() {
   const fields = await fetch(
     "https://api.airtable.com/v0/meta/bases/appROpbCKgNm7r5ln/tables",
     {
@@ -218,7 +154,7 @@ export async function getSubmissionFormFields() {
 
 export async function claimStickers(addressId: string) {
   const identity = await getIdentity();
-  const [project] = await approvedProjects(identity.slack_id);
+  const project = await getApprovedRecord(identity.slack_id);
   if (!project) return false;
 
   const address = identity.addresses?.find(item => item.id === addressId);
@@ -239,12 +175,27 @@ export async function claimStickers(addressId: string) {
   return true;
 }
 
-export async function getUsername(id: string) {
+export function verifySlackRequest(request: Request, rawBody: string) {
+  const timestamp = request.headers.get("x-slack-request-timestamp");
+  const sig = request.headers.get("x-slack-signature");
+  if (!timestamp || !sig) return false;
+
+  const tsNum = Number(timestamp);
+  if (isNaN(tsNum) || Math.abs(Math.floor(Date.now() / 1000) - tsNum) > 60 * 5)
+    return false;
+
+  const hmac = crypto
+    .createHmac("sha256", process.env.SLACK_SIGNING_SECRET!)
+    .update(`v0:${timestamp}:${rawBody}`)
+    .digest("hex");
+
   try {
-    const user = await base("RSVPs").find(id);
-    return (user.fields[FIELDS.username] as string) || null;
-  } catch {
-    return null;
+    const a = Buffer.from(`v0=${hmac}`);
+    const b = Buffer.from(sig);
+    if (a.length !== b.length) return false;
+    return crypto.timingSafeEqual(a, b);
+  } catch (e) {
+    return false;
   }
 }
 

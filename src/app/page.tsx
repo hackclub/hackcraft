@@ -1,5 +1,3 @@
-"use client";
-import SplashText from "~/components/SplashText";
 import Link from "next/link";
 import TiledDiv from "~/components/TiledDiv";
 import Page from "~/components/Page";

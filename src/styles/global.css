@@ -303,13 +303,8 @@ button:disabled {
 
 .banner:hover {
   animation: wave-flag 0.5s linear infinite alternate;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .banner:hover {
-    transition: 0.1875s cubic-bezier(0.375, 0, 0.675, 1) transform;
-    transform-origin: top left;
-  }
+  transform-origin: top left;
+  transition: 0.1875s cubic-bezier(0.375, 0, 0.675, 1) transform;
 }
 
 @keyframes wave-flag {

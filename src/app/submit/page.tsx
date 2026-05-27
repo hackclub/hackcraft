@@ -2,10 +2,11 @@ import Link from "next/link";
 import ProjectCard from "./ProjectCard";
 import TiledDiv from "~/components/TiledDiv";
 import Page from "~/components/Page";
-import { getIdentity, getSubmissions, Identity } from "~/lib/api";
+import { getSubmissionsForUser } from "~/lib/api";
+import { getIdentity, Identity } from "~/lib/util";
 
 async function Projects({ identity }: { identity: Identity }) {
-  let projects = await getSubmissions(
+  let projects = await getSubmissionsForUser(
     identity.slack_id,
     identity.primary_email,
   );

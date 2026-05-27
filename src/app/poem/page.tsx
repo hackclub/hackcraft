@@ -1,71 +1,18 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 import "./page.css";
+import Link from "next/link";
 
-function UsernameText({
-  randomName,
-  tl,
-}: {
-  randomName: string;
-  tl: gsap.core.Timeline;
-}) {
-  const [username, setUsername] = useState(randomName);
-  const searchParams = useSearchParams();
-  const userId = searchParams.get("id") || "";
-
-  useGSAP(() => {
-    if (userId) {
-      const url = new URL("/api/getUser", window.location.origin);
-      url.searchParams.append("id", userId);
-
-      fetch(url.toString(), {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then(res => res.json())
-        .then(data => {
-          setUsername(data.username);
-        });
-    }
-
-    tl.to(".poem-custom-username", {
-      opacity: 1,
-      scrollTrigger: {
-        trigger: ".poem-custom-username",
-        markers: false,
-        start: "top center",
-        end: "+=24 center",
-        scrub: 1,
-        toggleActions: "play reverse play reset",
-      },
-    });
-  }, [userId]);
-
-  return <p className="poem-text player2 poem-custom-username">{username}</p>;
-}
+const CHARS =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789èêěęėëéřþțťýùûůűüúìîïíòôõöøōóąăåäãâáàßșšşśðďğĺľłźžż¢çčćñňńÈÊĚĘÉŘÞȚŤÝÚŮŰÜÍİÎÓÖØÔĄĂÅÄÂÁÀŚȘŠŞÐĎĞĽŁŹŽŻÇČĆŃ[]{}()§¬&%$#"|';
 
 export default function Page() {
-  const names = [
-    "Steve",
-    "Alex",
-    "Zuri",
-    "Sunny",
-    "Noor",
-    "Makena",
-    "Kai",
-    "Efe",
-    "Ari",
-  ];
-  const randomName = names[Math.floor(Math.random() * names.length)];
-
   gsap.registerPlugin(ScrollTrigger, useGSAP);
   const tl = gsap.timeline();
 
@@ -96,16 +43,28 @@ export default function Page() {
       },
     });
 
-    setInterval(() => window.scrollBy(0, 1.5), 35);
+    const interval = setInterval(() => {
+      window.scrollBy(0, 1.5);
+      setUsername(
+        username
+          ?.split("")
+          .map(() => CHARS[Math.floor(Math.random() * CHARS.length)])
+          .join(""),
+      );
+    }, 35);
+    return () => clearInterval(interval);
   });
+
+  const [username, setUsername] = useState("herobrine");
+  const searchParams = useSearchParams();
 
   return (
     <div id="poem">
       <div className="poem">
         <p className="poem-text player1">I see the player you mean.</p>
-        <Suspense fallback={<p className="poem-text player2">{randomName}</p>}>
-          <UsernameText randomName={randomName} tl={tl} />
-        </Suspense>
+        <p className="poem-text player2 poem-custom-username">
+          {searchParams.get("name") || username}?
+        </p>
         <p className="poem-text player1">
           Yes. Take care. It has reached another power level.
         </p>
@@ -134,7 +93,9 @@ export default function Page() {
         <p className="poem-text player2">They'll make something incredible.</p>
         <p className="poem-text player1">The most incredible thing.</p>
         <p className="poem-text player2">The Universe.</p>
-        <img src="/images/logo.png" className="mc-ysws-logo" />
+        <Link href="/">
+          <img src="/images/logo.png" className="mc-ysws-logo" />
+        </Link>
       </div>
     </div>
   );

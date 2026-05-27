@@ -2,15 +2,8 @@ import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
 import { redirect } from "next/navigation";
 import ProjectForm from "./ProjectForm";
-import {
-  getAccessToken,
-  getIdentity,
-  getRecord,
-  getSubmissionFormFields,
-  Project,
-  saveProjectSubmission,
-  FIELDS,
-} from "~/lib/api";
+import { getRecord, getFormOptions, saveProject } from "~/lib/api";
+import { FIELDS, getAccessToken, getIdentity, Project } from "~/lib/util";
 
 async function save(formData: FormData) {
   "use server";
@@ -21,7 +14,7 @@ async function save(formData: FormData) {
     identity?.addresses?.find(item => item?.primary) ??
     identity?.addresses?.[0];
 
-  await saveProjectSubmission({
+  await saveProject({
     id: formData.get("id") as string,
     identity,
     data: {
@@ -94,7 +87,7 @@ export default async function ProjectPage({
       },
     },
   ).then(r => r.json());
-  const fields = await getSubmissionFormFields();
+  const fields = await getFormOptions();
 
   return (
     <Page back="/submit">

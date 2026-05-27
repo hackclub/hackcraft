@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Project } from "~/lib/api";
+import { Project } from "~/lib/util";
 
 function Validation({
   validation,
