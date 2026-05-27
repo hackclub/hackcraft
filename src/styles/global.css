@@ -344,14 +344,8 @@ button:disabled {
 
 .player1,
 .player2 {
-  /* opacity: 0; */
   transition-duration: 1s;
   line-height: 90%;
-}
-
-.player1:hover,
-.player2:hover {
-  opacity: 1;
 }
 
 h4 {
