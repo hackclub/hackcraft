@@ -11,6 +11,18 @@ body {
   image-rendering: auto;
 }
 
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%; 
+  line-height: 1.15; 
+  margin: 0; 
+}
+
+
 @font-face {
   font-family: "Minecraftia";
   src: url("/fonts/Minecraftia-Regular.woff2") format("woff2");
@@ -107,7 +119,6 @@ li {
 button {
   font-family: "Minecraftia", sans-serif;
   padding: 1em;
-  padding-bottom: 0.4em;
   color: white;
   font-size: 20px;
   font-weight: bold;
