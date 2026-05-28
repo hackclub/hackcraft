@@ -28,16 +28,6 @@ function mapSubmissionRecord(record: Record<any>): Project {
   };
 }
 
-async function getApprovedRecord(slackId: string) {
-  const [record] = await submissions
-    .select({
-      filterByFormula: `AND({${FIELDS.slackId}}="${slackId}",${FIELDS.status}="Approved")`,
-    })
-    .all();
-
-  return record;
-}
-
 export function exchangeCodeForToken(
   type: "hca" | "hackatime",
   code: string,
@@ -75,7 +65,11 @@ export async function updateApprovedProjectField(
   field: "feedback" | "referral",
   value: string,
 ) {
-  const record = await getApprovedRecord(slackId);
+  const [record] = await submissions
+    .select({
+      filterByFormula: `AND({${FIELDS.slackId}}="${slackId}",${FIELDS.status}="Approved")`,
+    })
+    .all();
   if (!record) return false;
 
   await record.patchUpdate({
@@ -154,13 +148,17 @@ export async function getFormOptions() {
 
 export async function claimStickers(addressId: string) {
   const identity = await getIdentity();
-  const project = await getApprovedRecord(identity.slack_id);
-  if (!project) return false;
+  const [record] = await submissions
+    .select({
+      filterByFormula: `AND({${FIELDS.slackId}}="${identity.slack_id}",${FIELDS.status}="Approved",NOT(${FIELDS.stickers}))`,
+    })
+    .all();
+  if (!record) return false;
 
   const address = identity.addresses?.find(item => item.id === addressId);
   if (!address) return false;
 
-  await project.patchUpdate({
+  await record.patchUpdate({
     [FIELDS.firstName]: address.first_name,
     [FIELDS.lastName]: address.last_name,
     [FIELDS.addressLine1]: address.line_1,
@@ -176,6 +174,8 @@ export async function claimStickers(addressId: string) {
 }
 
 export function verifySlackRequest(request: Request, rawBody: string) {
+  if (!process.env.SLACK_SIGNING_SECRET) return false;
+
   const timestamp = request.headers.get("x-slack-request-timestamp");
   const sig = request.headers.get("x-slack-signature");
   if (!timestamp || !sig) return false;
@@ -200,7 +200,7 @@ export function verifySlackRequest(request: Request, rawBody: string) {
 }
 
 export function sendMessage(body: any) {
-  fetch("https://slack.com/api/chat.postMessage", {
+  return fetch("https://slack.com/api/chat.postMessage", {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",

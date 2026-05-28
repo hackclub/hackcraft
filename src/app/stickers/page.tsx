@@ -54,11 +54,7 @@ export default async function Stickers(props: {
                 );
               }}>
               <h2>Want some stickers?</h2>
-              <i>You can only request stickers once.</i>
               <select name="address" id="address" required>
-                <option value="" disabled selected>
-                  Select an address
-                </option>
                 {identity.addresses?.map(({ id, line_1, city }, i) => (
                   <option key={i} value={id}>
                     {line_1} {city}

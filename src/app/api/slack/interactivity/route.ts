@@ -13,6 +13,11 @@ export async function POST(request: Request) {
   const payload = JSON.parse(new URLSearchParams(raw).get("payload")!);
 
   for (const action of payload.actions ?? []) {
+    if (action.action_id === "feedback")
+      sendMessage({
+        channel: "U07AGEVSTD2",
+        text: action.value,
+      });
     if (
       !(await updateApprovedProjectField(
         payload.user.id,

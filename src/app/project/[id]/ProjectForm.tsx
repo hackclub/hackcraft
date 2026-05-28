@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import ImageUploader from "~/app/submit/ImageUploader";
 import { Project } from "~/lib/util";
 
 function Validation({
@@ -61,7 +62,7 @@ export default function ProjectForm({
     description: "",
     notes: "",
     ...project,
-    screenshots: project?.screenshots?.map(s => s.url).join("\n") ?? "",
+    screenshots: project?.screenshots?.map(s => s.url) ?? [],
   });
 
   const getHours = (projectNames: string[]) =>
@@ -169,22 +170,25 @@ export default function ProjectForm({
     }
 
     const screenshotUrls = values.screenshots
-      .split("\n")
       .map(url => url.trim())
       .filter(Boolean);
 
     if (screenshotUrls.length === 0) {
-      validation.screenshots.errors.push("Please upload some screenshots");
+      validation.screenshots.errors.push("Please add some screenshots.");
+    } else if (screenshotUrls.length < 3) {
+      validation.screenshots.warnings.push("Maybe some more?.");
     }
 
     if (
       screenshotUrls.filter(
-        url => !/^https:\/\/(\S{1,256}\.){1,}\S{2,6}(\/\S+)+\/?$/.test(url),
+        url =>
+          !/^https:\/\/(\S{1,256}\.){1,}\S{2,6}(\/\S+)+\/?$/.test(url) &&
+          !/^data:image\/(png|jpeg|jpg|gif|webp|avif|bmp|svg\+xml);base64,/i.test(
+            url,
+          ),
       ).length > 0
     ) {
-      validation.screenshots.errors.push(
-        "Each screenshot URL must be a valid https URL.",
-      );
+      validation.screenshots.errors.push("Invalid screenshots.");
     }
 
     return {
@@ -376,11 +380,16 @@ export default function ProjectForm({
 
       <div>
         <label>Screenshots</label>
-        <textarea
-          name="screenshots"
-          placeholder="Paste image URLs, one per line"
+        <ImageUploader
           value={values.screenshots}
-          onChange={e => updateField("screenshots", e.target.value)}
+          onChange={screenshots =>
+            setValues(prev => ({ ...prev, screenshots }))
+          }
+        />
+        <input
+          type="hidden"
+          name="screenshots"
+          value={values.screenshots.join("\n")}
           aria-invalid={validation.screenshots.errors.length > 0}
         />
         <Validation validation={validation.screenshots} />

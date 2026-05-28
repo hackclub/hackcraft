@@ -9,7 +9,7 @@ export default function Page(
     <>
       <TiledDiv background="grass" id="navbar">
         {props.back && (
-          <Link className="back" href={props.back}>
+          <Link className="back" href={props.back} prefetch={false}>
             {props.backText ?? "back"}
           </Link>
         )}

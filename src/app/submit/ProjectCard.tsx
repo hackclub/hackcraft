@@ -1,17 +1,13 @@
-import Link from "next/link";
+"use client";
 
-export default function ProjectCard({
-  project,
-}: {
-  project: {
-    id: string;
-    codeUrl?: string;
-    playableUrl?: string;
-    screenshots: { url: string }[];
-    event?: string;
-    status?: string;
-  };
-}) {
+import Link from "next/link";
+import { useState } from "react";
+import Carrousel from "~/components/Carrousel";
+import { Project } from "~/lib/util";
+
+export default function ProjectCard({ project }: { project: Project }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
     <div
       style={{
@@ -27,7 +23,7 @@ export default function ProjectCard({
           alignItems: "flex-start",
           justifyContent: "space-between",
         }}>
-        <p className="muted">{project.event || "Event not set"}</p>
+        <p className="muted">{project.event}</p>
         <div style={{ display: "grid", justifyItems: "end", gap: "0.5rem" }}>
           <span
             style={{
@@ -57,33 +53,41 @@ export default function ProjectCard({
             }}>
             {project.status}
           </span>
-          {project.screenshots.some(shot => shot.url) && (
+          {project.screenshots.length > 0 && (
             <div className="screenshots">
-              {project.screenshots
-                .filter(shot => shot.url)
-                .slice(0, 4)
-                .map(shot => (
-                  <img src={shot.url} key={shot.url} />
-                ))}
+              {project.screenshots.slice(0, 5).map((shot, i) => (
+                <img
+                  src={shot.url}
+                  key={shot.url}
+                  onClick={() => setOpenIndex(i)}
+                />
+              ))}
             </div>
           )}
         </div>
       </div>
+      {openIndex !== null && (
+        <Carrousel
+          images={project.screenshots.map(shot => shot.url)}
+          initialIndex={openIndex}
+          onClose={() => setOpenIndex(null)}
+        />
+      )}
       <div className="project-links">
         {project.status != "Approved" && (
           <Link href={`/project/${project.id}`}>Edit</Link>
         )}
-        {project.codeUrl && (
-          <a href={project.codeUrl} target="_blank" rel="noopener noreferrer">
-            {new URL(project.codeUrl).pathname.substring(1)}
+        {project.code_url && (
+          <a href={project.code_url} target="_blank" rel="noopener noreferrer">
+            {new URL(project.code_url).pathname.substring(1)}
           </a>
         )}
-        {project.playableUrl && (
+        {project.playable_url && (
           <a
-            href={project.playableUrl}
+            href={project.playable_url}
             target="_blank"
             rel="noopener noreferrer">
-            {new URL(project.playableUrl).pathname.substring(1)}
+            {new URL(project.playable_url).pathname.substring(1)}
           </a>
         )}
       </div>
