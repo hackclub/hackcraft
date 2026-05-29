@@ -65,24 +65,28 @@ export async function updateApprovedProjectField(
   field: "feedback" | "referral",
   value: string,
 ) {
-  const [record] = await submissions
-    .select({
-      filterByFormula: `AND({${FIELDS.slackId}}="${slackId}",${FIELDS.status}="Approved")`,
-    })
-    .all();
-  if (!record) return false;
+  try {
+    const [record] = await submissions
+      .select({
+        filterByFormula: `AND({${FIELDS.slackId}}="${slackId}",${FIELDS.status}="Approved")`,
+      })
+      .all();
+    if (!record) return false;
 
-  await record.patchUpdate({
-    [field === "feedback" ? FIELDS.feedback : FIELDS.referral]: value,
-  });
+    await record.patchUpdate({
+      [field === "feedback" ? FIELDS.feedback : FIELDS.referral]: value,
+    });
 
-  return !!(
-    (
-      record.get(
-        field === "feedback" ? FIELDS.referral : FIELDS.feedback,
-      ) as string
-    )?.trim().length > 0
-  );
+    return !!(
+      (
+        record.get(
+          field === "feedback" ? FIELDS.referral : FIELDS.feedback,
+        ) as string
+      )?.trim().length > 0
+    );
+  } catch {
+    return false;
+  }
 }
 
 export async function getSubmissionsForUser(slackId: string, email: string) {
@@ -126,11 +130,13 @@ export async function getFormOptions() {
     },
   )
     .then(r => r.json())
-    .then(
-      data =>
-        data.tables.find((table: any) => table.id === "tblx8k1fmPtQgDeUu")
-          ?.fields ?? [],
-    );
+    .then(data => {
+      return (
+        (Array.isArray(data?.tables) ? data.tables : []).find(
+          (table: any) => table.id === "tblx8k1fmPtQgDeUu",
+        )?.fields ?? []
+      );
+    });
 
   return {
     events:
@@ -147,30 +153,36 @@ export async function getFormOptions() {
 }
 
 export async function claimStickers(addressId: string) {
-  const identity = await getIdentity();
-  const [record] = await submissions
-    .select({
-      filterByFormula: `AND({${FIELDS.slackId}}="${identity.slack_id}",${FIELDS.status}="Approved",NOT(${FIELDS.stickers}))`,
-    })
-    .all();
-  if (!record) return false;
+  try {
+    const identity = await getIdentity();
+    if (!identity?.slack_id) return false;
 
-  const address = identity.addresses?.find(item => item.id === addressId);
-  if (!address) return false;
+    const [record] = await submissions
+      .select({
+        filterByFormula: `AND({${FIELDS.slackId}}="${identity.slack_id}",{${FIELDS.status}}="Approved",NOT(${FIELDS.stickers}))`,
+      })
+      .all();
+    if (!record) return false;
 
-  await record.patchUpdate({
-    [FIELDS.firstName]: address.first_name,
-    [FIELDS.lastName]: address.last_name,
-    [FIELDS.addressLine1]: address.line_1,
-    [FIELDS.addressLine2]: address.line_2,
-    [FIELDS.city]: address.city,
-    [FIELDS.state]: address.state,
-    [FIELDS.postalCode]: address.postal_code,
-    [FIELDS.country]: address.country,
-    [FIELDS.stickers]: true,
-  });
+    const address = identity.addresses?.find(item => item.id === addressId);
+    if (!address) return false;
 
-  return true;
+    await record.patchUpdate({
+      [FIELDS.firstName]: address.first_name,
+      [FIELDS.lastName]: address.last_name,
+      [FIELDS.addressLine1]: address.line_1,
+      [FIELDS.addressLine2]: address.line_2,
+      [FIELDS.city]: address.city,
+      [FIELDS.state]: address.state,
+      [FIELDS.postalCode]: address.postal_code,
+      [FIELDS.country]: address.country,
+      [FIELDS.stickers]: true,
+    });
+
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export function verifySlackRequest(request: Request, rawBody: string) {
