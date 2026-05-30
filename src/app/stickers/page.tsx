@@ -5,7 +5,7 @@ import { claimStickers } from "~/lib/api";
 import { getIdentity } from "~/lib/util";
 
 export default async function Stickers(props: {
-  searchParams: Promise<{ error?: string; success?: string }>;
+  searchParams: Promise<{ success?: string }>;
 }) {
   const identity = await getIdentity();
 
@@ -13,7 +13,7 @@ export default async function Stickers(props: {
   return (
     <Page>
       <TiledDiv id="header" background="dirt">
-        {(await props.searchParams).success ? (
+        {(await props.searchParams).success != undefined ? (
           <div
             className="section"
             style={{

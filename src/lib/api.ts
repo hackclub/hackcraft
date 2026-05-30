@@ -1,6 +1,7 @@
 import Airtable, { Record } from "airtable";
 import { FIELDS, getIdentity, Identity, Project } from "./util";
 import crypto from "crypto";
+import { redirect } from "next/navigation";
 
 const base = new Airtable({
   apiKey: process.env.AIRTABLE_API_KEY,
@@ -52,11 +53,16 @@ export function exchangeCodeForToken(
 export async function getRecord(rec: string): Promise<Project | undefined> {
   try {
     const project = mapSubmissionRecord(await submissions.find(rec));
-    if (project.slack_id !== ((await getIdentity())?.slack_id || ""))
-      return undefined;
+    if (
+      !project ||
+      project.slack_id !== ((await getIdentity())?.slack_id || "")
+    )
+      throw null;
     return project;
   } catch {
-    return undefined;
+    redirect(
+      "/error?title=Project not found&error=We could not find that project.",
+    );
   }
 }
 
@@ -117,6 +123,16 @@ export async function saveProject({
     )
       await req.patchUpdate(data);
   }
+}
+
+export async function deleteProject(id: string, identity: Identity) {
+  const req = await submissions.find(id);
+  if (
+    req &&
+    req.get(FIELDS.status) == "Draft" &&
+    req.get(FIELDS.slackId) == identity.slack_id
+  )
+    await req.destroy();
 }
 
 export async function getFormOptions() {

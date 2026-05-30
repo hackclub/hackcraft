@@ -23,8 +23,9 @@ export default function LazyVideo({ src }: { src: string }) {
     try {
       const url = new URL(src);
       if (
-        (url.hostname === "youtube.com" && url.pathname === "/watch") ||
-        url.hostname === "youtu.be"
+        (url.hostname.endsWith("youtube.com") &&
+          url.pathname.startsWith("/watch")) ||
+        url.hostname.endsWith("youtu.be")
       ) {
         const videoId =
           url.searchParams.get("v") || url.pathname.split("/").pop();
@@ -54,6 +55,7 @@ export default function LazyVideo({ src }: { src: string }) {
             src={src}
             style={{ width: "75%" }}
             onError={() => setLink(true)}
+            preload="metadata"
           />
         ))}
     </div>

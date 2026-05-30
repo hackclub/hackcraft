@@ -2,15 +2,26 @@ import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
 import { redirect } from "next/navigation";
 import ProjectForm from "./ProjectForm";
-import { getRecord, getFormOptions, saveProject } from "~/lib/api";
+import {
+  getRecord,
+  getFormOptions,
+  saveProject,
+  deleteProject,
+} from "~/lib/api";
 import { FIELDS, getAccessToken, getIdentity, Project } from "~/lib/util";
 
 async function save(formData: FormData) {
   "use server";
-  try {
-    const identity = await getIdentity();
-    if (!identity) return;
+  const intent = formData.get("intent");
+  const identity = await getIdentity();
+  if (!identity) return;
 
+  if (intent === "delete") {
+    await deleteProject(formData.get("id") as string, identity);
+    redirect("/submit");
+  }
+
+  try {
     const address =
       identity?.addresses?.find(item => item?.primary) ??
       identity?.addresses?.[0];
@@ -48,10 +59,11 @@ async function save(formData: FormData) {
         [FIELDS.country]: address?.country,
       },
     });
-    redirect("/submit");
   } catch (e: any) {
-    redirect("/error?error=" + encodeURIComponent(e["message"]));
+    console.error(e);
+    redirect("/error?error=" + encodeURIComponent(e));
   }
+  redirect("/submit");
 }
 
 export default async function ProjectPage({
@@ -64,11 +76,6 @@ export default async function ProjectPage({
   let project: Project | undefined = undefined;
   if (id !== "new") {
     project = await getRecord(id);
-
-    if (!project)
-      redirect(
-        "/error?title=Project not found&error=We could not find that project.",
-      );
   }
 
   const { projects } = await fetch(

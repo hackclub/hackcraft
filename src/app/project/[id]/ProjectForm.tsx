@@ -433,9 +433,26 @@ export default function ProjectForm({
             validation.totalErrors > 0
               ? "Fix form errors before submitting"
               : "Submit project"
-          }>
+          }
+          style={{ marginRight: "1rem" }}>
           Submit project
         </button>
+        {id !== "new" && project?.status === "Draft" && (
+          <button
+            type="submit"
+            name="intent"
+            value="delete"
+            onClick={e => {
+              if (
+                !confirm(
+                  "Are you sure you want to delete this draft? This action cannot be undone.",
+                )
+              )
+                e.preventDefault();
+            }}>
+            Delete draft
+          </button>
+        )}
       </div>
     </form>
   );
