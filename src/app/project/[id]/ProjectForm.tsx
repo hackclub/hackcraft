@@ -87,7 +87,7 @@ export default function ProjectForm({
     );
 
     if (
-      !/^https:\/\/(\S{1,256}\.){1,}\S{2,6}(\/\S+)+\/?$/.test(
+      !/^https:\/\/(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(?:\/[^\/\s]+)+\/?$/.test(
         values.playable_url,
       )
     ) {
@@ -99,7 +99,9 @@ export default function ProjectForm({
     }
 
     if (
-      !/^https:\/\/(\S{1,256}\.){1,}\S{2,6}(\/\S+)+\/?$/.test(values.code_url)
+      !/^https:\/\/(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(?:\/[^\/\s]+)+\/?$/.test(
+        values.code_url,
+      )
     )
       validation.code_url.errors.push("Code URL must be a valid https URL.");
 
@@ -182,7 +184,9 @@ export default function ProjectForm({
     if (
       screenshotUrls.filter(
         url =>
-          !/^https:\/\/(\S{1,256}\.){1,}\S{2,6}(\/\S+)+\/?$/.test(url) &&
+          !/^https:\/\/(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(?:\/[^\/\s]+)+\/?$/.test(
+            url,
+          ) &&
           !/^data:image\/(png|jpeg|jpg|gif|webp|avif|bmp|svg\+xml);base64,/i.test(
             url,
           ),

@@ -19,12 +19,21 @@ export default function LazyVideo({ src }: { src: string }) {
     return () => observer.disconnect();
   }, []);
 
-  if (src.includes("youtube.com/watch") || src.includes("youtu.be")) {
-    const url = new URL(src);
-    const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
-    src = `https://www.youtube.com/embed/${videoId}`;
-  } else if (src.includes("hc-cdn.hel1"))
-    src = "https://cdn.hackclub.com/rescue?url=" + src;
+  if (!link)
+    try {
+      const url = new URL(src);
+      if (
+        (url.hostname === "youtube.com" && url.pathname === "/watch") ||
+        url.hostname === "youtu.be"
+      ) {
+        const videoId =
+          url.searchParams.get("v") || url.pathname.split("/").pop();
+        src = `https://www.youtube.com/embed/${videoId}`;
+      } else if (url.hostname == "hc-cdn.hel1.your-objectstorage.com")
+        src = "https://cdn.hackclub.com/rescue?url=" + src;
+    } catch {
+      setLink(true);
+    }
 
   return (
     <div ref={ref}>
