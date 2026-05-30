@@ -23,6 +23,7 @@ export default function TiledDiv(
     const el = ref.current;
     if (!el) return;
 
+    const resize = () => (el.style.minHeight = "");
     const observer = new ResizeObserver(entries => {
       el.style.minHeight =
         (props.background != "bedrock" ||
@@ -32,10 +33,13 @@ export default function TiledDiv(
     });
 
     observer.observe(el);
-    const resize = () => (el.style.minHeight = "");
+    const mo = new MutationObserver(resize);
+    mo.observe(document.body, { childList: true, subtree: true });
+
     window.addEventListener("resize", resize);
     return () => {
       observer.disconnect();
+      mo.disconnect();
       window.removeEventListener("resize", resize);
     };
   }, []);

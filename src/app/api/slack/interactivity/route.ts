@@ -8,7 +8,6 @@ import {
 export async function POST(request: Request) {
   const raw = await request.text();
   try {
-    // doesn't fucking work
     if (!verifySlackRequest(request, raw))
       return new NextResponse("Invalid Slack signature", { status: 401 });
 
@@ -29,7 +28,7 @@ export async function POST(request: Request) {
       )
         continue;
 
-      sendMessage({
+      await sendMessage({
         channel: payload.user.id,
         blocks: [
           {
@@ -52,7 +51,7 @@ export async function POST(request: Request) {
       });
     }
   } catch (e: any) {
-    sendMessage({
+    await sendMessage({
       channel: "U07AGEVSTD2",
       text: `Error in Slack interactivity route: ${e} ${e.message}`,
     });

@@ -7,6 +7,8 @@ export default function Carrousel(props: {
   images: string[];
   initialIndex: number;
   onClose: () => void;
+  projectUrl?: string;
+  codeUrl?: string;
 }) {
   const [activeIndex, setActiveIndex] = useState(props.initialIndex);
 
@@ -57,15 +59,30 @@ export default function Carrousel(props: {
           &lt;
         </div>
       )}
-      {props.images.length > 1 && (
-        <span
-          style={{
-            position: "absolute",
-            bottom: "1rem",
-          }}>
-          {activeIndex + 1} / {props.images.length}
-        </span>
-      )}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "1rem",
+          display: "flex",
+          gap: "3rem",
+        }}
+        onClick={e => e.stopPropagation()}>
+        {props.projectUrl && (
+          <a href={props.projectUrl} target="_blank" rel="noreferrer">
+            Play
+          </a>
+        )}
+        {props.images.length > 1 && (
+          <span>
+            {activeIndex + 1} / {props.images.length}
+          </span>
+        )}
+        {props.codeUrl && (
+          <a href={props.codeUrl} target="_blank" rel="noreferrer">
+            Code
+          </a>
+        )}
+      </div>
       {activeIndex < props.images.length - 1 && (
         <div
           onClick={e => {

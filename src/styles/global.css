@@ -204,8 +204,10 @@ button:disabled {
 
 .section {
   max-width: 42em;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
   padding: 1.5rem;
   box-shadow:
@@ -308,7 +310,6 @@ button:disabled {
   left: 10px;
   border: 0;
   width: 128px;
-  z-index: 999;
 }
 
 .banner:hover {
@@ -413,7 +414,6 @@ code {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #100010;
   background-color: rgba(16, 0, 16, 0.94);
   padding: 0.375em;
   font-family: Minecraft, sans-serif;
@@ -557,5 +557,51 @@ textarea {
 
 .carrousel-button:hover {
   font-size: 1.5em;
+  opacity: 1;
+}
+
+.project {
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  max-height: 10rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.project img {
+  width: 100%;
+  max-height: 10rem;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.7rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.45) 35%,
+    rgba(0, 0, 0, 0.08) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.project:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  overflow: visible;
+}
+
+.project:hover .gallery-overlay {
   opacity: 1;
 }

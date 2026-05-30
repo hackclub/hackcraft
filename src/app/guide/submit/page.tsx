@@ -41,7 +41,7 @@ export default function Submit() {
           </ul>
         </div>
       </TiledDiv>
-      <TiledDiv background="cobblestone" style={{ padding: "1rem" }}>
+      <TiledDiv background="cobblestone" style={{ paddingTop: "1rem" }}>
         <div className="section">
           <div id="1" className="section-title">
             <h3>Publishing to GitHub</h3>
@@ -69,11 +69,7 @@ export default function Submit() {
             in your project folder.
           </p>
         </div>
-        <div
-          className="section"
-          style={{
-            marginTop: "1rem",
-          }}>
+        <div className="section">
           <div id="2" className="section-title">
             <h3>Publishing to Modrinth</h3>
             <a href="#3" className="skip">

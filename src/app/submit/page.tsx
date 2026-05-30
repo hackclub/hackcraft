@@ -25,11 +25,9 @@ export default async function Submit() {
         <div
           className="section"
           style={{
-            width: "100%",
             background:
               "linear-gradient(135deg,rgba(10, 10, 10, 0.8),rgba(0, 0, 0, 0.7))",
             display: "flex",
-            marginBottom: "1rem",
           }}>
           <div>
             <b>
@@ -52,7 +50,6 @@ export default async function Submit() {
         <div
           className="section"
           style={{
-            width: "100%",
             margin: "0 auto",
             display: "grid",
             gap: "1rem",

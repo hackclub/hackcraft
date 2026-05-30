@@ -27,7 +27,7 @@ export default async function Stickers(props: {
             </p>
           </div>
         ) : (
-          <div className="section" style={{ width: "50%" }}>
+          <div className="section">
             <form
               action={async (formData: FormData) => {
                 "use server";

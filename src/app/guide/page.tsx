@@ -16,7 +16,6 @@ export default function GuidePage() {
           className="section"
           style={{
             marginBottom: "1rem",
-            width: "100%",
           }}>
           <h2>No Experience?</h2>
           <p>
@@ -192,7 +191,7 @@ export default function GuidePage() {
           </p>
         </div>
       </TiledDiv>
-      <TiledDiv background="deepslate" style={{ padding: "1rem" }}>
+      <TiledDiv background="deepslate" style={{ paddingTop: "1rem" }}>
         <div className="section">
           <h2>How do I submit my finished project?</h2>
           <p>

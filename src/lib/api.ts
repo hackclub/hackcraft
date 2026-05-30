@@ -52,7 +52,9 @@ export function exchangeCodeForToken(
 
 export async function getRecord(rec: string): Promise<Project | undefined> {
   try {
-    const project = mapSubmissionRecord(await submissions.find(rec));
+    const record = await submissions.find(rec);
+    if (!record) throw null;
+    const project = mapSubmissionRecord(record);
     if (
       !project ||
       project.slack_id !== ((await getIdentity())?.slack_id || "")
@@ -64,6 +66,31 @@ export async function getRecord(rec: string): Promise<Project | undefined> {
       "/error?title=Project not found&error=We could not find that project.",
     );
   }
+}
+
+export async function getAllProjects() {
+  const records = await submissions
+    .select({
+      filterByFormula: `${FIELDS.status}="Approved"`,
+    })
+    .all();
+
+  return records
+    .map(record => {
+      const event = record.get(FIELDS.event) as string;
+      return {
+        slack_id: record.get(FIELDS.slackId) as string,
+        code_url: record.get(FIELDS.codeUrl) as string,
+        playable_url: record.get(FIELDS.playableUrl) as string,
+        screenshots:
+          (
+            record.get(FIELDS.screenshots) as { url: string }[] | undefined
+          )?.map(screenshot => screenshot.url) ?? [],
+        event: event.startsWith("!") ? event.slice(1) : event,
+        description: record.get(FIELDS.description) as string,
+      };
+    })
+    .sort(() => Math.random() - 0.5);
 }
 
 export async function updateApprovedProjectField(
@@ -118,10 +145,12 @@ export async function saveProject({
   else {
     const req = await submissions.find(id);
     if (
+      req &&
       req.get(FIELDS.status) != "Approved" &&
       req.get(FIELDS.slackId) == identity.slack_id
     )
       await req.patchUpdate(data);
+    else redirect("/error?error=Failed to update project");
   }
 }
 

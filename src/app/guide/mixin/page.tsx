@@ -25,7 +25,7 @@ export default function GuidePage() {
           </p>
         </div>
       </TiledDiv>
-      <TiledDiv background="cobblestone" style={{ padding: "1rem" }}>
+      <TiledDiv background="cobblestone" style={{ paddingTop: "1rem" }}>
         <div className="section">
           <div className="section-title" id="1">
             <h3>Localizing Our Target</h3>
@@ -210,9 +210,7 @@ export default function GuidePage() {
           </p>
         </div>
       </TiledDiv>
-      <TiledDiv
-        background="deepslate"
-        style={{ paddingTop: "1em", paddingBottom: "1em" }}>
+      <TiledDiv background="deepslate" style={{ paddingTop: "1em" }}>
         <div className="section">
           <div className="section-title" id="3">
             <h3>Injecting the code</h3>
