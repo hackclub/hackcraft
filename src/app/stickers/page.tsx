@@ -14,44 +14,29 @@ export default async function Stickers(props: {
     <Page>
       <TiledDiv id="header" background="dirt">
         {(await props.searchParams).success ? (
-          (await props.searchParams).success == "true" ? (
-            <div
-              className="section"
-              style={{
-                border: "3px solid rgba(85, 255, 85, 0.6)",
-              }}>
-              <h2>Success!</h2>
-              <p>
-                Your stickers should be on their way! Check{" "}
-                <a href="https://mail.hackclub.com">mail.hackclub.com</a> to
-                track the delivery.
-              </p>
-            </div>
-          ) : (
-            <div
-              className="section"
-              style={{
-                border: "3px solid rgba(255, 85, 85, 0.6)",
-                background: "rgba(18, 6, 6, 0.7)",
-              }}>
-              <h2>Not eligible</h2>
-              <p>
-                It seems like you have no approved projects with unclaimed
-                stickers. If you think this is a mistake, please tell us in
-                #mc-modding.
-              </p>
-            </div>
-          )
+          <div
+            className="section"
+            style={{
+              border: "3px solid rgba(85, 255, 85, 0.6)",
+            }}>
+            <h2>Success!</h2>
+            <p>
+              Your stickers should be on their way! Check{" "}
+              <a href="https://mail.hackclub.com">mail.hackclub.com</a> to track
+              the delivery.
+            </p>
+          </div>
         ) : (
           <div className="section" style={{ width: "50%" }}>
             <form
               action={async (formData: FormData) => {
                 "use server";
-
-                redirect(
-                  "/stickers?success=" +
-                    (await claimStickers(formData.get("address") as string)),
-                );
+                if (await claimStickers(formData.get("address") as string))
+                  redirect("/stickers?success");
+                else
+                  redirect(
+                    "/error?title=Ineligible&error=It seems like you have no approved projects with unclaimed stickers. If you think this is a mistake, please tell us in #mc-modding.",
+                  );
               }}>
               <h2>Want some stickers?</h2>
               <select name="address" id="address" required>

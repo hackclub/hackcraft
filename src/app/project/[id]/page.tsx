@@ -7,47 +7,51 @@ import { FIELDS, getAccessToken, getIdentity, Project } from "~/lib/util";
 
 async function save(formData: FormData) {
   "use server";
-  const identity = await getIdentity();
-  if (!identity) return;
+  try {
+    const identity = await getIdentity();
+    if (!identity) return;
 
-  const address =
-    identity?.addresses?.find(item => item?.primary) ??
-    identity?.addresses?.[0];
+    const address =
+      identity?.addresses?.find(item => item?.primary) ??
+      identity?.addresses?.[0];
 
-  await saveProject({
-    id: formData.get("id") as string,
-    identity,
-    data: {
-      [FIELDS.codeUrl]: formData.get("code_url"),
-      [FIELDS.playableUrl]: formData.get("playable_url"),
-      [FIELDS.description]: formData.get("description"),
-      [FIELDS.screenshots]: ((formData.get("screenshots") as string) ?? "")
-        .split("\n")
-        .map(url => url.trim())
-        .filter(Boolean)
-        .map(url => ({ url })),
-      [FIELDS.hackatimeProjects]: formData.get("hackatime_projects"),
-      [FIELDS.hourOverride]:
-        parseInt(formData.get("hour_override") as string) || undefined,
-      [FIELDS.notes]: formData.get("notes"),
-      [FIELDS.prize]: formData.get("prize") || undefined,
-      [FIELDS.event]: formData.get("event"),
-      [FIELDS.status]:
-        formData.get("intent") === "submit" ? "Submitted" : "Draft",
-      [FIELDS.firstName]: identity?.first_name,
-      [FIELDS.lastName]: identity?.last_name,
-      [FIELDS.email]: identity?.primary_email,
-      [FIELDS.slackId]: identity?.slack_id,
-      [FIELDS.birthday]: identity?.birthday,
-      [FIELDS.addressLine1]: address?.line_1,
-      [FIELDS.addressLine2]: address?.line_2,
-      [FIELDS.city]: address?.city,
-      [FIELDS.state]: address?.state,
-      [FIELDS.postalCode]: address?.postal_code,
-      [FIELDS.country]: address?.country,
-    },
-  });
-  redirect("/submit");
+    await saveProject({
+      id: formData.get("id") as string,
+      identity,
+      data: {
+        [FIELDS.codeUrl]: formData.get("code_url"),
+        [FIELDS.playableUrl]: formData.get("playable_url"),
+        [FIELDS.description]: formData.get("description"),
+        [FIELDS.screenshots]: ((formData.get("screenshots") as string) ?? "")
+          .split("\n")
+          .map(url => url.trim())
+          .filter(Boolean)
+          .map(url => ({ url })),
+        [FIELDS.hackatimeProjects]: formData.get("hackatime_projects"),
+        [FIELDS.hourOverride]:
+          parseInt(formData.get("hour_override") as string) || undefined,
+        [FIELDS.notes]: formData.get("notes"),
+        [FIELDS.prize]: formData.get("prize") || undefined,
+        [FIELDS.event]: formData.get("event"),
+        [FIELDS.status]:
+          formData.get("intent") === "submit" ? "Submitted" : "Draft",
+        [FIELDS.firstName]: identity?.first_name,
+        [FIELDS.lastName]: identity?.last_name,
+        [FIELDS.email]: identity?.primary_email,
+        [FIELDS.slackId]: identity?.slack_id,
+        [FIELDS.birthday]: identity?.birthday,
+        [FIELDS.addressLine1]: address?.line_1,
+        [FIELDS.addressLine2]: address?.line_2,
+        [FIELDS.city]: address?.city,
+        [FIELDS.state]: address?.state,
+        [FIELDS.postalCode]: address?.postal_code,
+        [FIELDS.country]: address?.country,
+      },
+    });
+    redirect("/submit");
+  } catch (e: any) {
+    redirect("/error?error=" + encodeURIComponent(e["message"]));
+  }
 }
 
 export default async function ProjectPage({
@@ -62,20 +66,8 @@ export default async function ProjectPage({
     project = await getRecord(id);
 
     if (!project)
-      return (
-        <Page back="/submit">
-          <TiledDiv id="header" background="dirt">
-            <div
-              className="section"
-              style={{
-                border: "3px solid rgba(255, 85, 85, 0.6)",
-                background: "rgba(18, 6, 6, 0.7)",
-              }}>
-              <h2>Project not found</h2>
-              <p>We could not find that project.</p>
-            </div>
-          </TiledDiv>
-        </Page>
+      redirect(
+        "/error?title=Project not found&error=We could not find that project.",
       );
   }
 

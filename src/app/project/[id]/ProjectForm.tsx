@@ -50,7 +50,7 @@ export default function ProjectForm({
     prizes: string[];
     projects: { name: string; total_seconds: number; languages: string[] }[];
   };
-  action: (formData: FormData) => void | Promise<void>;
+  action: (formData: FormData) => Promise<void>;
 }) {
   const [values, setValues] = useState({
     code_url: "",

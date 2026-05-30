@@ -7,46 +7,54 @@ import {
 
 export async function POST(request: Request) {
   const raw = await request.text();
-  if (!verifySlackRequest(request, raw))
-    return new NextResponse("Invalid Slack signature", { status: 401 });
+  try {
+    // doesn't fucking work
+    if (!verifySlackRequest(request, raw))
+      return new NextResponse("Invalid Slack signature", { status: 401 });
 
-  const payload = JSON.parse(new URLSearchParams(raw).get("payload")!);
+    const payload = JSON.parse(new URLSearchParams(raw).get("payload")!);
 
-  for (const action of payload.actions ?? []) {
-    if (action.action_id === "feedback")
+    for (const action of payload.actions ?? []) {
+      if (action.action_id === "feedback")
+        sendMessage({
+          channel: "U07AGEVSTD2",
+          text: action.value,
+        });
+      if (
+        !(await updateApprovedProjectField(
+          payload.user.id,
+          action.action_id,
+          action.value,
+        ))
+      )
+        continue;
+
       sendMessage({
-        channel: "U07AGEVSTD2",
-        text: action.value,
-      });
-    if (
-      !(await updateApprovedProjectField(
-        payload.user.id,
-        action.action_id,
-        action.value,
-      ))
-    )
-      continue;
-
-    sendMessage({
-      channel: payload.user.id,
-      blocks: [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: "Thanks, click the button to get some Minecraft style Hack Club stickers!",
-          },
-          accessory: {
-            type: "button",
+        channel: payload.user.id,
+        blocks: [
+          {
+            type: "section",
             text: {
-              type: "plain_text",
-              text: "Gib stickers!",
-              emoji: true,
+              type: "mrkdwn",
+              text: "Thanks, click the button to get some Minecraft style Hack Club stickers!",
             },
-            url: "https://hackcraft.hackclub.com/stickers",
+            accessory: {
+              type: "button",
+              text: {
+                type: "plain_text",
+                text: "Gib stickers!",
+                emoji: true,
+              },
+              url: "https://hackcraft.hackclub.com/stickers",
+            },
           },
-        },
-      ],
+        ],
+      });
+    }
+  } catch (e: any) {
+    sendMessage({
+      channel: "U07AGEVSTD2",
+      text: `Error in Slack interactivity route: ${e} ${e.message}`,
     });
   }
   return new NextResponse();

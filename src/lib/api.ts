@@ -130,13 +130,11 @@ export async function getFormOptions() {
     },
   )
     .then(r => r.json())
-    .then(data => {
-      return (
-        (Array.isArray(data?.tables) ? data.tables : []).find(
-          (table: any) => table.id === "tblx8k1fmPtQgDeUu",
-        )?.fields ?? []
-      );
-    });
+    .then(
+      data =>
+        data.tables.find((table: any) => table.id === "tblx8k1fmPtQgDeUu")
+          ?.fields ?? [],
+    );
 
   return {
     events:

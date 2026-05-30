@@ -2,17 +2,25 @@ import Link from "next/link";
 import ProjectCard from "./ProjectCard";
 import TiledDiv from "~/components/TiledDiv";
 import Page from "~/components/Page";
+import { getIdentity } from "~/lib/util";
+import { redirect } from "next/navigation";
 import { getSubmissionsForUser } from "~/lib/api";
-import { getIdentity, Identity } from "~/lib/util";
 
-async function Projects({ identity }: { identity: Identity }) {
+export default async function Submit() {
+  const identity = await getIdentity();
+  if (!identity.ysws_eligible)
+    redirect(
+      "/error?title=Not eligible&error=Your verification status is " +
+        (identity.verification_status ?? "unknown"),
+    );
+
   let projects = await getSubmissionsForUser(
     identity.slack_id,
     identity.primary_email,
   );
 
   return (
-    <>
+    <Page back="/api/logout" backText="logout">
       <TiledDiv id="header" background="dirt">
         <div
           className="section"
@@ -58,33 +66,6 @@ async function Projects({ identity }: { identity: Identity }) {
           )}
         </div>
       </TiledDiv>
-    </>
-  );
-}
-
-export default async function Submit() {
-  const identity = await getIdentity();
-
-  return (
-    <Page back="/api/logout" backText="logout">
-      {!identity?.ysws_eligible ? (
-        <TiledDiv id="header" background="dirt">
-          <div
-            className="section"
-            style={{
-              border: "3px solid rgba(255, 85, 85, 0.6)",
-              background: "rgba(18, 6, 6, 0.7)",
-            }}>
-            <h2>Not eligible</h2>
-            <p>
-              Your verification status is{" "}
-              <b>{identity?.verification_status ?? "unknown"}</b>.
-            </p>
-          </div>
-        </TiledDiv>
-      ) : (
-        <Projects identity={identity} />
-      )}
     </Page>
   );
 }
