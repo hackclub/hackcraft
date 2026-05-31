@@ -2,6 +2,7 @@ import Airtable, { Record } from "airtable";
 import { FIELDS, getIdentity, Identity, Project } from "./util";
 import crypto from "crypto";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 
 const base = new Airtable({
   apiKey: process.env.AIRTABLE_API_KEY,
@@ -69,6 +70,8 @@ export async function getRecord(rec: string): Promise<Project | undefined> {
 }
 
 export async function getAllProjects() {
+  await connection();
+
   const records = await submissions
     .select({
       filterByFormula: `${FIELDS.status}="Approved"`,

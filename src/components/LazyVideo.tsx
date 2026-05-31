@@ -41,7 +41,7 @@ export default function LazyVideo({ src }: { src: string }) {
       {visible &&
         (link ? (
           <a href={src}>Video</a>
-        ) : src.includes("youtube.com") ? (
+        ) : src.startsWith("https://www.youtube.com/embed") ? (
           <iframe
             style={{ width: "75%", aspectRatio: "16/9", border: "none" }}
             src={src}
