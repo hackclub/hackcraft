@@ -8,7 +8,7 @@ export default async function ErrorPage({
 }) {
   const params = await searchParams;
   return (
-    <Page back="/submit" backText="home">
+    <Page back="/" backText="home">
       <TiledDiv id="header" background="dirt">
         <div
           className="section"

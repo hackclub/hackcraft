@@ -9,7 +9,6 @@ export default async function Stickers(props: {
 }) {
   const identity = await getIdentity();
 
-  //todo add sticker image
   return (
     <Page>
       <TiledDiv id="header" background="dirt">
@@ -38,7 +37,20 @@ export default async function Stickers(props: {
                     "/error?title=Ineligible&error=It seems like you have no approved projects with unclaimed stickers. If you think this is a mistake, please tell us in #mc-modding.",
                   );
               }}>
-              <h2>Want some stickers?</h2>
+              <h2>
+                Want some{" "}
+                <img
+                  src="/images/stickers.webp"
+                  alt="hack club"
+                  style={{
+                    display: "inline",
+                    height: "1em",
+                    position: "relative",
+                    top: "0.2em",
+                  }}
+                />{" "}
+                stickers?
+              </h2>
               <select name="address" id="address" required>
                 {identity.addresses?.map(({ id, line_1, city }, i) => (
                   <option key={i} value={id}>

@@ -75,7 +75,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       )}
       <div className="project-links">
         {project.status != "Approved" && (
-          <Link href={`/project/${project.id}`}>Edit</Link>
+          <Link href={`/projects/${project.id}`}>Edit</Link>
         )}
         {project.code_url && (
           <a href={project.code_url} target="_blank" rel="noopener noreferrer">

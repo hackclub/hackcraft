@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import ImageUploader from "~/app/submit/ImageUploader";
+import ImageUploader from "~/app/projects/ImageUploader";
 import { Project } from "~/lib/util";
 
 function Validation({
@@ -40,16 +40,12 @@ function Validation({
 export default function ProjectForm({
   id,
   project,
-  fields,
+  projects,
   action,
 }: {
   id: string;
   project?: Project;
-  fields: {
-    events: string[];
-    prizes: string[];
-    projects: { name: string; total_seconds: number; languages: string[] }[];
-  };
+  projects: { name: string; total_seconds: number; languages: string[] }[];
   action: (formData: FormData) => Promise<void>;
 }) {
   const [values, setValues] = useState({
@@ -66,7 +62,7 @@ export default function ProjectForm({
   });
 
   const getHours = (projectNames: string[]) =>
-    fields.projects
+    projects
       .filter(project => projectNames.includes(project.name))
       .reduce((sum, project) => sum + project.total_seconds, 0) / 3600;
   const validation = useMemo(() => {
@@ -82,7 +78,7 @@ export default function ProjectForm({
       notes: { errors: [] as string[], warnings: [] as string[] },
     };
 
-    const selectedProjects = fields.projects.filter(project =>
+    const selectedProjects = projects.filter(project =>
       values.hackatime_projects.includes(project.name),
     );
 
@@ -260,7 +256,7 @@ export default function ProjectForm({
 
       <div>
         <label>Hackatime projects</label>
-        {fields.projects.length === 0 ? (
+        {projects.length === 0 ? (
           <p className="muted">No Hackatime projects found</p>
         ) : (
           <div
@@ -269,7 +265,7 @@ export default function ProjectForm({
               gap: "0.5rem",
               gridTemplateColumns: "1fr 1fr",
             }}>
-            {fields.projects.map(project => {
+            {projects.map(project => {
               const checked = values.hackatime_projects.includes(project.name);
               return (
                 <span
@@ -358,7 +354,7 @@ export default function ProjectForm({
             <option value="" disabled>
               Select an event
             </option>
-            {fields.events.map(option => (
+            {["Hackcraft V4", "The Great Download Challenge"].map(option => (
               <option key={option} value={option}>
                 {option}
               </option>
@@ -373,7 +369,13 @@ export default function ProjectForm({
             value={values.prize}
             onChange={e => updateField("prize", e.target.value)}>
             <option value="">Select a prize</option>
-            {fields.prizes.map(option => (
+            {[
+              "Minecraft License",
+              "Grant for Servers (30$)",
+              "Hytale",
+              "20$ Grant for buying games",
+              "800$ Computer Grant",
+            ].map(option => (
               <option key={option} value={option}>
                 {option}
               </option>

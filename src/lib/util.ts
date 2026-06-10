@@ -70,7 +70,7 @@ export async function getAccessToken(type: "hca" | "hackatime") {
   const access_token = (await cookies()).get(`${type}_access_token`)?.value;
   if (!access_token)
     redirect(
-      `https://${type == "hca" ? "auth" : type}.hackclub.com/oauth/authorize?client_id=${process.env[type.toUpperCase() + "_CLIENT_ID"]}&redirect_uri=https%3A%2F%2Fhackcraft.hackclub.com%2Fapi%2F${type}%2Fcallback&response_type=code&scope=${type == "hca" ? "name+email+slack_id+verification_status+basic_info+address" : "profile+read"}`,
+      `https://${type == "hca" ? "auth" : type}.hackclub.com/oauth/authorize?client_id=${process.env[type.toUpperCase() + "_CLIENT_ID"]}&redirect_uri=https%3A%2F%2F${process.env.URL || "hackcraft.hackclub.com"}%2Fapi%2F${type}%2Fcallback&response_type=code&scope=${type == "hca" ? "name+email+slack_id+verification_status+basic_info+address" : "profile+read"}`,
     );
   return access_token;
 }

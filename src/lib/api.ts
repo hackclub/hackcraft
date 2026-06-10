@@ -4,10 +4,12 @@ import crypto from "crypto";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 
-const base = new Airtable({
-  apiKey: process.env.AIRTABLE_API_KEY,
-}).base("appROpbCKgNm7r5ln");
-const submissions = base("tblx8k1fmPtQgDeUu");
+const submissions = () =>
+  new Airtable({
+    apiKey: process.env.AIRTABLE_API_KEY,
+  })
+    .base("appROpbCKgNm7r5ln")
+    .table("tblx8k1fmPtQgDeUu");
 
 function mapSubmissionRecord(record: Record<any>): Project {
   return {
@@ -41,7 +43,7 @@ export function exchangeCodeForToken(
       body: new URLSearchParams({
         client_id: process.env[type.toUpperCase() + "_CLIENT_ID"]!,
         client_secret: process.env[type.toUpperCase() + "_CLIENT_SECRET"]!,
-        redirect_uri: `https://hackcraft.hackclub.com/api/${type}/callback`,
+        redirect_uri: `https://${process.env.URL || "hackcraft.hackclub.com"}/api/${type}/callback`,
         code,
         grant_type: "authorization_code",
       }),
@@ -53,7 +55,7 @@ export function exchangeCodeForToken(
 
 export async function getRecord(rec: string): Promise<Project | undefined> {
   try {
-    const record = await submissions.find(rec);
+    const record = await submissions().find(rec);
     if (!record) throw null;
     const project = mapSubmissionRecord(record);
     if (
@@ -72,7 +74,7 @@ export async function getRecord(rec: string): Promise<Project | undefined> {
 export async function getAllProjects() {
   await connection();
 
-  const records = await submissions
+  const records = await submissions()
     .select({
       filterByFormula: `${FIELDS.status}="Approved"`,
     })
@@ -102,7 +104,7 @@ export async function updateApprovedProjectField(
   value: string,
 ) {
   try {
-    const [record] = await submissions
+    const [record] = await submissions()
       .select({
         filterByFormula: `AND({${FIELDS.slackId}}="${slackId}",${FIELDS.status}="Approved")`,
       })
@@ -126,7 +128,7 @@ export async function updateApprovedProjectField(
 }
 
 export async function getSubmissionsForUser(slackId: string, email: string) {
-  const records = await submissions
+  const records = await submissions()
     .select({
       filterByFormula: `OR({${FIELDS.slackId}}="${slackId}",{${FIELDS.email}}="${email}")`,
     })
@@ -144,9 +146,9 @@ export async function saveProject({
   identity: Identity;
   data: any;
 }) {
-  if (id == "new") await submissions.create(data);
+  if (id == "new") await submissions().create(data);
   else {
-    const req = await submissions.find(id);
+    const req = await submissions().find(id);
     if (
       req &&
       req.get(FIELDS.status) != "Approved" &&
@@ -158,7 +160,7 @@ export async function saveProject({
 }
 
 export async function deleteProject(id: string, identity: Identity) {
-  const req = await submissions.find(id);
+  const req = await submissions().find(id);
   if (
     req &&
     req.get(FIELDS.status) == "Draft" &&
@@ -167,43 +169,12 @@ export async function deleteProject(id: string, identity: Identity) {
     await req.destroy();
 }
 
-export async function getFormOptions() {
-  const fields = await fetch(
-    "https://api.airtable.com/v0/meta/bases/appROpbCKgNm7r5ln/tables",
-    {
-      headers: {
-        Authorization: "Bearer " + process.env.AIRTABLE_API_KEY,
-      },
-      next: { revalidate: 86400 },
-    },
-  )
-    .then(r => r.json())
-    .then(
-      data =>
-        data.tables.find((table: any) => table.id === "tblx8k1fmPtQgDeUu")
-          ?.fields ?? [],
-    );
-
-  return {
-    events:
-      fields
-        .find((field: any) => field.name === FIELDS.event)
-        ?.options?.choices.map((choice: any) => choice.name)
-        .filter((name: string) => !name.startsWith("!")) ?? [],
-    prizes:
-      fields
-        .find((field: any) => field.name === FIELDS.prize)
-        ?.options?.choices.map((choice: any) => choice.name)
-        .filter((name: string) => !name.startsWith("!")) ?? [],
-  };
-}
-
 export async function claimStickers(addressId: string) {
   try {
     const identity = await getIdentity();
     if (!identity?.slack_id) return false;
 
-    const [record] = await submissions
+    const [record] = await submissions()
       .select({
         filterByFormula: `AND({${FIELDS.slackId}}="${identity.slack_id}",{${FIELDS.status}}="Approved",NOT(${FIELDS.stickers}))`,
       })
@@ -248,8 +219,9 @@ export function verifySlackRequest(request: Request, rawBody: string) {
     .digest("hex");
 
   try {
-    const a = Buffer.from(`v0=${hmac}`);
-    const b = Buffer.from(sig);
+    const encoder = new TextEncoder();
+    const a = encoder.encode(`v0=${hmac}`);
+    const b = encoder.encode(sig);
     if (a.length !== b.length) return false;
     return crypto.timingSafeEqual(a, b);
   } catch (e) {

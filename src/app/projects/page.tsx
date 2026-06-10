@@ -18,7 +18,6 @@ export default async function Submit() {
     identity.slack_id,
     identity.primary_email,
   );
-
   return (
     <Page back="/api/logout" backText="logout">
       <TiledDiv id="header" background="dirt">
@@ -37,7 +36,7 @@ export default async function Submit() {
           </div>
           <Link
             className="hoverable form-link"
-            href="/project/new"
+            href="/projects/new"
             style={{
               marginRight: "0",
             }}>

@@ -2,12 +2,7 @@ import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
 import { redirect } from "next/navigation";
 import ProjectForm from "./ProjectForm";
-import {
-  getRecord,
-  getFormOptions,
-  saveProject,
-  deleteProject,
-} from "~/lib/api";
+import { getRecord, saveProject, deleteProject } from "~/lib/api";
 import { FIELDS, getAccessToken, getIdentity, Project } from "~/lib/util";
 
 async function save(formData: FormData) {
@@ -18,7 +13,7 @@ async function save(formData: FormData) {
 
   if (intent === "delete") {
     await deleteProject(formData.get("id") as string, identity);
-    redirect("/submit");
+    redirect("/projects");
   }
 
   try {
@@ -63,7 +58,7 @@ async function save(formData: FormData) {
     console.error(e);
     redirect("/error?error=" + encodeURIComponent(e));
   }
-  redirect("/submit");
+  redirect("/projects");
 }
 
 export default async function ProjectPage({
@@ -86,10 +81,9 @@ export default async function ProjectPage({
       },
     },
   ).then(r => r.json());
-  const fields = await getFormOptions();
 
   return (
-    <Page back="/submit">
+    <Page back="/projects">
       <TiledDiv id="header" background="dirt" style={{ paddingBottom: "1rem" }}>
         <div id="subtitle" style={{ fontSize: "1.2em", marginBottom: "2em" }}>
           <span>{id === "new" ? "New" : "Edit"} Project</span>
@@ -97,11 +91,7 @@ export default async function ProjectPage({
         <ProjectForm
           id={id}
           project={project}
-          fields={{
-            events: fields.events,
-            prizes: fields.prizes,
-            projects: projects.filter((p: any) => p.total_seconds > 3600),
-          }}
+          projects={projects.filter((p: any) => p.total_seconds > 3600)}
           action={save}
         />
       </TiledDiv>
