@@ -151,7 +151,8 @@ export async function saveProject({
 
   data[FIELDS.screenshots] = screenshots?.filter(s => !s.url.startsWith("data:")) ?? [];
 
-  if (id == "new") id = (await submissions().create(data))[0].id;
+  //@ts-ignore types are wrong mate
+  if (id == "new") id = (await submissions().create(data)).id;
   else {
     const req = await submissions().find(id);
     if (

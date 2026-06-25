@@ -78,8 +78,6 @@ export default function ProjectForm({
       code_url: { errors: [] as string[], warnings: [] as string[] },
       description: { errors: [] as string[], warnings: [] as string[] },
       hour_override: { errors: [] as string[], warnings: [] as string[] },
-      event: { errors: [] as string[], warnings: [] as string[] },
-      prize: { errors: [] as string[], warnings: [] as string[] },
       hackatime_projects: { errors: [] as string[], warnings: [] as string[] },
       screenshots: { errors: [] as string[], warnings: [] as string[] },
       notes: { errors: [] as string[], warnings: [] as string[] },
@@ -124,8 +122,6 @@ export default function ProjectForm({
         "Please describe your project itself, this is not your readme.",
       );
     }
-
-    if (!values.event) validation.event.errors.push("Please select an event.");
 
     if (selectedProjects.length === 0)
       validation.hackatime_projects.errors.push(
@@ -391,18 +387,13 @@ export default function ProjectForm({
           <select
             name="event"
             value={values.event}
-            onChange={e => updateField("event", e.target.value)}
-            aria-invalid={validation.event.errors.length > 0}>
-            <option value="" disabled>
-              Select an event
-            </option>
+            onChange={e => updateField("event", e.target.value)}>
             {["Hackcraft V4", "The Great Download Challenge"].map(option => (
               <option key={option} value={option}>
                 {option}
               </option>
             ))}
           </select>
-          <Validation validation={validation.event} />
         </div>
       </div>
 
@@ -534,7 +525,7 @@ export default function ProjectForm({
               </div>
             ))}
         </div>
-        <input name="prize" value={values.prize} hidden />
+        <input name="prize" value={values.prize} hidden readOnly />
       </div>
 
       <div>
