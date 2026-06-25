@@ -33,8 +33,8 @@ export default async function Stickers(props: {
                 if (await claimStickers(formData.get("address") as string))
                   redirect("/stickers?success");
                 else
-                  redirect(
-                    "/error?title=Ineligible&error=It seems like you have no approved projects with unclaimed stickers. If you think this is a mistake, please tell us in #mc-modding.",
+                  throw new Error(
+                    "It seems like you have no approved projects with unclaimed stickers. If you think this is a mistake, please tell us in #mc-modding.",
                   );
               }}>
               <h2>

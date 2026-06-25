@@ -3,16 +3,10 @@ import ProjectCard from "./ProjectCard";
 import TiledDiv from "~/components/TiledDiv";
 import Page from "~/components/Page";
 import { getIdentity } from "~/lib/util";
-import { redirect } from "next/navigation";
 import { getSubmissionsForUser } from "~/lib/api";
 
 export default async function Submit() {
   const identity = await getIdentity();
-  if (!identity.ysws_eligible)
-    redirect(
-      "/error?title=Not eligible&error=Your verification status is " +
-        (identity.verification_status ?? "unknown"),
-    );
 
   let projects = await getSubmissionsForUser(
     identity.slack_id,

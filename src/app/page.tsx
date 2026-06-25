@@ -8,7 +8,7 @@ export default function HomePage() {
       <TiledDiv id="header" background="dirt">
         <div id="subtitle" style={{ fontSize: "1.2em" }}>
           <span>Ship a mod</span>
-          <span>Get Minecraft</span>
+          <span>Get Minecraft{/*And more?*/}</span>
         </div>
         <div
           style={{
@@ -70,7 +70,7 @@ export default function HomePage() {
             className="item-step hoverable"
             style={{ backgroundImage: "url(/images/minecraft.webp)" }}>
             <div className="mc-number">4</div>
-            <p className="item-text">Get Minecraft!</p>
+            <p className="item-text">Get prizes!</p>
           </div>
         </div>
       </TiledDiv>
@@ -141,7 +141,7 @@ export default function HomePage() {
           <h2>FAQ</h2>
           <h4>- How much time do I need to spend on my mod?</h4>
           <p>
-            Doesn't matter!
+            Doesn't matter as long as you commit regularly!
             <br />
             <b>You still need Hackatime tho!</b>
           </p>
@@ -149,6 +149,13 @@ export default function HomePage() {
           <p>
             No, you don't need an account to create a mod and you can get one
             after!
+          </p>
+          <h4>- Is this legit?</h4>
+          <p>
+            Yep! This program is ran by{" "}
+            <a href="https://hackclub.com/philosophy">Hack Club</a>, an awesome
+            nonprofit powered by donations, you can view our finances{" "}
+            <a href="https://hcb.hackclub.com/minecraft-modding-ysws">here</a>.
           </p>
           <h4>- Can I submit an old mod?</h4>
           <p>Sorry! But it needs to be new.</p>

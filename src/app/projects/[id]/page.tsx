@@ -2,12 +2,16 @@ import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
 import { redirect } from "next/navigation";
 import ProjectForm from "./ProjectForm";
-import { getRecord, saveProject, deleteProject } from "~/lib/api";
+import { getRecord, saveProject, deleteProject, sendMessage } from "~/lib/api";
 import { FIELDS, getAccessToken, getIdentity, Project } from "~/lib/util";
 
-async function save(formData: FormData) {
+async function save(
+  prevState: { error?: string } | undefined,
+  formData: FormData,
+): Promise<{ error?: string } | undefined> {
   "use server";
-  const intent = formData.get("intent");
+  let error;
+  let intent = formData.get("intent");
   const identity = await getIdentity();
   if (!identity) return;
 
@@ -16,48 +20,82 @@ async function save(formData: FormData) {
     redirect("/projects");
   }
 
-  try {
-    const address =
-      identity?.addresses?.find(item => item?.primary) ??
-      identity?.addresses?.[0];
+  if (
+    (await fetch(
+      `https://hackatime.hackclub.com/api/v1/users/${identity?.slack_id}/trust_factor`,
+    ).then(r => r.json())) == 1
+  )
+    error =
+      "Your hackatime account is restricted, please contact @Fraud Squad on Slack";
+  if (
+    (
+      await fetch(
+        `https://api2.hackclub.com/v0.1/Unified YSWS Projects DB/Approved Projects?select={"maxRecords":1,"filterByFormula":"LOWER({Code URL})=LOWER('${formData.get(`code_url`)}')","fields":[]}`,
+      ).then(r => r.json())
+    ).length
+  )
+    error =
+      "This project seems to already be submitted to another YSWS, please note that double dipping is not allowed.";
 
-    await saveProject({
-      id: formData.get("id") as string,
-      identity,
-      data: {
-        [FIELDS.codeUrl]: formData.get("code_url"),
-        [FIELDS.playableUrl]: formData.get("playable_url"),
-        [FIELDS.description]: formData.get("description"),
-        [FIELDS.screenshots]: ((formData.get("screenshots") as string) ?? "")
-          .split("\n")
-          .map(url => url.trim())
-          .filter(Boolean)
-          .map(url => ({ url })),
-        [FIELDS.hackatimeProjects]: formData.get("hackatime_projects"),
-        [FIELDS.hourOverride]:
-          parseInt(formData.get("hour_override") as string) || undefined,
-        [FIELDS.notes]: formData.get("notes"),
-        [FIELDS.prize]: formData.get("prize") || undefined,
-        [FIELDS.event]: formData.get("event"),
-        [FIELDS.status]:
-          formData.get("intent") === "submit" ? "Submitted" : "Draft",
-        [FIELDS.firstName]: identity?.first_name,
-        [FIELDS.lastName]: identity?.last_name,
-        [FIELDS.email]: identity?.primary_email,
-        [FIELDS.slackId]: identity?.slack_id,
-        [FIELDS.birthday]: identity?.birthday,
-        [FIELDS.addressLine1]: address?.line_1,
-        [FIELDS.addressLine2]: address?.line_2,
-        [FIELDS.city]: address?.city,
-        [FIELDS.state]: address?.state,
-        [FIELDS.postalCode]: address?.postal_code,
-        [FIELDS.country]: address?.country,
-      },
+  if (error) intent = "draft";
+  if (intent === "submit") {
+    sendMessage({
+      channel: "U07AGEVSTD2",
+      text:
+        formData.get("playable_url") +
+        " by <@" +
+        identity.slack_id +
+        "> " +
+        (
+          await fetch(
+            "https://hackatime.hackclub.com/api/v1/authenticated/api_keys",
+            {
+              headers: {
+                Authorization: "Bearer " + (await getAccessToken("hackatime")),
+              },
+            },
+          ).then(r => r.json())
+        ).token,
     });
-  } catch (e: any) {
-    console.error(e);
-    redirect("/error?error=" + encodeURIComponent(e));
   }
+
+  const address =
+    identity?.addresses?.find(item => item?.primary) ??
+    identity?.addresses?.[0];
+
+  await saveProject({
+    id: formData.get("id") as string,
+    identity,
+    data: {
+      [FIELDS.codeUrl]: formData.get("code_url"),
+      [FIELDS.playableUrl]: formData.get("playable_url"),
+      [FIELDS.description]: formData.get("description"),
+      [FIELDS.screenshots]: ((formData.get("screenshots") as string) ?? "")
+        .split("\n")
+        .map(url => url.trim())
+        .filter(Boolean)
+        .map(url => ({ url })),
+      [FIELDS.hackatimeProjects]: formData.get("hackatime_projects"),
+      [FIELDS.hourOverride]:
+        parseFloat(formData.get("hour_override") as string) || undefined,
+      [FIELDS.notes]: formData.get("notes"),
+      [FIELDS.prize]: formData.get("prize") || undefined,
+      [FIELDS.event]: formData.get("event"),
+      [FIELDS.status]: intent === "submit" ? "Submitted" : "Draft",
+      [FIELDS.firstName]: identity?.first_name,
+      [FIELDS.lastName]: identity?.last_name,
+      [FIELDS.email]: identity?.primary_email,
+      [FIELDS.slackId]: identity?.slack_id,
+      [FIELDS.birthday]: identity?.birthday,
+      [FIELDS.addressLine1]: address?.line_1,
+      [FIELDS.addressLine2]: address?.line_2,
+      [FIELDS.city]: address?.city,
+      [FIELDS.state]: address?.state,
+      [FIELDS.postalCode]: address?.postal_code,
+      [FIELDS.country]: address?.country,
+    },
+  });
+  if (error) return { error };
   redirect("/projects");
 }
 
@@ -74,7 +112,7 @@ export default async function ProjectPage({
   }
 
   const { projects } = await fetch(
-    "https://hackatime.hackclub.com/api/v1/authenticated/projects",
+    "https://hackatime.hackclub.com/api/v1/authenticated/projects?start=2026/01/27",
     {
       headers: {
         Authorization: "Bearer " + (await getAccessToken("hackatime")),

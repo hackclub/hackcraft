@@ -236,7 +236,7 @@ button:disabled {
 .item-step {
   padding: 1em;
   color: white;
-  border-radius: 1em;
+  border-radius: 16px;
   display: flex;
   position: relative;
   aspect-ratio: 2 / 1;
@@ -461,14 +461,22 @@ code {
 }
 
 label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-wrap: nowrap;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.header {
   font-family: "Minecraftia", sans-serif;
   font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: rgba(255, 255, 255, 0.75);
 }
 
-input,
+input:not([type="checkbox"]),
 textarea,
 select {
   background: rgba(9, 9, 9, 0.8);
@@ -604,4 +612,8 @@ textarea {
 
 .project:hover .gallery-overlay {
   opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-2px);
 }

@@ -1,7 +1,7 @@
 import Airtable, { Record } from "airtable";
 import { FIELDS, getIdentity, Identity, Project } from "./util";
 import crypto from "crypto";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { connection } from "next/server";
 
 const submissions = () =>
@@ -26,7 +26,7 @@ function mapSubmissionRecord(record: Record<any>): Project {
       (record.get(FIELDS.hackatimeProjects) as string)
         ?.split(",")
         .filter(Boolean) ?? [],
-    hour_override: parseInt(record.get(FIELDS.hourOverride) as string) || 0,
+    hour_override: parseFloat(record.get(FIELDS.hourOverride) as string) || 0,
     description: record.get(FIELDS.description) as string,
     notes: record.get(FIELDS.notes) as string,
   };
@@ -65,9 +65,7 @@ export async function getRecord(rec: string): Promise<Project | undefined> {
       throw null;
     return project;
   } catch {
-    redirect(
-      "/error?title=Project not found&error=We could not find that project.",
-    );
+    notFound();
   }
 }
 
@@ -137,6 +135,7 @@ export async function getSubmissionsForUser(slackId: string, email: string) {
   return records.map(mapSubmissionRecord);
 }
 
+const DATA_URL_RE = /^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/;
 export async function saveProject({
   id,
   identity,
@@ -146,7 +145,13 @@ export async function saveProject({
   identity: Identity;
   data: any;
 }) {
-  if (id == "new") await submissions().create(data);
+  const screenshots = data[FIELDS.screenshots] as
+    | { url: string }[]
+    | undefined;
+
+  data[FIELDS.screenshots] = screenshots?.filter(s => !s.url.startsWith("data:")) ?? [];
+
+  if (id == "new") id = (await submissions().create(data))[0].id;
   else {
     const req = await submissions().find(id);
     if (
@@ -155,7 +160,24 @@ export async function saveProject({
       req.get(FIELDS.slackId) == identity.slack_id
     )
       await req.patchUpdate(data);
-    else redirect("/error?error=Failed to update project");
+    else throw new Error("Not allowed");
+  }
+
+  for (const dataUrl of screenshots?.filter(s => s.url.startsWith("data:")).map(s => s.url) ?? []) {
+    const [, contentType, base64] = DATA_URL_RE.exec(dataUrl) || [];
+    const res = await fetch(
+      `https://content.airtable.com/v0/appROpbCKgNm7r5ln/${id}/${FIELDS.screenshots}/uploadAttachment`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ contentType, file: base64, filename: Math.random().toString(36).slice(2) }),
+      },
+    );
+    if (!res.ok)
+      throw new Error(`Failed to upload screenshot: ${await res.text()}`);
   }
 }
 

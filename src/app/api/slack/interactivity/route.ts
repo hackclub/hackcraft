@@ -53,7 +53,7 @@ export async function POST(request: Request) {
   } catch (e: any) {
     await sendMessage({
       channel: "U07AGEVSTD2",
-      text: `Error in Slack interactivity route: ${e} ${e.message}`,
+      text: `Error in Slack interactivity: ${e} ${e.message}`,
     });
   }
   return new NextResponse();

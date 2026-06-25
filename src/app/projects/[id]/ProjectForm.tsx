@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import ImageUploader from "~/app/projects/ImageUploader";
+import { useActionState, useMemo, useState } from "react";
+import ImageUploader from "~/components/ImageUploader";
+import { burstConfetti } from "~/lib/confetti";
 import { Project } from "~/lib/util";
 
 function Validation({
@@ -46,20 +47,26 @@ export default function ProjectForm({
   id: string;
   project?: Project;
   projects: { name: string; total_seconds: number; languages: string[] }[];
-  action: (formData: FormData) => Promise<void>;
+  action: (
+    prevState: { error?: string } | undefined,
+    formData: FormData,
+  ) => Promise<{ error?: string } | undefined>;
 }) {
+  const [state, formAction] = useActionState(action, undefined);
   const [values, setValues] = useState({
     code_url: "",
     playable_url: "",
     hackatime_projects: [] as Project["hackatime_projects"],
     event: undefined,
-    prize: undefined,
+    prize: "none",
     hour_override: 0,
     description: "",
     notes: "",
     ...project,
     screenshots: project?.screenshots?.map(s => s.url) ?? [],
   });
+
+  const [javaFilter, setJavaFilter] = useState(true);
 
   const getHours = (projectNames: string[]) =>
     projects
@@ -174,7 +181,7 @@ export default function ProjectForm({
     if (screenshotUrls.length === 0) {
       validation.screenshots.errors.push("Please add some screenshots.");
     } else if (screenshotUrls.length < 3) {
-      validation.screenshots.warnings.push("Maybe some more?.");
+      validation.screenshots.warnings.push("Maybe some more?");
     }
 
     if (
@@ -212,12 +219,23 @@ export default function ProjectForm({
     <form
       className="section"
       style={{ width: "50%", display: "grid", gap: "1.5rem" }}
-      action={action}>
+      action={formAction}>
       <input type="hidden" name="id" value={id} />
+
+      {state?.error && (
+        <p
+          style={{
+            padding: "1rem",
+            border: "3px solid rgba(255, 85, 85, 0.6)",
+            background: "rgba(18, 6, 6, 0.7)",
+          }}>
+          {state.error}
+        </p>
+      )}
 
       <div style={{ display: "flex", gap: "1rem" }}>
         <div style={{ width: "100%" }}>
-          <label>Playable URL</label>
+          <span className="header">Playable URL</span>
           <input
             name="playable_url"
             type="url"
@@ -229,7 +247,7 @@ export default function ProjectForm({
           <Validation validation={validation.playable_url} />
         </div>
         <div style={{ width: "100%" }}>
-          <label>Code URL</label>
+          <span className="header">Code URL</span>
           <input
             name="code_url"
             type="url"
@@ -243,7 +261,7 @@ export default function ProjectForm({
       </div>
 
       <div>
-        <label>Description</label>
+        <span className="header">Description</span>
         <textarea
           name="description"
           placeholder="What does it do? What is fun about it?"
@@ -255,8 +273,22 @@ export default function ProjectForm({
       </div>
 
       <div>
-        <label>Hackatime projects</label>
-        {projects.length === 0 ? (
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span className="header">Hackatime projects</span>
+          <label>
+            <input
+              type="checkbox"
+              checked={javaFilter}
+              onChange={e => setJavaFilter(e.target.checked)}
+            />
+            Java only
+          </label>
+        </div>
+        {!projects.some(
+          project =>
+            !javaFilter ||
+            project.languages.some(lang => lang.toLowerCase() === "java"),
+        ) ? (
           <p className="muted">No Hackatime projects found</p>
         ) : (
           <div
@@ -292,13 +324,20 @@ export default function ProjectForm({
                   style={{
                     fontSize: "1rem",
                     padding: "0.75rem 1rem",
+                    display:
+                      javaFilter &&
+                      !project.languages.some(
+                        lang => lang.toLowerCase() === "java",
+                      )
+                        ? "none"
+                        : "",
                     border: project.languages.some(
                       lang => lang.toLowerCase() === "java",
                     )
                       ? "2px solid rgba(255, 255, 255, 0.12)"
                       : "2px solid rgba(255, 224, 102, 0.3)",
                     background: checked
-                      ? "rgba(79, 139, 255, 0.18)"
+                      ? "rgba(37, 105, 242, 0.18)"
                       : "rgba(0, 0, 0, 0.18)",
                     cursor: "pointer",
                   }}>
@@ -330,22 +369,25 @@ export default function ProjectForm({
         <Validation validation={validation.hackatime_projects} />
       </div>
 
-      <div style={{ width: "100%" }}>
-        <label>Hour override</label>
-        <input
-          name="hour_override"
-          type="number"
-          placeholder="Only set this when it is different from Hackatime! Make sure to declare why in notes"
-          value={values.hour_override}
-          onChange={e => updateField("hour_override", e.target.value)}
-          aria-invalid={validation.hour_override.errors.length > 0}
-        />
-        <Validation validation={validation.hour_override} />
-      </div>
-
       <div style={{ display: "flex", gap: "1rem" }}>
         <div style={{ width: "100%" }}>
-          <label>Event</label>
+          <span className="header">Hour override</span>
+          <input
+            name="hour_override"
+            type="number"
+            placeholder="Only set this when it is different from Hackatime! Make sure to declare why in notes"
+            value={values.hour_override}
+            onChange={e => updateField("hour_override", e.target.value)}
+            aria-invalid={validation.hour_override.errors.length > 0}
+          />
+          <Validation validation={validation.hour_override} />
+          <span className="muted">
+            We don't judge based on hours but we still need this to be accurate
+          </span>
+        </div>
+
+        <div style={{ width: "100%" }}>
+          <span className="header">Event</span>
           <select
             name="event"
             value={values.event}
@@ -362,30 +404,10 @@ export default function ProjectForm({
           </select>
           <Validation validation={validation.event} />
         </div>
-        <div style={{ width: "100%" }}>
-          <label>Prize</label>
-          <select
-            name="prize"
-            value={values.prize}
-            onChange={e => updateField("prize", e.target.value)}>
-            <option value="">Select a prize</option>
-            {[
-              "Minecraft License",
-              "Grant for Servers (30$)",
-              "Hytale",
-              "20$ Grant for buying games",
-              "800$ Computer Grant",
-            ].map(option => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
 
       <div>
-        <label>Screenshots</label>
+        <span className="header">Screenshots</span>
         <ImageUploader
           value={values.screenshots}
           onChange={screenshots =>
@@ -401,8 +423,122 @@ export default function ProjectForm({
         <Validation validation={validation.screenshots} />
       </div>
 
+      <div style={{ width: "100%", display: "contents" }}>
+        <span className="header">Prize</span>
+        <div
+          style={{
+            overflowX: "auto",
+            display: "flex",
+
+            gap: "1rem",
+            padding: "0.5rem",
+            width: "100%",
+          }}>
+          {[
+            {
+              title: "Minecraft License",
+              description: "Block game 4 free!",
+              image: "minecraft",
+            },
+            {
+              title: "Nest Hosting (3 months)",
+              description: "2 virtual cores, 4gb ram, 64gb storage",
+              image: "nest1",
+            },
+            {
+              title: "Nest Hosting (2 months)",
+              description: "4 virtual cores, 8gb ram, 128gb storage",
+              image: "nest2",
+            },
+            {
+              title: "Grant for Servers (30$)",
+              description: "find your own server!",
+              image: "server",
+            },
+            {
+              title: "Hytale",
+              description: "Other block game??",
+              image: "hytale",
+            },
+            {
+              title: "800$ Computer Grant",
+              description: "Only available if you did the previous events!",
+              image: "computah",
+            },
+            {
+              title: "none",
+              description: "You will recieve: nothing",
+              image: "404",
+            },
+          ]
+            .map(prize => ({
+              ...prize,
+              selected: prize.title === values.prize,
+            }))
+            .map(prize => (
+              <div
+                key={prize.title}
+                className="card"
+                onClick={() => updateField("prize", prize.title)}
+                style={{
+                  width: "15rem",
+                  flexShrink: 0,
+                  textAlign: "left",
+                  padding: "20px",
+
+                  background: prize.selected ? "#1c1c1c" : "#171717",
+                  border: prize.selected
+                    ? "1px solid #fff"
+                    : "2px solid #2c2c2c",
+
+                  transform: prize.selected
+                    ? "translateY(0px) scale(0.98)"
+                    : "",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+
+                  cursor: "pointer",
+
+                  transition:
+                    "transform .12s ease, border-color .12s ease, background .12s ease",
+                }}>
+                <img
+                  className="muted"
+                  style={{
+                    paddingBottom: "10px",
+                    border: "none",
+                    borderBottom: "1px solid #262626",
+                    height: "7.5rem",
+                    objectFit: "cover",
+                  }}
+                  src={`/images/${prize.image}.webp`}
+                  alt={prize.image}
+                />
+
+                <div
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 600,
+                  }}>
+                  {prize.title}
+                </div>
+
+                <div
+                  className="muted"
+                  style={{
+                    lineHeight: 1.4,
+                  }}>
+                  {prize.description}
+                </div>
+              </div>
+            ))}
+        </div>
+        <input name="prize" value={values.prize} hidden />
+      </div>
+
       <div>
-        <label>Notes</label>
+        <span className="header">Notes</span>
         <textarea
           name="notes"
           placeholder="For review/fullfillment/hour count/..."
@@ -436,7 +572,8 @@ export default function ProjectForm({
               ? "Fix form errors before submitting"
               : "Submit project"
           }
-          style={{ marginRight: "1rem" }}>
+          style={{ marginRight: "1rem" }}
+          onClick={e => burstConfetti(e.clientX, e.clientY)}>
           Submit project
         </button>
         {id !== "new" && project?.status === "Draft" && (

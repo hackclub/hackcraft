@@ -130,6 +130,7 @@ export default function ImageUploader({
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(10rem, 1fr))",
+          gap: "0.5rem",
         }}>
         {value.map((url, i) => (
           <div
@@ -142,7 +143,8 @@ export default function ImageUploader({
               src={url}
               alt="Screenshot"
               height="100%"
-              onError={() => onChange(value.filter(img => img != url))}
+              style={{ objectFit: "contain", width: "100%" }}
+              onError={e => onChange(value.filter(img => img != url))}
               onClick={() => setOpenIndex(i)}
             />
             <div

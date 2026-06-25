@@ -82,5 +82,12 @@ export async function getIdentity() {
     },
   }).then(r => r.json());
 
+
+  if (!identity.ysws_eligible)
+    throw new Error(
+      "Your verification status is " +
+      (identity.verification_status ?? "unknown"),
+    );
+
   return identity as Identity;
 }
