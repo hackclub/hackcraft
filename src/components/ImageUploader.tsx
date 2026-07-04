@@ -22,7 +22,9 @@ export default function ImageUploader({
       [
         ...value,
         ...((
-          transfer["getData"]?.("text") || transfer["getData"]?.("text/plain")
+          transfer["getData"]?.("text") ||
+          transfer["getData"]?.("text/plain") ||
+          ""
         ).match(/https?:\/\/\S+/g) || []),
         ...(await Promise.all(
           Array.from(transfer.files || [])

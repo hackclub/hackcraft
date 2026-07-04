@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "~/styles/global.css";
 
 export const metadata: Metadata = {
-  title: "Minecraft: YSWS Edition",
-  description: "Ship a mod, Get Minecraft!",
+  title: "Hackcraft: YSWS Edition",
+  description: "Ship a mod, Get Minecraft and more!",
 };
 
 export default function RootLayout({
