@@ -64,11 +64,11 @@ async function generate(group: string, name: string) {
 org.gradle.parallel=true
 org.gradle.configuration-cache=false
 
-minecraft_version=26.1.2
-loader_version=0.19.2
-loom_version=1.16-SNAPSHOT
+minecraft_version=26.2
+loader_version=0.19.3
+loom_version=1.17-SNAPSHOT
 
-fabric_api_version=0.146.1+26.1.2
+fabric_api_version=0.154.1+26.2
 
 mod_version=1.0.0`,
   );
@@ -172,7 +172,7 @@ jar {
         },
         mixins: [modid + ".mixins.json"],
         depends: {
-          minecraft: "~26.1",
+          minecraft: "~26.2",
           "fabric-api": "*",
         },
       },
@@ -197,7 +197,7 @@ public class Main implements ModInitializer {
     "gradle/wrapper/gradle-wrapper.properties",
     `distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-9.4.1-bin.zip
+distributionUrl=https\://services.gradle.org/distributions/gradle-9.6.0-bin.zip
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists`,
   );
