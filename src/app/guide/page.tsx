@@ -209,7 +209,7 @@ export default function GuidePage() {
           </p>
           <p>Only after joining Hack Club's Slack you may submit.</p>
           <div style={{ display: "flex" }}>
-            <Link className="hoverable form-link" href="/guide/submit">
+            <Link className="hoverable form-link" href="/projects">
               Submitting
             </Link>
           </div>

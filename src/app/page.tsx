@@ -1,6 +1,6 @@
 import Link from "next/link";
-import TiledDiv from "~/components/TiledDiv";
 import Page from "~/components/Page";
+import TiledDiv from "~/components/TiledDiv";
 
 export default function HomePage() {
   return (
@@ -41,7 +41,7 @@ export default function HomePage() {
             style={{
               margin: "3px",
             }}
-            href="/guide/submit">
+            href="/projects">
             <button className="hoverable">Submit</button>
           </Link>
         </div>
