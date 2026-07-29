@@ -26,15 +26,13 @@ function animate() {
     if (y > window.innerHeight) p.remove();
   }
 
-  if (container && container.children.length > 0)
-    requestAnimationFrame(animate);
+  if (container && container.children.length > 0) requestAnimationFrame(animate);
 }
 
 export function burstConfetti(originX: number, originY: number) {
-  if (!container)
-    container = document.body.appendChild(document.createElement("div"));
+  if (!container) container = document.body.appendChild(document.createElement("div"));
 
-  if (container.children.length == 0) requestAnimationFrame(animate);
+  if (container.children.length === 0) requestAnimationFrame(animate);
   for (let i = 0; i < 120; i++) {
     const el = document.createElement("div");
 

@@ -1,25 +1,21 @@
 import Link from "next/link";
-import ProjectCard from "./ProjectCard";
-import TiledDiv from "~/components/TiledDiv";
 import Page from "~/components/Page";
-import { getIdentity } from "~/lib/util";
+import TiledDiv from "~/components/TiledDiv";
 import { getSubmissionsForUser } from "~/lib/api";
+import { getIdentity } from "~/lib/util";
+import ProjectCard from "./ProjectCard";
 
 export default async function Submit() {
   const identity = await getIdentity();
 
-  let projects = await getSubmissionsForUser(
-    identity.slack_id,
-    identity.primary_email,
-  );
+  const projects = await getSubmissionsForUser(identity.slack_id, identity.primary_email);
   return (
     <Page back="/api/logout" backText="logout">
       <TiledDiv id="header" background="dirt">
         <div
           className="section"
           style={{
-            background:
-              "linear-gradient(135deg,rgba(10, 10, 10, 0.8),rgba(0, 0, 0, 0.7))",
+            background: "linear-gradient(135deg,rgba(10, 10, 10, 0.8),rgba(0, 0, 0, 0.7))",
             display: "flex",
           }}>
           <div>
@@ -50,9 +46,7 @@ export default async function Submit() {
           {projects.length === 0 ? (
             <p>No projects yet.</p>
           ) : (
-            projects.map(project => (
-              <ProjectCard key={project.id} project={project} />
-            ))
+            projects.map(project => <ProjectCard key={project.id} project={project} />)
           )}
         </div>
       </TiledDiv>

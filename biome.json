@@ -1,0 +1,101 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "formatter": {
+    "indentStyle": "space",
+    "lineWidth": 100,
+    "bracketSameLine": true
+  },
+  "linter": {
+    "rules": {
+      "a11y": {
+        "useMediaCaption": "off"
+      },
+      "complexity": {
+        "noUselessStringConcat": "on",
+        "noUselessUndefined": "on",
+        "useArrayFind": "on",
+        "useSimplifiedLogicExpression": "on"
+      },
+      "correctness": {
+        "noNestedComponentDefinitions": "on",
+        "noReactPropAssignments": "on",
+        "noUndeclaredDependencies": "on",
+        "noUndeclaredVariables": "on"
+      },
+      "style": {
+        "noExcessiveClassesPerFile": "on",
+        "noExcessiveLinesPerFile": "on",
+        "noExportedImports": "on",
+        "noMultilineString": "on",
+        "noNegationElse": "on",
+        "noSubstr": "on",
+        "noUnusedTemplateLiteral": "on",
+        "noUselessElse": "on",
+        "useCollapsedElseIf": "on",
+        "useCollapsedIf": "on",
+        "useConsistentArrayType": "on",
+        "useConsistentArrowReturn": "on",
+        "useConsistentBuiltinInstantiation": "on",
+        "useConsistentCurlyBraces": "on",
+        "useConsistentObjectDefinitions": "on",
+        "useDefaultParameterLast": "on",
+        "useDestructuring": "on",
+        "useErrorCause": "on",
+        "useFilenamingConvention": "on",
+        "useFragmentSyntax": "on",
+        "useNamingConvention": {
+          "level": "on",
+          "options": {
+            "conventions": [
+              {
+                "selector": {
+                  "kind": "objectLiteralProperty"
+                },
+                "match": ".*"
+              },
+              {
+                "selector": {
+                  "kind": "typeProperty"
+                },
+                "match": ".*"
+              }
+            ]
+          }
+        },
+        "useObjectSpread": "on",
+        "useReactFunctionComponents": "on",
+        "useSelfClosingElements": "on",
+        "useShorthandAssign": "on",
+        "useThrowOnlyError": "on",
+        "useTrimStartEnd": "on",
+        "useUnifiedTypeSignatures": "on"
+      },
+      "suspicious": {
+        "noConstantBinaryExpressions": "on",
+        "noDeprecatedImports": "on",
+        "noDuplicatedSpreadProps": "on",
+        "noEmptySource": "on",
+        "noEvolvingTypes": "on",
+        "noExplicitAny": "off",
+        "noTemplateCurlyInString": "off",
+        "noLeakedRender": "on",
+        "noNestedPromises": "on",
+        "noUnassignedVariables": "on",
+        "noUnusedExpressions": "on",
+        "noVar": "on",
+        "useErrorMessage": "on"
+      }
+    }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
+  },
+  "javascript": {
+    "formatter": {
+      "enabled": true,
+      "arrowParentheses": "asNeeded"
+    }
+  }
+}

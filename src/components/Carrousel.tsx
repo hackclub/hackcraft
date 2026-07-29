@@ -1,6 +1,6 @@
 "use client";
 
-import { act, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 export default function Carrousel(props: {
@@ -15,8 +15,7 @@ export default function Carrousel(props: {
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") props.onClose();
-      if (event.key === "ArrowLeft")
-        setActiveIndex(index => Math.max(0, index - 1));
+      if (event.key === "ArrowLeft") setActiveIndex(index => Math.max(0, index - 1));
       if (event.key === "ArrowRight")
         setActiveIndex(index => Math.min(props.images.length - 1, index + 1));
     }
@@ -27,18 +26,29 @@ export default function Carrousel(props: {
 
   return createPortal(
     <div
-      onClick={props.onClose}
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0, 0, 0, 0.88)",
-        backdropFilter: "blur(6px)",
-        width: "100vw",
-        height: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}>
+      <button
+        type="button"
+        aria-label="Close carrousel"
+        onClick={props.onClose}
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100vw",
+          height: "100vh",
+          border: "none",
+          padding: 0,
+          cursor: "default",
+          background: "rgba(0, 0, 0, 0.88)",
+          backdropFilter: "blur(6px)",
+        }}
+      />
       <img
         src={props.images[activeIndex]}
         alt="Project screenshot"
@@ -49,15 +59,13 @@ export default function Carrousel(props: {
         }}
       />
       {activeIndex > 0 && (
-        <div
-          onClick={e => {
-            e.stopPropagation();
-            setActiveIndex(index => Math.max(0, index - 1));
-          }}
+        <button
+          type="button"
+          onClick={() => setActiveIndex(index => Math.max(0, index - 1))}
           className="carrousel-button"
           style={{ left: "1rem" }}>
           &lt;
-        </div>
+        </button>
       )}
       <div
         style={{
@@ -65,36 +73,31 @@ export default function Carrousel(props: {
           bottom: "1rem",
           display: "flex",
           gap: "3rem",
-        }}
-        onClick={e => e.stopPropagation()}>
-        {props.projectUrl && (
+        }}>
+        {props.projectUrl ? (
           <a href={props.projectUrl} target="_blank" rel="noreferrer">
             Play
           </a>
-        )}
+        ) : null}
         {props.images.length > 1 && (
           <span>
             {activeIndex + 1} / {props.images.length}
           </span>
         )}
-        {props.codeUrl && (
+        {props.codeUrl ? (
           <a href={props.codeUrl} target="_blank" rel="noreferrer">
             Code
           </a>
-        )}
+        ) : null}
       </div>
       {activeIndex < props.images.length - 1 && (
-        <div
-          onClick={e => {
-            e.stopPropagation();
-            setActiveIndex(index =>
-              Math.min(props.images.length - 1, index + 1),
-            );
-          }}
+        <button
+          type="button"
+          onClick={() => setActiveIndex(index => Math.min(props.images.length - 1, index + 1))}
           className="carrousel-button"
           style={{ right: "1rem" }}>
           &gt;
-        </div>
+        </button>
       )}
     </div>,
     document.body,

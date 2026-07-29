@@ -1,16 +1,16 @@
+import { redirect } from "next/navigation";
 import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
-import { redirect } from "next/navigation";
+import { deleteProject, getRecord, saveProject, sendMessage } from "~/lib/api";
+import { FIELDS, getAccessToken, getIdentity } from "~/lib/util";
 import ProjectForm from "./ProjectForm";
-import { getRecord, saveProject, deleteProject, sendMessage } from "~/lib/api";
-import { FIELDS, getAccessToken, getIdentity, Project } from "~/lib/util";
 
 async function save(
-  prevState: { error?: string } | undefined,
+  _prevState: { error?: string } | undefined,
   formData: FormData,
 ): Promise<{ error?: string } | undefined> {
   "use server";
-  let error;
+  let error: string | undefined;
   let intent = formData.get("intent");
   const identity = await getIdentity();
   if (!identity) return;
@@ -23,14 +23,13 @@ async function save(
   if (
     (await fetch(
       `https://hackatime.hackclub.com/api/v1/users/${identity?.slack_id}/trust_factor`,
-    ).then(r => r.json())) == 1
+    ).then(r => r.json())) === 1
   )
-    error =
-      "Your hackatime account is restricted, please contact @Fraud Squad on Slack";
+    error = "Your hackatime account is restricted, please contact @Fraud Squad on Slack";
   if (
     (
       await fetch(
-        `https://api2.hackclub.com/v0.1/Unified YSWS Projects DB/Approved Projects?select={"maxRecords":1,"filterByFormula":"LOWER({Code URL})=LOWER('${formData.get(`code_url`)}')","fields":[]}`,
+        `https://api2.hackclub.com/v0.1/Unified YSWS Projects DB/Approved Projects?select={"maxRecords":1,"filterByFormula":"LOWER({Code URL})=LOWER('${formData.get("code_url")}')","fields":[]}`,
       ).then(r => r.json())
     ).length
   )
@@ -47,21 +46,16 @@ async function save(
         identity.slack_id +
         "> " +
         (
-          await fetch(
-            "https://hackatime.hackclub.com/api/v1/authenticated/api_keys",
-            {
-              headers: {
-                Authorization: "Bearer " + (await getAccessToken("hackatime")),
-              },
+          await fetch("https://hackatime.hackclub.com/api/v1/authenticated/api_keys", {
+            headers: {
+              Authorization: `Bearer ${await getAccessToken("hackatime")}`,
             },
-          ).then(r => r.json())
+          }).then(r => r.json())
         ).token,
     });
   }
 
-  const address =
-    identity?.addresses?.find(item => item?.primary) ??
-    identity?.addresses?.[0];
+  const address = identity?.addresses?.find(item => item?.primary) ?? identity?.addresses?.[0];
 
   await saveProject({
     id: formData.get("id") as string,
@@ -76,8 +70,7 @@ async function save(
         .filter(Boolean)
         .map(url => ({ url })),
       [FIELDS.hackatimeProjects]: formData.get("hackatime_projects"),
-      [FIELDS.hourOverride]:
-        parseFloat(formData.get("hour_override") as string) || undefined,
+      [FIELDS.hourOverride]: parseFloat(formData.get("hour_override") as string) || undefined,
       [FIELDS.notes]: formData.get("notes"),
       [FIELDS.prize]: formData.get("prize") || undefined,
       [FIELDS.event]: formData.get("event"),
@@ -99,33 +92,24 @@ async function save(
   redirect("/projects");
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const id = (await params).id;
+export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
-  let project: Project | undefined = undefined;
-  if (id !== "new") {
-    project = await getRecord(id);
-  }
-
-  const { projects } = await fetch(
-    "https://hackatime.hackclub.com/api/v1/authenticated/projects?start=2026/01/27",
-    {
+  const [project, { projects }] = await Promise.all([
+    id === "new" ? undefined : getRecord(id),
+    fetch("https://hackatime.hackclub.com/api/v1/authenticated/projects?start=2026/01/27", {
       headers: {
-        Authorization: "Bearer " + (await getAccessToken("hackatime")),
+        Authorization: `Bearer ${await getAccessToken("hackatime")}`,
       },
-    },
-  ).then(r => r.json());
+    }).then(r => r.json()),
+  ]);
 
   return (
     <Page back="/projects">
       <TiledDiv id="header" background="dirt" style={{ paddingBottom: "1rem" }}>
-        <div id="subtitle" style={{ fontSize: "1.2em", marginBottom: "2em" }}>
+        <h1 id="subtitle" style={{ fontSize: "1.2em", marginBottom: "2em" }}>
           <span>{id === "new" ? "New" : "Edit"} Project</span>
-        </div>
+        </h1>
         <ProjectForm
           id={id}
           project={project}

@@ -23,30 +23,29 @@ export default function LazyVideo({ src }: { src: string }) {
     try {
       const url = new URL(src);
       if (
-        (url.hostname.endsWith("youtube.com") &&
-          url.pathname.startsWith("/watch")) ||
+        (url.hostname.endsWith("youtube.com") && url.pathname.startsWith("/watch")) ||
         url.hostname.endsWith("youtu.be")
       ) {
-        const videoId =
-          url.searchParams.get("v") || url.pathname.split("/").pop();
+        const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
         src = `https://www.youtube.com/embed/${videoId}`;
-      } else if (url.hostname == "hc-cdn.hel1.your-objectstorage.com")
-        src = "https://cdn.hackclub.com/rescue?url=" + src;
+      } else if (url.hostname === "hc-cdn.hel1.your-objectstorage.com")
+        src = `https://cdn.hackclub.com/rescue?url=${src}`;
     } catch {
       setLink(true);
     }
 
   return (
     <div ref={ref}>
-      {visible &&
-        (link ? (
+      {visible ? (
+        link ? (
           <a href={src}>Video</a>
         ) : src.startsWith("https://www.youtube.com/embed") ? (
           <iframe
             style={{ width: "75%", aspectRatio: "16/9", border: "none" }}
             src={src}
             title="YouTube video player"
-            allowFullScreen></iframe>
+            allowFullScreen
+          />
         ) : src.endsWith(".gif") ? (
           <img src={src} alt="GIF" style={{ width: "75%" }} />
         ) : (
@@ -57,7 +56,8 @@ export default function LazyVideo({ src }: { src: string }) {
             onError={() => setLink(true)}
             preload="metadata"
           />
-        ))}
+        )
+      ) : null}
     </div>
   );
 }

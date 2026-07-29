@@ -1,5 +1,5 @@
 "use client";
-import JSZip from "jszip";
+import JsZip from "jszip";
 import { useState } from "react";
 
 export default function ProjectGenerator() {
@@ -27,22 +27,20 @@ export default function ProjectGenerator() {
         {name.toLowerCase().includes("hackcraft")
           ? "A little more original please!"
           : "Mod id: " +
-            name
-              .toLowerCase()
-              .replaceAll(/\s+/g, "-")
-              .replaceAll(/[^a-za-z0-9-_]/g, "")}
+          name
+            .toLowerCase()
+            .replaceAll(/\s+/g, "-")
+            .replaceAll(/[^a-z0-9-_]/g, "")}
         <br />
-        <input
-          type="text"
-          placeholder="Group"
-          onChange={e => (group = e.target.value)}
-        />
+        <input type="text" placeholder="Group" onChange={e => (group = e.target.value)} />
         <i> Examples: com.yourwebsite, io.github.username, me.name</i>
         <br />
         Version: 26.1.2
         <br />
       </div>
-      <button onClick={() => generate(group, name)}>Download template</button>
+      <button type="button" onClick={() => generate(group, name)}>
+        Download template
+      </button>
     </>
   );
 }
@@ -51,13 +49,10 @@ async function generate(group: string, name: string) {
   const modid = name
     .toLowerCase()
     .replaceAll(/\s+/g, "-")
-    .replaceAll(/[^a-za-z0-9-_]/g, "");
+    .replaceAll(/[^a-z0-9-_]/g, "");
 
-  const zip = new JSZip();
-  zip.file(
-    ".gitignore",
-    ".gradle/\nbuild/\nout/\n.idea/\n.vscode/\n*.DS_Store\nrun/",
-  );
+  const zip = new JsZip();
+  zip.file(".gitignore", ".gradle/\nbuild/\nout/\n.idea/\n.vscode/\n*.DS_Store\nrun/");
   zip.file(
     "gradle.properties",
     `org.gradle.jvmargs=-Xmx1G
@@ -139,7 +134,7 @@ jar {
     JSON.stringify(
       {
         required: true,
-        package: group + "." + modid + ".mixin",
+        package: `${group}.${modid}.mixin`,
         compatibilityLevel: "JAVA_25",
         mixins: [],
         injectors: {
@@ -168,9 +163,9 @@ jar {
         icon: `assets/${modid}/icon.png`,
         environment: "*",
         entrypoints: {
-          main: [group + "." + modid + ".Main"],
+          main: [`${group}.${modid}.Main`],
         },
-        mixins: [modid + ".mixins.json"],
+        mixins: [`${modid}.mixins.json`],
         depends: {
           minecraft: "~26.2",
           "fabric-api": "*",
@@ -181,7 +176,7 @@ jar {
     ),
   );
   zip.file(
-    "src/main/java/" + group.replaceAll(".", "/") + "/" + modid + "/Main.java",
+    `src/main/java/${group.replaceAll(".", "/")}/${modid}/Main.java`,
     `package ${group}.${modid};
 
 import net.fabricmc.api.ModInitializer;
@@ -197,7 +192,7 @@ public class Main implements ModInitializer {
     "gradle/wrapper/gradle-wrapper.properties",
     `distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-9.6.0-bin.zip
+distributionUrl=https://services.gradle.org/distributions/gradle-9.6.0-bin.zip
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists`,
   );
@@ -242,7 +237,7 @@ THE SOFTWARE.`,
   zip.file("README.md", "");
   const url = URL.createObjectURL(await zip.generateAsync({ type: "blob" }));
   const a = document.createElement("a");
-  a.download = modid + ".zip";
+  a.download = `${modid}.zip`;
   a.href = url;
   a.dispatchEvent(new MouseEvent("click"));
   setTimeout(() => URL.revokeObjectURL(url), 60000);

@@ -1,12 +1,17 @@
-import GalleryEntry from "./GalleryEntry";
+import type { Metadata } from "next";
 import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
+import GalleryEntry from "./GalleryEntry";
 
-const api_url =
+export const metadata: Metadata = {
+  title: "Old Gallery",
+};
+
+const apiUrl =
   "https://api2.hackclub.com/v0.1/MC%20Modding/Submissions?select={%22filterByFormula%22:%22{Status}=%27Approved%27%22}";
 
 export default async function GalleryPage() {
-  const data = await fetch(api_url, { next: { revalidate: 60 } });
+  const data = await fetch(apiUrl, { next: { revalidate: 60 } });
   const entries = await data.json();
 
   return (
@@ -25,9 +30,7 @@ export default async function GalleryPage() {
           {Array.isArray(entries) ? (
             entries
               .sort(() => Math.random() - 0.5)
-              .map((data, index) => (
-                <GalleryEntry key={index} info={data["fields"]} />
-              ))
+              .map((data, index) => <GalleryEntry key={index} info={data.fields} />)
           ) : (
             <p>No entries available at this time.</p>
           )}

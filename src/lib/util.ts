@@ -67,27 +67,23 @@ export type Project = {
 };
 
 export async function getAccessToken(type: "hca" | "hackatime") {
-  const access_token = (await cookies()).get(`${type}_access_token`)?.value;
-  if (!access_token)
+  const accessToken = (await cookies()).get(`${type}_access_token`)?.value;
+  if (!accessToken)
     redirect(
-      `https://${type == "hca" ? "auth" : type}.hackclub.com/oauth/authorize?client_id=${process.env[type.toUpperCase() + "_CLIENT_ID"]}&redirect_uri=https%3A%2F%2F${process.env.URL || "hackcraft.hackclub.com"}%2Fapi%2F${type}%2Fcallback&response_type=code&scope=${type == "hca" ? "name+email+slack_id+verification_status+basic_info+address" : "profile+read"}`,
+      `https://${type === "hca" ? "auth" : type}.hackclub.com/oauth/authorize?client_id=${process.env[`${type.toUpperCase()}_CLIENT_ID`]}&redirect_uri=https%3A%2F%2F${process.env.URL || "hackcraft.hackclub.com"}%2Fapi%2F${type}%2Fcallback&response_type=code&scope=${type === "hca" ? "name+email+slack_id+verification_status+basic_info+address" : "profile+read"}`,
     );
-  return access_token;
+  return accessToken;
 }
 
 export async function getIdentity() {
-  const { identity } = await fetch(`https://auth.hackclub.com/api/v1/me`, {
+  const { identity } = await fetch("https://auth.hackclub.com/api/v1/me", {
     headers: {
-      Authorization: "Bearer " + (await getAccessToken("hca")),
+      Authorization: `Bearer ${await getAccessToken("hca")}`,
     },
   }).then(r => r.json());
 
-
   if (!identity.ysws_eligible)
-    throw new Error(
-      "Your verification status is " +
-      (identity.verification_status ?? "unknown"),
-    );
+    throw new Error(`Your verification status is ${identity.verification_status ?? "unknown"}`);
 
   return identity as Identity;
 }

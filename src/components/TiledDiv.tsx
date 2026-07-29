@@ -15,8 +15,12 @@ const BACKGROUNDS = {
 };
 
 export default function TiledDiv(
-  props: React.HTMLAttributes<HTMLDivElement> & { background: string },
+  props: React.HTMLAttributes<HTMLDivElement> & {
+    background: string;
+    element?: "div" | "section" | "header" | "footer" | "main" | "nav";
+  },
 ) {
+  const { background, element: Element = "div", ...rest } = props;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,12 +28,12 @@ export default function TiledDiv(
     if (!el) return;
 
     const resize = () => (el.style.minHeight = "");
-    const observer = new ResizeObserver(entries => {
-      el.style.minHeight =
-        (props.background != "bedrock" ||
-        el.getBoundingClientRect().bottom > window.innerHeight
+    const observer = new ResizeObserver(_entries => {
+      el.style.minHeight = `${
+        props.background !== "bedrock" || el.getBoundingClientRect().bottom > window.innerHeight
           ? Math.ceil(el.clientHeight / 25) * 25
-          : window.innerHeight - el.getBoundingClientRect().top) + "px";
+          : window.innerHeight - el.getBoundingClientRect().top
+      }px`;
     });
 
     observer.observe(el);
@@ -48,12 +52,12 @@ export default function TiledDiv(
     <div
       ref={ref}
       style={{
-        backgroundImage: `url(data:image/png;base64,${BACKGROUNDS[props.background]})`,
+        backgroundImage: `url(data:image/png;base64,${BACKGROUNDS[background]})`,
         backgroundSize: "400px",
         imageRendering: "pixelated",
         backgroundRepeat: "repeat",
       }}>
-      <div {...props}></div>
+      <Element {...rest} />
     </div>
   );
 }

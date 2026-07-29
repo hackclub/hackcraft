@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useMemo, useRef, useState } from "react";
 import Carrousel from "~/components/Carrousel";
 
 export default function GalleryGrid({
@@ -14,7 +14,7 @@ export default function GalleryGrid({
     projectUrl: string;
     codeUrl: string;
   } | null>(null);
-  let [creator, setCreator] = useState<{
+  const [creator, setCreator] = useState<{
     displayName: string;
     imageUrl: string;
   } | null>(null);
@@ -23,22 +23,17 @@ export default function GalleryGrid({
 
   function moveTooltip(e: React.MouseEvent) {
     if (!tooltipRef.current) return;
-    tooltipRef.current.style.left =
-      Math.max(
-        e.clientX +
-          (e.clientX + tooltipRef.current.offsetWidth + 24 > window.innerWidth
-            ? -tooltipRef.current.offsetWidth - 12
-            : 12),
-        0,
-      ) + "px";
-    tooltipRef.current.style.top =
-      Math.max(
-        Math.min(
-          e.clientY + 12,
-          window.innerHeight - tooltipRef.current.offsetHeight - 12,
-        ),
-        0,
-      ) + "px";
+    tooltipRef.current.style.left = `${Math.max(
+      e.clientX +
+        (e.clientX + tooltipRef.current.offsetWidth + 24 > window.innerWidth
+          ? -tooltipRef.current.offsetWidth - 12
+          : 12),
+      0,
+    )}px`;
+    tooltipRef.current.style.top = `${Math.max(
+      Math.min(e.clientY + 12, window.innerHeight - tooltipRef.current.offsetHeight - 12),
+      0,
+    )}px`;
   }
 
   const events = useMemo(() => {
@@ -56,9 +51,7 @@ export default function GalleryGrid({
   const filtered = useMemo(() => {
     if (!filter || filter === "All") return projects;
     if (filter === "Other")
-      return projects.filter(
-        p => !p.event || !events.map(e => e.name).includes(p.event),
-      );
+      return projects.filter(p => !(p.event && events.map(e => e.name).includes(p.event)));
     return projects.filter(p => p.event === filter);
   }, [projects, filter, events]);
 
@@ -112,16 +105,18 @@ export default function GalleryGrid({
           maxWidth: "90vw",
         }}>
         {filtered.map(project => (
-          <div
+          <button
+            type="button"
             key={project.playable_url}
             className="project"
+            aria-label={`Open ${project.playable_url}`}
             onClick={() => {
               setOpenProject({
                 images: project.screenshots,
                 projectUrl: project.playable_url,
                 codeUrl: project.code_url,
               });
-              fetch("https://cachet.dunkirk.sh/users/" + project.slack_id)
+              fetch(`https://cachet.dunkirk.sh/users/${project.slack_id}`)
                 .then(res => res.json())
                 .then(setCreator);
             }}
@@ -141,19 +136,15 @@ export default function GalleryGrid({
               tooltipRef.current?.parentNode?.removeChild(tooltipRef.current);
               tooltipRef.current = null;
             }}>
-            <img
-              src={project.screenshots[0]}
-              alt={project.playable_url}
-              loading="lazy"
-            />
+            <img src={project.screenshots[0]} alt={project.playable_url} loading="lazy" />
             <div className="gallery-overlay muted">
               <span>{project.playable_url}</span>
             </div>
-          </div>
+          </button>
         ))}
       </div>
 
-      {openProject && (
+      {openProject ? (
         <>
           <Carrousel
             images={openProject.images}
@@ -165,7 +156,7 @@ export default function GalleryGrid({
               setCreator(null);
             }}
           />
-          {creator && (
+          {creator ? (
             <div
               style={{
                 position: "fixed",
@@ -178,13 +169,16 @@ export default function GalleryGrid({
               }}>
               <img
                 src={creator?.imageUrl}
-                style={{ width: "36px", borderRadius: "12px" }}
+                alt=""
+                width={36}
+                height={36}
+                style={{ width: "36px", height: "36px", borderRadius: "12px" }}
               />
               {creator?.displayName}
             </div>
-          )}
+          ) : null}
         </>
-      )}
+      ) : null}
     </>
   );
 }

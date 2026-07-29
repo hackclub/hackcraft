@@ -1,7 +1,7 @@
 "use client";
 
-import LazyVideo from "~/components/LazyVideo";
 import { useRef } from "react";
+import LazyVideo from "~/components/LazyVideo";
 
 interface GalleryEntryProps {
   info: Record<string, string>;
@@ -19,11 +19,11 @@ export default function GalleryEntry({ info }: GalleryEntryProps) {
   };
 
   const showTooltip = e => {
-    if (!info["Description"] || !info["Short Description"]) return;
+    if (!(info.Description && info["Short Description"])) return;
     if (!tooltipRef.current) {
       const el = document.createElement("div");
       el.id = "minetip-tooltip";
-      el.textContent = info["Description"] ?? "";
+      el.textContent = info.Description ?? "";
       document.body.appendChild(el);
 
       tooltipRef.current = el;
@@ -38,13 +38,10 @@ export default function GalleryEntry({ info }: GalleryEntryProps) {
 
   return (
     <div>
-      <p
-        onMouseEnter={showTooltip}
-        onMouseMove={moveTooltip}
-        onMouseLeave={hideTooltip}>
-        {info["Short Description"] || info["Description"]}
+      <p onMouseEnter={showTooltip} onMouseMove={moveTooltip} onMouseLeave={hideTooltip}>
+        {info["Short Description"] || info.Description}
       </p>
-      {info["Demo video"] && <LazyVideo src={info["Demo video"]} />}
+      {info["Demo video"] ? <LazyVideo src={info["Demo video"]} /> : null}
       <br />
       <a href={info["Code link"]} target="_blank" rel="noopener noreferrer">
         Code

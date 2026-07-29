@@ -1,0 +1,205 @@
+.section {
+  max-width: 42em;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.showcase {
+  display: grid;
+  margin: 0 auto;
+  background-color: #000000aa;
+}
+
+.grid-steps {
+  grid-template-columns: 1fr 1fr;
+  display: grid;
+  gap: 1em;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+@media (max-width: 32rem) {
+  .grid-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+.item-step {
+  padding: 1em;
+  color: white;
+  border-radius: 16px;
+  display: flex;
+  position: relative;
+  aspect-ratio: 2 / 1;
+  background-size: cover;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.item-step:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.item-text {
+  font-family: "Minecraftia", sans-serif;
+  background: #2c9d1c;
+  padding: 1em;
+  padding-bottom: 0.4em;
+  position: absolute;
+  bottom: -20px;
+  right: -1rem;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: black 1px 1px 8px;
+}
+
+.item-text:after,
+.item-text:before {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background:
+    url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNHB4IiBoZWlnaHQ9IjRweCIgdmlld2JveD0iMCAwIDRweCA0cHgiIHg9IjBweCIgeT0iMHB4Ij48cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJyZ2IoMzcsIDE3NiwgNykiIC8+PC9zdmc+")
+    top left no-repeat,
+    url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNHB4IiBoZWlnaHQ9IjRweCIgdmlld2JveD0iMCAwIDRweCA0cHgiIHg9IjBweCIgeT0iMHB4Ij48cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJyZ2IoMTQxLCAyNTMsIDkyKSIgLz48L3N2Zz4=")
+    top right no-repeat,
+    url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNHB4IiBoZWlnaHQ9IjRweCIgdmlld2JveD0iMCAwIDRweCA0cHgiIHg9IjBweCIgeT0iMHB4Ij48cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJyZ2IoMTgsIDg4LCAzKSIgLz48L3N2Zz4=")
+    bottom left no-repeat,
+    url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNHB4IiBoZWlnaHQ9IjRweCIgdmlld2JveD0iMCAwIDRweCA0cHgiIHg9IjBweCIgeT0iMHB4Ij48cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJyZ2IoMzYsIDE4MCwgNikiIC8+PC9zdmc+")
+    bottom right no-repeat;
+}
+
+.item-text:before {
+  background: none;
+  border-top: 4px solid #64fd1f;
+  border-bottom: 4px solid #1e8c03;
+  border-left: 4px solid #156c00;
+  border-right: 4px solid #47d009;
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+#subtitle {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  margin: 0;
+  font-family: "Minecraftia", sans-serif;
+  font-weight: normal;
+  text-align: center;
+}
+
+.banner {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  border: 0;
+  width: 128px;
+}
+
+.banner:hover {
+  animation: wave-flag 0.5s linear infinite alternate;
+  transform-origin: top left;
+  transition: 0.1875s cubic-bezier(0.375, 0, 0.675, 1) transform;
+}
+
+@keyframes wave-flag {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+
+.back {
+  position: absolute;
+  top: 1rem;
+  right: 10px;
+}
+
+.section-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.skip {
+  font-size: small;
+}
+
+.player1 {
+  color: #fbfbfb;
+}
+
+.player2 {
+  color: #4da14d;
+}
+
+.player1,
+.player2 {
+  transition-duration: 1s;
+  line-height: 90%;
+}
+
+h3 {
+  margin-bottom: 1px;
+  margin-top: 2px;
+}
+
+pre {
+  background-color: #1e1f22;
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+code {
+  font-family: "JetBrainsMono", monospace;
+  font-size: medium;
+  line-height: 1.2;
+  background-color: #1e1f22;
+  color: #bcbec4;
+  padding: 3px;
+  border-radius: 5px;
+  margin-right: 3px;
+}
+
+.annotation {
+  color: #b3ae60;
+}
+
+.string {
+  color: #6aab73;
+}
+
+.keyword {
+  color: #cf8e6d;
+}
+
+.field {
+  color: #c77dbb;
+}
+
+.function {
+  color: #56a8f5;
+}
+
+.number {
+  color: #2aacb8;
+}
+
+.comment {
+  color: #7a7e85;
+}

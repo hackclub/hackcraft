@@ -13,17 +13,15 @@ export default function ImageUploader({
   const fileInput = useRef<HTMLInputElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  async function addFromTransfer(
-    transfer: DataTransfer | HTMLInputElement | null,
-  ) {
+  async function addFromTransfer(transfer: DataTransfer | HTMLInputElement | null) {
     if (!transfer) return;
 
     onChange(
       [
         ...value,
         ...((
-          transfer["getData"]?.("text") ||
-          transfer["getData"]?.("text/plain") ||
+          (transfer as DataTransfer).getData?.("text") ||
+          (transfer as DataTransfer).getData?.("text/plain") ||
           ""
         ).match(/https?:\/\/\S+/g) || []),
         ...(await Promise.all(
@@ -47,18 +45,14 @@ export default function ImageUploader({
 
   useEffect(() => {
     function onPaste(event: ClipboardEvent) {
-      const links =
-        event.clipboardData?.getData("text")?.match(/https:\/\/\S+/g)?.length ||
-        0;
+      const links = event.clipboardData?.getData("text")?.match(/https:\/\/\S+/g)?.length || 0;
 
       if (
         (event.clipboardData?.files.length === 0 && links === 0) ||
         (links > 0 &&
           event.target &&
           ((event.target as HTMLElement).isContentEditable ||
-            !!(event.target as HTMLElement).closest(
-              "input, textarea, [contenteditable='true']",
-            )))
+            !!(event.target as HTMLElement).closest("input, textarea, [contenteditable='true']")))
       )
         return;
 
@@ -67,14 +61,12 @@ export default function ImageUploader({
     }
 
     function onDragOver(event: DragEvent) {
-      if (!Array.from(event.dataTransfer?.types ?? []).includes("Files"))
-        return;
+      if (!Array.from(event.dataTransfer?.types ?? []).includes("Files")) return;
       event.preventDefault();
     }
 
     function onDrop(event: DragEvent) {
-      if (!Array.from(event.dataTransfer?.types ?? []).includes("Files"))
-        return;
+      if (!Array.from(event.dataTransfer?.types ?? []).includes("Files")) return;
       event.preventDefault();
       addFromTransfer(event.dataTransfer ?? null);
     }
@@ -91,6 +83,7 @@ export default function ImageUploader({
   });
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop has no keyboard equivalent; the "Upload file" button and paste support cover keyboard users
     <div
       style={{
         display: "grid",
@@ -105,11 +98,7 @@ export default function ImageUploader({
         addFromTransfer(event.dataTransfer);
       }}>
       {openIndex !== null && (
-        <Carrousel
-          images={value}
-          initialIndex={openIndex}
-          onClose={() => setOpenIndex(null)}
-        />
+        <Carrousel images={value} initialIndex={openIndex} onClose={() => setOpenIndex(null)} />
       )}
       <input
         ref={fileInput}
@@ -141,24 +130,40 @@ export default function ImageUploader({
               position: "relative",
               height: "8rem",
             }}>
-            <img
-              src={url}
-              alt="Screenshot"
-              height="100%"
-              style={{ objectFit: "contain", width: "100%" }}
-              onError={e => onChange(value.filter(img => img != url))}
+            <button
+              type="button"
               onClick={() => setOpenIndex(i)}
-            />
-            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                padding: 0,
+                border: "none",
+                background: "none",
+              }}>
+              <img
+                src={url}
+                alt="Screenshot"
+                height="100%"
+                style={{ objectFit: "contain", width: "100%" }}
+                onError={_e => onChange(value.filter(img => img !== url))}
+              />
+            </button>
+            <button
+              type="button"
+              onClick={() => onChange(value.filter(item => item !== url))}
               style={{
                 position: "absolute",
                 top: "0px",
                 left: "8px",
                 cursor: "pointer",
-              }}
-              onClick={() => onChange(value.filter(item => item !== url))}>
+                border: "none",
+                background: "none",
+                color: "inherit",
+                font: "inherit",
+                padding: 0,
+              }}>
               x
-            </div>
+            </button>
           </div>
         ))}
       </div>

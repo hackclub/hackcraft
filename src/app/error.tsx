@@ -3,11 +3,7 @@
 import Page from "~/components/Page";
 import TiledDiv from "~/components/TiledDiv";
 
-export default function Error({
-  error,
-}: {
-  error: Error & { digest?: string };
-}) {
+export default function ErrorPage({ error }: { error: Error & { digest?: string } }) {
   return (
     <Page back="/" backText="home">
       <TiledDiv id="header" background="dirt">
@@ -19,6 +15,7 @@ export default function Error({
           }}>
           <h2>Something went wrong</h2>
           <p>{error.message || "An unknown error occurred"}</p>
+          {error.digest ? <p className="muted">{error.digest}</p> : null}
         </div>
       </TiledDiv>
     </Page>

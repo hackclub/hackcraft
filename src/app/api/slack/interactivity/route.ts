@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  sendMessage,
-  updateApprovedProjectField,
-  verifySlackRequest,
-} from "~/lib/api";
+import { sendMessage, updateApprovedProjectField, verifySlackRequest } from "~/lib/api";
 
 export async function POST(request: Request) {
   const raw = await request.text();
@@ -11,7 +7,9 @@ export async function POST(request: Request) {
     if (!verifySlackRequest(request, raw))
       return new NextResponse("Invalid Slack signature", { status: 401 });
 
-    const payload = JSON.parse(new URLSearchParams(raw).get("payload")!);
+    const payloadRaw = new URLSearchParams(raw).get("payload");
+    if (!payloadRaw) return new NextResponse("Missing payload", { status: 400 });
+    const payload = JSON.parse(payloadRaw);
 
     for (const action of payload.actions ?? []) {
       if (action.action_id === "feedback")
@@ -19,13 +17,7 @@ export async function POST(request: Request) {
           channel: "U07AGEVSTD2",
           text: action.value,
         });
-      if (
-        !(await updateApprovedProjectField(
-          payload.user.id,
-          action.action_id,
-          action.value,
-        ))
-      )
+      if (!(await updateApprovedProjectField(payload.user.id, action.action_id, action.value)))
         continue;
 
       await sendMessage({

@@ -1,42 +1,14 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useCallback, useState } from "react";
 import ImageUploader from "~/components/ImageUploader";
 import { burstConfetti } from "~/lib/confetti";
-import { Project } from "~/lib/util";
-
-function Validation({
-  validation,
-}: {
-  validation: { errors: string[]; warnings: string[] };
-}) {
-  return (
-    <>
-      {validation.errors.map(message => (
-        <p
-          key={message}
-          style={{
-            margin: "0.35rem 0 0",
-            fontSize: "0.85rem",
-            color: "#ff8080",
-          }}>
-          {message}
-        </p>
-      ))}
-      {validation.warnings.map(message => (
-        <p
-          key={message}
-          style={{
-            margin: "0.35rem 0 0",
-            fontSize: "0.85rem",
-            color: "#ffe066",
-          }}>
-          {message}
-        </p>
-      ))}
-    </>
-  );
-}
+import type { Project } from "~/lib/util";
+import GuideModal from "./GuideModal";
+import HackatimeProjectPicker from "./HackatimeProjectPicker";
+import PrizePicker from "./PrizePicker";
+import { useProjectValidation } from "./useProjectValidation";
+import Validation from "./Validation";
 
 export default function ProjectForm({
   id,
@@ -67,152 +39,22 @@ export default function ProjectForm({
   });
 
   const [javaFilter, setJavaFilter] = useState(true);
-  const [guide, setGuide] = useState<string | null>(
-    id === "new" ? "checklist" : null,
+  const [guide, setGuide] = useState<string | null>(id === "new" ? "checklist" : null);
+
+  const getHours = useCallback(
+    (projectNames: string[]) =>
+      projects
+        .filter(project => projectNames.includes(project.name))
+        .reduce((sum, project) => sum + project.total_seconds, 0) / 3600,
+    [projects],
   );
-
-  const getHours = (projectNames: string[]) =>
-    projects
-      .filter(project => projectNames.includes(project.name))
-      .reduce((sum, project) => sum + project.total_seconds, 0) / 3600;
-  const validation = useMemo(() => {
-    const validation = {
-      playable_url: { errors: [] as string[], warnings: [] as string[] },
-      code_url: { errors: [] as string[], warnings: [] as string[] },
-      description: { errors: [] as string[], warnings: [] as string[] },
-      hour_override: { errors: [] as string[], warnings: [] as string[] },
-      hackatime_projects: { errors: [] as string[], warnings: [] as string[] },
-      screenshots: { errors: [] as string[], warnings: [] as string[] },
-      notes: { errors: [] as string[], warnings: [] as string[] },
-    };
-
-    const selectedProjects = projects.filter(project =>
-      values.hackatime_projects.includes(project.name),
-    );
-
-    if (
-      !/^https:\/\/(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(?:\/[^\/\s]+)+\/?$/.test(
-        values.playable_url,
-      )
-    ) {
-      validation.playable_url.errors.push(
-        "Playable URL must be a valid https URL.",
-      );
-    } else if (!values.playable_url.startsWith("https://modrinth.com/")) {
-      validation.playable_url.warnings.push("Modrinth is recommended.");
-    }
-
-    if (
-      !/^https:\/\/(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(?:\/[^\/\s]+)+\/?$/.test(
-        values.code_url,
-      )
-    )
-      validation.code_url.errors.push("Code URL must be a valid https URL.");
-
-    if (values.description.length < 10) {
-      validation.description.errors.push(
-        "Description should be at least 10 characters.",
-      );
-    } else if (values.description.length > 500) {
-      validation.description.warnings.push(
-        "Description should not exceed 500 characters.",
-      );
-    } else if (
-      values.description.toLowerCase().includes("installation instructions") ||
-      values.description.toLowerCase().includes("license")
-    ) {
-      validation.description.warnings.push(
-        "Please describe your project itself, this is not your readme.",
-      );
-    }
-
-    if (selectedProjects.length === 0)
-      validation.hackatime_projects.errors.push(
-        "Please link at least one Hackatime project.",
-      );
-
-    if (
-      selectedProjects.some(
-        project =>
-          !project.languages.some(lang => lang.toLowerCase() === "java"),
-      )
-    )
-      validation.hackatime_projects.warnings.push(
-        selectedProjects
-          .filter(
-            project =>
-              !project.languages.some(lang => lang.toLowerCase() === "java"),
-          )
-          .map(project => project.name)
-          .join(", ") + " are not Java projects.",
-      );
-
-    if (values.hour_override) {
-      const parsed = Number(values.hour_override);
-      if (parsed < 0) {
-        validation.hour_override.errors.push(
-          "Hour override must be greater than 0.",
-        );
-      } else if (parsed < 3) {
-        validation.hour_override.warnings.push(
-          "That hour count is quite low and unlikely to be approved.",
-        );
-      } else if (parsed > 100) {
-        validation.hour_override.warnings.push(
-          "That hour value seems high. Make sure it's correct.",
-        );
-      }
-
-      if (
-        !values.notes &&
-        Math.abs(parsed - getHours(values.hackatime_projects)) > 0.7
-      ) {
-        validation.notes.errors.push(
-          "Please explain in notes why the hour override is different from Hackatime.",
-        );
-      }
-    }
-
-    const screenshotUrls = values.screenshots
-      .map(url => url.trim())
-      .filter(Boolean);
-
-    if (screenshotUrls.length === 0) {
-      validation.screenshots.errors.push("Please add some screenshots.");
-    } else if (screenshotUrls.length < 3) {
-      validation.screenshots.warnings.push("Maybe some more?");
-    }
-
-    if (
-      screenshotUrls.filter(
-        url =>
-          !/^https:\/\/(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(?:\/[^\/\s]+)+\/?$/.test(
-            url,
-          ) &&
-          !/^data:image\/(png|jpeg|jpg|gif|webp|avif|bmp|svg\+xml);base64,/i.test(
-            url,
-          ),
-      ).length > 0
-    ) {
-      validation.screenshots.errors.push("Invalid screenshots.");
-    }
-
-    return {
-      ...validation,
-      totalErrors: Object.values(validation).reduce(
-        (count, { errors }) => count + errors.length,
-        0,
-      ),
-      totalWarnings: Object.values(validation).reduce(
-        (count, { warnings }) => count + warnings.length,
-        0,
-      ),
-    };
-  }, [values]);
+  const validation = useProjectValidation(values, projects, getHours);
 
   function updateField(name: string, value: string) {
     setValues(prev => ({ ...prev, [name]: value }));
   }
+
+  const hours = getHours(values.hackatime_projects);
 
   return (
     <form
@@ -221,7 +63,7 @@ export default function ProjectForm({
       action={formAction}>
       <input type="hidden" name="id" value={id} />
 
-      {state?.error && (
+      {state?.error ? (
         <p
           style={{
             padding: "1rem",
@@ -230,16 +72,13 @@ export default function ProjectForm({
           }}>
           {state.error}
         </p>
-      )}
+      ) : null}
 
       <div style={{ display: "flex", gap: "1rem" }}>
         <div style={{ width: "100%" }}>
           <span className="header">
             Playable URL
-            <button
-              type="button"
-              className="help-icon"
-              onClick={() => setGuide("modrinth")}>
+            <button type="button" className="help-icon" onClick={() => setGuide("modrinth")}>
               ?
             </button>
           </span>
@@ -256,10 +95,7 @@ export default function ProjectForm({
         <div style={{ width: "100%" }}>
           <span className="header">
             Code URL
-            <button
-              type="button"
-              className="help-icon"
-              onClick={() => setGuide("github")}>
+            <button type="button" className="help-icon" onClick={() => setGuide("github")}>
               ?
             </button>
           </span>
@@ -287,102 +123,22 @@ export default function ProjectForm({
         <Validation validation={validation.description} />
       </div>
 
-      <div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <span className="header">Hackatime projects</span>
-          <label>
-            <input
-              type="checkbox"
-              checked={javaFilter}
-              onChange={e => setJavaFilter(e.target.checked)}
-            />
-            Java only
-          </label>
-        </div>
-        {!projects.some(
-          project =>
-            !javaFilter ||
-            project.languages.some(lang => lang.toLowerCase() === "java"),
-        ) ? (
-          <p className="muted">No Hackatime projects found</p>
-        ) : (
-          <div
-            style={{
-              display: "grid",
-              gap: "0.5rem",
-              gridTemplateColumns: "1fr 1fr",
-            }}>
-            {projects.map(project => {
-              const checked = values.hackatime_projects.includes(project.name);
-              return (
-                <span
-                  key={project.name}
-                  onClick={() => {
-                    const hackatime_projects =
-                      values.hackatime_projects.includes(project.name)
-                        ? values.hackatime_projects.filter(
-                          name => name !== project.name,
-                        )
-                        : [...values.hackatime_projects, project.name];
-                    if (
-                      Math.abs(
-                        getHours(values.hackatime_projects) -
-                        values.hour_override,
-                      ) < 0.5
-                    )
-                      updateField(
-                        "hour_override",
-                        getHours(hackatime_projects).toFixed(2),
-                      );
-                    setValues(prev => ({ ...prev, hackatime_projects }));
-                  }}
-                  style={{
-                    fontSize: "1rem",
-                    padding: "0.75rem 1rem",
-                    display:
-                      javaFilter &&
-                        !project.languages.some(
-                          lang => lang.toLowerCase() === "java",
-                        )
-                        ? "none"
-                        : "",
-                    border: project.languages.some(
-                      lang => lang.toLowerCase() === "java",
-                    )
-                      ? "2px solid rgba(255, 255, 255, 0.12)"
-                      : "2px solid rgba(255, 224, 102, 0.3)",
-                    background: checked
-                      ? "rgba(37, 105, 242, 0.18)"
-                      : "rgba(0, 0, 0, 0.18)",
-                    cursor: "pointer",
-                  }}>
-                  <input
-                    type="checkbox"
-                    readOnly
-                    style={{ width: "auto", marginRight: "0.75rem" }}
-                    value={project.name}
-                    checked={checked}
-                  />
-                  <span>{project.name}</span>
-                  <span className="muted" style={{ float: "right" }}>
-                    {(project.total_seconds / 3600).toFixed(2)}h
-                  </span>
-                </span>
-              );
-            })}
-          </div>
-        )}
-        <input
-          type="hidden"
-          name="hackatime_projects"
-          value={values.hackatime_projects.join(",")}
-        />
-        <p className="muted" style={{ marginBottom: 0 }}>
-          Selected projects total{" "}
-          {getHours(values.hackatime_projects).toFixed(2)}h
-        </p>
-        <Validation validation={validation.hackatime_projects} />
-      </div>
+      <HackatimeProjectPicker
+        projects={projects}
+        javaFilter={javaFilter}
+        onJavaFilterChange={setJavaFilter}
+        selected={values.hackatime_projects}
+        onToggle={name => {
+          const hackatimeProjects = values.hackatime_projects.includes(name)
+            ? values.hackatime_projects.filter(n => n !== name)
+            : [...values.hackatime_projects, name];
+          if (Math.abs(hours - values.hour_override) < 0.5)
+            updateField("hour_override", getHours(hackatimeProjects).toFixed(2));
+          setValues(prev => ({ ...prev, hackatime_projects: hackatimeProjects }));
+        }}
+        hours={hours}
+        validation={validation.hackatime_projects}
+      />
 
       <div style={{ display: "flex", gap: "1rem" }}>
         <div style={{ width: "100%" }}>
@@ -420,9 +176,7 @@ export default function ProjectForm({
         <span className="header">Screenshots</span>
         <ImageUploader
           value={values.screenshots}
-          onChange={screenshots =>
-            setValues(prev => ({ ...prev, screenshots }))
-          }
+          onChange={screenshots => setValues(prev => ({ ...prev, screenshots }))}
         />
         <input
           type="hidden"
@@ -433,119 +187,7 @@ export default function ProjectForm({
         <Validation validation={validation.screenshots} />
       </div>
 
-      <div style={{ width: "100%", display: "contents" }}>
-        <span className="header">Prize</span>
-        <div
-          style={{
-            overflowX: "auto",
-            display: "flex",
-
-            gap: "1rem",
-            padding: "0.5rem",
-            width: "100%",
-          }}>
-          {[
-            {
-              title: "Minecraft License",
-              description: "Block game 4 free!",
-              image: "minecraft",
-            },
-            {
-              title: "Nest Hosting (3 months)",
-              description: "2 virtual cores, 4gb ram, 64gb storage",
-              image: "nest1",
-            },
-            {
-              title: "Nest Hosting (2 months)",
-              description: "4 virtual cores, 8gb ram, 128gb storage",
-              image: "nest2",
-            },
-            {
-              title: "Grant for Servers (30$)",
-              description: "find your own server!",
-              image: "server",
-            },
-            {
-              title: "Hytale",
-              description: "Other block game??",
-              image: "hytale",
-            },
-            {
-              title: "800$ Computer Grant",
-              description: "Only available if you did the previous events!",
-              image: "computah",
-            },
-            {
-              title: "none",
-              description: "You will recieve: nothing",
-              image: "404",
-            },
-          ]
-            .map(prize => ({
-              ...prize,
-              selected: prize.title === values.prize,
-            }))
-            .map(prize => (
-              <div
-                key={prize.title}
-                className="card"
-                onClick={() => updateField("prize", prize.title)}
-                style={{
-                  width: "15rem",
-                  flexShrink: 0,
-                  textAlign: "left",
-                  padding: "20px",
-
-                  background: prize.selected ? "#1c1c1c" : "#171717",
-                  border: prize.selected
-                    ? "1px solid #fff"
-                    : "2px solid #2c2c2c",
-
-                  transform: prize.selected
-                    ? "translateY(0px) scale(0.98)"
-                    : "",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-
-                  cursor: "pointer",
-
-                  transition:
-                    "transform .12s ease, border-color .12s ease, background .12s ease",
-                }}>
-                <img
-                  className="muted"
-                  style={{
-                    paddingBottom: "10px",
-                    border: "none",
-                    borderBottom: "1px solid #262626",
-                    height: "7.5rem",
-                    objectFit: "cover",
-                  }}
-                  src={`/images/${prize.image}.webp`}
-                  alt={prize.image}
-                />
-
-                <div
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: 600,
-                  }}>
-                  {prize.title}
-                </div>
-
-                <div
-                  className="muted"
-                  style={{
-                    lineHeight: 1.4,
-                  }}>
-                  {prize.description}
-                </div>
-              </div>
-            ))}
-        </div>
-        <input name="prize" value={values.prize} hidden readOnly />
-      </div>
+      <PrizePicker selected={values.prize} onSelect={title => updateField("prize", title)} />
 
       <div>
         <span className="header">Notes</span>
@@ -561,15 +203,10 @@ export default function ProjectForm({
       <p className="muted" style={{ margin: 0 }}>
         {validation.totalErrors > 0
           ? `${validation.totalErrors} error(s), ${validation.totalWarnings} warning(s)`
-          : validation.totalWarnings > 0 &&
-          `${validation.totalWarnings} warning(s)`}
+          : validation.totalWarnings > 0 && `${validation.totalWarnings} warning(s)`}
       </p>
       <div>
-        <button
-          type="submit"
-          name="intent"
-          value="draft"
-          style={{ marginRight: "1rem" }}>
+        <button type="submit" name="intent" value="draft" style={{ marginRight: "1rem" }}>
           Save as draft
         </button>
         <button
@@ -578,9 +215,7 @@ export default function ProjectForm({
           value="submit"
           disabled={validation.totalErrors > 0}
           title={
-            validation.totalErrors > 0
-              ? "Fix form errors before submitting"
-              : "Submit project"
+            validation.totalErrors > 0 ? "Fix form errors before submitting" : "Submit project"
           }
           style={{ marginRight: "1rem" }}
           onClick={e => burstConfetti(e.clientX, e.clientY)}>
@@ -605,126 +240,12 @@ export default function ProjectForm({
       </div>
       <p className="muted" style={{ margin: 0, fontSize: "0.85rem" }}>
         Having trouble submitting here?{" "}
-        <a
-          href="https://submit.hackclub.com/hackcraft-ysws"
-          target="_blank"
-          rel="noreferrer">
+        <a href="https://submit.hackclub.com/hackcraft-ysws" target="_blank" rel="noreferrer">
           Use the old form
         </a>
         .
       </p>
-      {guide && (
-        <div
-          onClick={() => setGuide(null)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0, 0, 0, 0.88)",
-            backdropFilter: "blur(6px)",
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
-            padding: "3rem 1rem",
-            overflowY: "auto",
-            zIndex: 1000,
-          }}>
-          <div
-            className="section"
-            onClick={e => e.stopPropagation()}
-            style={{ position: "relative" }}>
-            <button
-              type="button"
-              onClick={() => setGuide(null)}
-              style={{
-                position: "absolute",
-                top: "-0.75rem",
-                right: "-0.75rem",
-                padding: "0.1rem 0.25rem 0.25rem 0.5rem",
-              }}>x
-            </button>
-            {guide === "checklist" && <>
-              <h2>Before you submit</h2>
-              <ul>
-                <li>Make sure your mod is good :3</li>
-                <li>Confirm that you did not make your mod nor your readme with AI.</li>
-                <li>
-                  Test if your mod works properly on a server and outside of a
-                  development environment.
-                </li>
-                <li>
-                  Check if your mod is survival-friendly and everything that should
-                  be obtainable actually is.
-                </li>
-                <li>Ensure you are in #mc-modding so you can receive your prize.</li>
-                <li>
-                  Test that your mod actually works for the versions you say it works
-                  for 😔
-                </li>
-                <li>
-                  Please also confirm that your mod is coherent and does not contain
-                  any tutorial items or files (Like ExampleMixin, suspicious
-                  substances, chisels, ...)
-                </li>
-              </ul>
-            </>}
-            {guide === "github" && <>
-              <h2>Publishing to GitHub</h2>
-              <i style={{ fontSize: "1rem" }}>
-                You are allowed to use another git provider, but most people use GitHub.
-              </i>
-              <p>
-                In Intellij, go to Menu &gt; Git &gt; GitHub &gt; Share Project On
-                GitHub, disable Private and Share, this should create a Git repo for
-                you.
-              </p>
-              <img
-                src="/images/share-on-github.webp"
-                alt="Share on GitHub"
-                width="100%"
-              />
-              <p>
-                If you aren't using Intellij, create an empty (don't add any files
-                yet) repository on GitHub and run the commands GitHub prompts you to
-                in your project folder.
-              </p>
-            </>}
-            {guide === "modrinth" && <>
-              <h2>Publishing to Modrinth</h2>
-              <p>
-                First we need to package our mod, in Intellij click on the gradle
-                icon (the elephant) on the left of your screen and double click build
-                to create a jar containing all your work.
-              </p>
-              <img src="/images/build.webp" alt="Building the mod" width="100%" />
-              <p>
-                Go to <a href="https://modrinth.com/">Modrinth</a> and click the + in
-                the top left (sign in if you haven't already) and create a new
-                project. Modrinth already guides you through the process, but watch
-                out for these common pitfalls to prevent getting your mod rejected:
-              </p>
-              <ul>
-                <li>
-                  Make sure you have a lengthy and properly formatted description
-                  encapsulating all features (
-                  <a href="https://modrinth.com/mod/quark">good example</a>,{" "}
-                  <a href="https://modrinth.com/mod/entityculling">great example</a>)
-                </li>
-                <li>Make sure you have a functional GitHub repository/issues link.</li>
-                <li>Check that your license matches the one on GitHub</li>
-                <li>
-                  Make sure you selected the correct version range. 1.21.x is not
-                  real.
-                </li>
-                <li>
-                  Ensure you are using the correct environment. Most likely this is "both"
-                </li>
-              </ul>
-            </>}
-          </div>
-        </div>
-      )}
+      {guide ? <GuideModal guide={guide} onClose={() => setGuide(null)} /> : null}
     </form>
   );
 }

@@ -4,28 +4,13 @@ import TiledDiv from "~/components/TiledDiv";
 import { claimStickers } from "~/lib/api";
 import { getIdentity } from "~/lib/util";
 
-export default async function Stickers(props: {
-  searchParams: Promise<{ success?: string }>;
-}) {
+export default async function Stickers(props: { searchParams: Promise<{ success?: string }> }) {
   const identity = await getIdentity();
 
   return (
     <Page>
       <TiledDiv id="header" background="dirt">
-        {(await props.searchParams).success != undefined ? (
-          <div
-            className="section"
-            style={{
-              border: "3px solid rgba(85, 255, 85, 0.6)",
-            }}>
-            <h2>Success!</h2>
-            <p>
-              Your stickers should be on their way! Check{" "}
-              <a href="https://mail.hackclub.com">mail.hackclub.com</a> to track
-              the delivery.
-            </p>
-          </div>
-        ) : (
+        {(await props.searchParams).success === undefined ? (
           <div className="section">
             <form
               action={async (formData: FormData) => {
@@ -62,6 +47,18 @@ export default async function Stickers(props: {
                 Send them off!
               </button>
             </form>
+          </div>
+        ) : (
+          <div
+            className="section"
+            style={{
+              border: "3px solid rgba(85, 255, 85, 0.6)",
+            }}>
+            <h2>Success!</h2>
+            <p>
+              Your stickers should be on their way! Check{" "}
+              <a href="https://mail.hackclub.com">mail.hackclub.com</a> to track the delivery.
+            </p>
           </div>
         )}
       </TiledDiv>

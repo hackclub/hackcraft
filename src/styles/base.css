@@ -1,0 +1,108 @@
+body {
+  background-color: #000000;
+  color: white;
+  margin: 0;
+  font-family: "Minecraft", sans-serif;
+  font-size: 1.5em;
+  scroll-behavior: smooth;
+}
+
+* {
+  image-rendering: auto;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+@font-face {
+  font-family: "Minecraftia";
+  src: url("/fonts/Minecraftia-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("/fonts/Minecraft.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMono";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
+.splash {
+  font-family: "Minecraftia", sans-serif;
+  font-size: 1.25rem;
+  color: #ffff55;
+  animation: splash 0.25s alternate infinite;
+  cursor: pointer;
+  position: absolute;
+  bottom: 25%;
+  right: -65px;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  .splash {
+    right: 0.75rem;
+    bottom: 20%;
+    font-size: 1rem;
+  }
+}
+
+@keyframes splash {
+  0% {
+    transform: scale(0.875) rotate(-20deg);
+  }
+  100% {
+    transform: scale(1) rotate(-20deg);
+  }
+}
+
+#navbar {
+  background-repeat: repeat-x;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 400px;
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 2em;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: all 0.1s ease;
+}
+
+a:hover {
+  text-decoration-thickness: 4px;
+}
+
+li {
+  list-style-type: square;
+  margin-left: 1rem;
+  line-height: 1.6;
+}

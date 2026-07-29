@@ -1,43 +1,50 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Page from "~/components/Page";
-import ProjectGenerator from "./ProjectGenerator";
 import TiledDiv from "~/components/TiledDiv";
+import ProjectGenerator from "./ProjectGenerator";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Guide",
+  description:
+    "A step-by-step guide to setting up your project and shipping your first Minecraft mod.",
+};
 
 export default function GuidePage() {
   return (
     <Page>
       <TiledDiv id="header" background="dirt">
-        <div id="subtitle" style={{ fontSize: "1.2em", marginBottom: "5em" }}>
+        <h1 id="subtitle" style={{ fontSize: "1.2em", marginBottom: "5em" }}>
           <span>The Guide™</span>
-        </div>
+        </h1>
         <div
           className="section"
           style={{
             marginBottom: "1rem",
           }}>
           <h2>No Experience?</h2>
-          <p>
-            Don't know how to start modding Minecraft? We've got you covered!
-          </p>
+          <p>Don't know how to start modding Minecraft? We've got you covered!</p>
         </div>
       </TiledDiv>
       <TiledDiv background="cobblestone" style={{ padding: "1rem" }}>
         <div className="section">
           <i style={{ fontSize: "1rem" }}>
-            This tutorial assumes you have basic knowledge of Java, if you don't
-            know Java, we recommend you learn it first. You can find a good
-            tutorial{" "}
-            <a href="https://www.learnjavaonline.org/" target="_blank">
+            This tutorial assumes you have basic knowledge of Java, if you don't know Java, we
+            recommend you learn it first. You can find a good tutorial{" "}
+            <a href="https://www.learnjavaonline.org/" target="_blank" rel="noopener noreferrer">
               Online
             </a>
-            {", "}
-            <a href="https://academy.jetbrains.com/?tag=Java" target="_blank">
+            ,
+            <a
+              href="https://academy.jetbrains.com/?tag=Java"
+              target="_blank"
+              rel="noopener noreferrer">
               In IDE
             </a>
-            {", "}
-            <a href="https://learnxinyminutes.com/java" target="_blank">
+            ,
+            <a href="https://learnxinyminutes.com/java" target="_blank" rel="noopener noreferrer">
               Or here if you are looking for a quick overview by example.
             </a>
           </i>
@@ -49,102 +56,97 @@ export default function GuidePage() {
           </div>
           <p>
             First, we will require a powerful IDE. For this guide, we will use{" "}
-            <a target="_blank" href="https://www.jetbrains.com/idea/download/">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.jetbrains.com/idea/download/">
               IntelliJ IDEA
             </a>
             .
           </p>
           <i style={{ fontSize: "1rem" }}>
-            You can use another IDE but IntelliJ is by far the best, especially
-            for mixins. <br /> Tip: You can get Ultimate edition for free with
-            the{" "}
-            <a href="https://www.jetbrains.com/academy/student-pack">
-              student pack
-            </a>
-            .
+            You can use another IDE but IntelliJ is by far the best, especially for mixins. <br />{" "}
+            Tip: You can get Ultimate edition for free with the{" "}
+            <a href="https://www.jetbrains.com/academy/student-pack">student pack</a>.
           </i>
           <p>
-            After it has been downloaded onto your computer, open up the
-            application, and click on the "Plugins" on the bar on the left side
-            of your screen.
+            After it has been downloaded onto your computer, open up the application, and click on
+            the "Plugins" on the bar on the left side of your screen.
           </p>
+          <p>Search for "Minecraft Development", and click install on the plugin.</p>
           <p>
-            Search for "Minecraft Development", and click install on the plugin.
-          </p>
-          <p>
-            We also need to setup time tracking for your project. Search
-            "Wakatime" and click install. After that, click Restart IDE.
+            We also need to setup time tracking for your project. Search "Wakatime" and click
+            install. After that, click Restart IDE.
           </p>
           <p>
             After that, connect to your{" "}
-            <a target="_blank" href="https://hackatime.hackclub.com/">
+            <a target="_blank" rel="noopener noreferrer" href="https://hackatime.hackclub.com/">
               hackatime
             </a>{" "}
-            and setup Hackatime following the instructions on the website if you
-            haven't already.
+            and setup Hackatime following the instructions on the website if you haven't already.
           </p>
           <i style={{ fontSize: "1rem" }}>
-            Wakatime is the plugin you should install. Hackatime is our custom
-            server that recieves the data it sends. If you get asked for an API
-            key use that of hackatime, you never need to create a wakatime
-            account.
+            Wakatime is the plugin you should install. Hackatime is our custom server that recieves
+            the data it sends. If you get asked for an API key use that of hackatime, you never need
+            to create a wakatime account.
           </i>
           <p>
             To developing Minecraft mods, we are going to use the{" "}
-            <a href="https://fabricmc.net/">Fabric mod loader</a> and its API.
-            If there's something you're confused about, go check their{" "}
-            <a target="_blank" href="https://fabricmc.net/develop/">
+            <a href="https://fabricmc.net/">Fabric mod loader</a> and its API. If there's something
+            you're confused about, go check their{" "}
+            <a target="_blank" rel="noopener noreferrer" href="https://fabricmc.net/develop/">
               docs
             </a>
             !
           </p>
 
           <i style={{ fontSize: "1rem" }}>
-            Fabric is a lightweight modular and modern modding toolchain that
-            does almost nothing on its own, instead it relies more on vanillas
-            infrastructure and a separate API mod to fill in the gaps. If you
-            are coming from Forge, you will notice that Fabric is a lot simpler
-            and flexible making the switch very easy.
+            Fabric is a lightweight modular and modern modding toolchain that does almost nothing on
+            its own, instead it relies more on vanillas infrastructure and a separate API mod to
+            fill in the gaps. If you are coming from Forge, you will notice that Fabric is a lot
+            simpler and flexible making the switch very easy.
           </i>
           <p>Finally, it's time to create a new project!</p>
           <ProjectGenerator />
           <p>
-            Extract your zip file, open the folder with Intellij and take a look
-            at your beautiful mod.
+            Extract your zip file, open the folder with Intellij and take a look at your beautiful
+            mod.
           </p>
           <p>
-            Now, lets launch the game for the first time! You can find the
-            launch profiles in the top-right corner of the window. Click the
-            dropdown menu to see the available launch profiles.
+            Now, lets launch the game for the first time! You can find the launch profiles in the
+            top-right corner of the window. Click the dropdown menu to see the available launch
+            profiles.
           </p>
           <i style={{ fontSize: "1rem" }}>
-            Getting no JDK or version 25 not supported errors? Go to File &gt;
-            Project Structure and set your JDK to a compatible version or
-            download a new JDK (I recommend JBR 25).
+            Getting no JDK or version 25 not supported errors? Go to File &gt; Project Structure and
+            set your JDK to a compatible version or download a new JDK (I recommend JBR 25).
           </i>
           <p>
-            There should be a client and server profile, click on the green play
-            button next to the label that reads "Minecraft Client".
+            There should be a client and server profile, click on the green play button next to the
+            label that reads "Minecraft Client".
           </p>
-          <img src="/images/run-mc.webp" alt="Run Minecraft" width="100%" />
+          <img
+            src="/images/run-mc.webp"
+            alt="Run Minecraft"
+            style={{ width: "100%", height: "auto" }}
+          />
 
           <p>
-            Your game should now launch! Remember that everytime you make
-            changes in your code and want to test it, you must relaunch
-            Minecraft.
+            Your game should now launch! Remember that everytime you make changes in your code and
+            want to test it, you must relaunch Minecraft.
           </p>
 
           <h3 id="2">Before you continue</h3>
           <p>
-            You should commit your changes often. Before you can do this, first
-            you need to setup your Git repository. You can do this by running{" "}
-            <code>git init</code> in your project folder in a terminal.
+            You should commit your changes often. Before you can do this, first you need to setup
+            your Git repository. You can do this by running <code>git init</code> in your project
+            folder in a terminal.
           </p>
           <p>
-            Then to commit your changes, run <code>git add .</code> and{" "}
-            <code>git commit</code> in your terminal. Alternatively, you can use
-            the "commit" tab in Intellij on the left, select the files you want
-            to commit, write a commit message and click the "commit" button.
+            Then to commit your changes, run <code>git add .</code> and <code>git commit</code> in
+            your terminal. Alternatively, you can use the "commit" tab in Intellij on the left,
+            select the files you want to commit, write a commit message and click the "commit"
+            button.
           </p>
         </div>
         <div
@@ -154,12 +156,13 @@ export default function GuidePage() {
           }}>
           <h3>What do I do next?</h3>
           <p>
-            Follow the Fabric tutorial for modding! It's excellent: if you want
-            to add your first item, we highly suggest you follow the guide{" "}
+            Follow the Fabric tutorial for modding! It's excellent: if you want to add your first
+            item, we highly suggest you follow{" "}
             <a
               href="https://docs.fabricmc.net/develop/items/first-item"
-              target="_blank">
-              here
+              target="_blank"
+              rel="noopener noreferrer">
+              Fabric's guide to adding your first item
             </a>
             !
           </p>
@@ -171,7 +174,7 @@ export default function GuidePage() {
           </p>
           <p>
             Want to create your own textures and models?{" "}
-            <a href="https://blockbench.net/" target="_blank">
+            <a href="https://blockbench.net/" target="_blank" rel="noopener noreferrer">
               Use BlockBench
             </a>{" "}
             (
@@ -181,13 +184,9 @@ export default function GuidePage() {
             )
           </p>
           <p>
-            Go for the{" "}
-            <a href="https://docs.fabricmc.net/develop/">
-              Fabric documentation
-            </a>{" "}
-            or{" "}
-            <a href="https://wiki.fabricmc.net/tutorial:start">Fabric wiki</a>{" "}
-            (less good and up to date, more complete) for anything else!
+            Go for the <a href="https://docs.fabricmc.net/develop/">Fabric documentation</a> or{" "}
+            <a href="https://wiki.fabricmc.net/tutorial:start">Fabric wiki</a> (less good and up to
+            date, more complete) for anything else!
           </p>
         </div>
       </TiledDiv>
@@ -198,11 +197,12 @@ export default function GuidePage() {
             Join{" "}
             <a
               target="_blank"
+              rel="noopener noreferrer"
               href="https://app.slack.com/client/T0266FRGM/C07NQ5QAYNQ">
               our slack channel
             </a>{" "}
             (#mc-modding) on{" "}
-            <a target="_blank" href="https://hackclub.com/slack/">
+            <a target="_blank" rel="noopener noreferrer" href="https://hackclub.com/slack/">
               Hack Club's Slack
             </a>
             , then follow the instructions to join.

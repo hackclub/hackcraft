@@ -1,9 +1,9 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
 
-import "./page.css";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import "./page.css";
 
 const CHARS =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789èêěęėëéřþțťýùûůűüúìîïíòôõöøōóąăåäãâáàßșšşśðďğĺľłźžż¢çčćñňńÈÊĚĘÉŘÞȚŤÝÚŮŰÜÍİÎÓÖØÔĄĂÅÄÂÁÀŚȘŠŞÐĎĞĽŁŹŽŻÇČĆŃ[]{}()§¬&%$#"|';
@@ -32,13 +32,9 @@ function Name() {
 export default function Page() {
   useEffect(() => {
     const updateOpacity = () => {
-      for (const element of Array.from(
-        document.querySelectorAll(".poem-text, .mc-ysws-logo"),
-      )) {
-        const opacity =
-          (window.innerHeight / 2 - element.getBoundingClientRect().top) / 72;
-        (element as HTMLElement).style.opacity =
-          opacity > 0 ? String(Math.min(1, opacity)) : "";
+      for (const element of Array.from(document.querySelectorAll(".poem-text, .mc-ysws-logo"))) {
+        const opacity = (window.innerHeight / 2 - element.getBoundingClientRect().top) / 72;
+        (element as HTMLElement).style.opacity = opacity > 0 ? String(Math.min(1, opacity)) : "";
       }
     };
 
@@ -64,34 +60,26 @@ export default function Page() {
       <Suspense>
         <Name />
       </Suspense>
-      <p className="poem-text player1">
-        Yes. Take care. It has reached another power level.
-      </p>
+      <p className="poem-text player1">Yes. Take care. It has reached another power level.</p>
       <p className="poem-text player2">
-        Maybe it's ready for the next step. To modify the very fabric of the
-        world it plays in.
+        Maybe it's ready for the next step. To modify the very fabric of the world it plays in.
       </p>
       <p className="poem-text player1">A new interface to plug into</p>
       <p className="poem-text player2">And we will love what it creates</p>
       <p className="poem-text player1">
-        The joy of creation. The joy of bringing something new into the
-        universe.
+        The joy of creation. The joy of bringing something new into the universe.
       </p>
       <p className="poem-text player2">I will always be there to guide you.</p>
-      <p className="poem-text player1">
-        We will have to reach out to them. To be their guide.
-      </p>
+      <p className="poem-text player1">We will have to reach out to them. To be their guide.</p>
       <p className="poem-text player2">To build with them.</p>
-      <p className="poem-text player1">
-        To make them understand what we can do.
-      </p>
+      <p className="poem-text player1">To make them understand what we can do.</p>
       <p className="poem-text player2">And what they can do.</p>
       <p className="poem-text player1">To show them the way.</p>
       <p className="poem-text player2">They'll make something incredible.</p>
       <p className="poem-text player1">The most incredible thing.</p>
       <p className="poem-text player2">The Universe.</p>
       <Link href="/">
-        <img src="/images/logo.webp" className="mc-ysws-logo" />
+        <img src="/images/logo.webp" alt="Hackcraft" className="mc-ysws-logo" />
       </Link>
     </div>
   );

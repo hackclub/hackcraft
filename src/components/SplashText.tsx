@@ -38,19 +38,15 @@ export default function SplashText() {
   );
 
   function cycleSplash() {
-    const randomSplash =
-      splashText[Math.floor(Math.random() * splashText.length)];
+    const randomSplash = splashText[Math.floor(Math.random() * splashText.length)];
     setCurrentSplash(randomSplash);
   }
 
   // little easter egg for the player
   console.log("https://hack.club/sy0x8");
   return (
-    <div
-      className="splash"
-      onClick={() => cycleSplash()}
-      suppressHydrationWarning>
+    <button type="button" className="splash" onClick={() => cycleSplash()} suppressHydrationWarning>
       {currentSplash}
-    </div>
+    </button>
   );
 }

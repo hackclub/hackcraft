@@ -1,8 +1,8 @@
-import Airtable, { Record } from "airtable";
-import { FIELDS, getIdentity, Identity, Project } from "./util";
-import crypto from "crypto";
+import crypto from "node:crypto";
+import Airtable, { type Record } from "airtable";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
+import { FIELDS, getIdentity, type Identity, type Project } from "./util";
 
 const submissions = () =>
   new Airtable({
@@ -17,38 +17,34 @@ function mapSubmissionRecord(record: Record<any>): Project {
     slack_id: record.get(FIELDS.slackId) as string,
     code_url: record.get(FIELDS.codeUrl) as string,
     playable_url: record.get(FIELDS.playableUrl) as string,
-    screenshots:
-      (record.get(FIELDS.screenshots) as { url: string }[] | undefined) ?? [],
+    screenshots: (record.get(FIELDS.screenshots) as { url: string }[] | undefined) ?? [],
     event: record.get(FIELDS.event) as string,
     prize: record.get(FIELDS.prize) as string,
     status: record.get(FIELDS.status) as string,
     hackatime_projects:
-      (record.get(FIELDS.hackatimeProjects) as string)
-        ?.split(",")
-        .filter(Boolean) ?? [],
+      (record.get(FIELDS.hackatimeProjects) as string)?.split(",").filter(Boolean) ?? [],
     hour_override: parseFloat(record.get(FIELDS.hourOverride) as string) || 0,
     description: record.get(FIELDS.description) as string,
     notes: record.get(FIELDS.notes) as string,
   };
 }
 
-export function exchangeCodeForToken(
-  type: "hca" | "hackatime",
-  code: string,
-): Promise<string> {
-  return fetch(
-    `https://${type == "hca" ? "auth" : type}.hackclub.com/oauth/token`,
-    {
-      method: "POST",
-      body: new URLSearchParams({
-        client_id: process.env[type.toUpperCase() + "_CLIENT_ID"]!,
-        client_secret: process.env[type.toUpperCase() + "_CLIENT_SECRET"]!,
-        redirect_uri: `https://${process.env.URL || "hackcraft.hackclub.com"}/api/${type}/callback`,
-        code,
-        grant_type: "authorization_code",
-      }),
-    },
-  )
+export function exchangeCodeForToken(type: "hca" | "hackatime", code: string): Promise<string> {
+  const clientId = process.env[`${type.toUpperCase()}_CLIENT_ID`];
+  const clientSecret = process.env[`${type.toUpperCase()}_CLIENT_SECRET`];
+  if (!(clientId && clientSecret))
+    throw new Error(`Missing OAuth client credentials for "${type}"`);
+
+  return fetch(`https://${type === "hca" ? "auth" : type}.hackclub.com/oauth/token`, {
+    method: "POST",
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: `https://${process.env.URL || "hackcraft.hackclub.com"}/api/${type}/callback`,
+      code,
+      grant_type: "authorization_code",
+    }),
+  })
     .then(r => r.json())
     .then(res => res.access_token);
 }
@@ -56,13 +52,10 @@ export function exchangeCodeForToken(
 export async function getRecord(rec: string): Promise<Project | undefined> {
   try {
     const record = await submissions().find(rec);
-    if (!record) throw null;
+    if (!record) throw new Error("Record not found");
     const project = mapSubmissionRecord(record);
-    if (
-      !project ||
-      project.slack_id !== ((await getIdentity())?.slack_id || "")
-    )
-      throw null;
+    if (!project || project.slack_id !== ((await getIdentity())?.slack_id || ""))
+      throw new Error("Not allowed");
     return project;
   } catch {
     notFound();
@@ -86,9 +79,9 @@ export async function getAllProjects() {
         code_url: record.get(FIELDS.codeUrl) as string,
         playable_url: record.get(FIELDS.playableUrl) as string,
         screenshots:
-          (
-            record.get(FIELDS.screenshots) as { url: string }[] | undefined
-          )?.map(screenshot => screenshot.url) ?? [],
+          (record.get(FIELDS.screenshots) as { url: string }[] | undefined)?.map(
+            screenshot => screenshot.url,
+          ) ?? [],
         event: event.startsWith("!") ? event.slice(1) : event,
         description: record.get(FIELDS.description) as string,
       };
@@ -114,11 +107,8 @@ export async function updateApprovedProjectField(
     });
 
     return !!(
-      (
-        record.get(
-          field === "feedback" ? FIELDS.referral : FIELDS.feedback,
-        ) as string
-      )?.trim().length > 0
+      (record.get(field === "feedback" ? FIELDS.referral : FIELDS.feedback) as string)?.trim()
+        .length > 0
     );
   } catch {
     return false;
@@ -145,20 +135,18 @@ export async function saveProject({
   identity: Identity;
   data: any;
 }) {
-  const screenshots = data[FIELDS.screenshots] as
-    | { url: string }[]
-    | undefined;
+  const screenshots = data[FIELDS.screenshots] as { url: string }[] | undefined;
 
   data[FIELDS.screenshots] = screenshots?.filter(s => !s.url.startsWith("data:")) ?? [];
 
-  //@ts-ignore types are wrong mate
-  if (id == "new") id = (await submissions().create(data)).id;
+  //@ts-expect-error types are wrong mate
+  if (id === "new") ({ id } = await submissions().create(data));
   else {
     const req = await submissions().find(id);
     if (
       req &&
-      req.get(FIELDS.status) != "Approved" &&
-      req.get(FIELDS.slackId) == identity.slack_id
+      req.get(FIELDS.status) !== "Approved" &&
+      req.get(FIELDS.slackId) === identity.slack_id
     )
       await req.patchUpdate(data);
     else throw new Error("Not allowed");
@@ -174,21 +162,20 @@ export async function saveProject({
           Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ contentType, file: base64, filename: Math.random().toString(36).slice(2) }),
+        body: JSON.stringify({
+          contentType,
+          file: base64,
+          filename: Math.random().toString(36).slice(2),
+        }),
       },
     );
-    if (!res.ok)
-      throw new Error(`Failed to upload screenshot: ${await res.text()}`);
+    if (!res.ok) throw new Error(`Failed to upload screenshot: ${await res.text()}`);
   }
 }
 
 export async function deleteProject(id: string, identity: Identity) {
   const req = await submissions().find(id);
-  if (
-    req &&
-    req.get(FIELDS.status) == "Draft" &&
-    req.get(FIELDS.slackId) == identity.slack_id
-  )
+  if (req && req.get(FIELDS.status) === "Draft" && req.get(FIELDS.slackId) === identity.slack_id)
     await req.destroy();
 }
 
@@ -226,18 +213,18 @@ export async function claimStickers(addressId: string) {
 }
 
 export function verifySlackRequest(request: Request, rawBody: string) {
-  if (!process.env.SLACK_SIGNING_SECRET) return false;
+  const signingSecret = process.env.SLACK_SIGNING_SECRET;
+  if (!signingSecret) return false;
 
   const timestamp = request.headers.get("x-slack-request-timestamp");
   const sig = request.headers.get("x-slack-signature");
-  if (!timestamp || !sig) return false;
+  if (!(timestamp && sig)) return false;
 
   const tsNum = Number(timestamp);
-  if (isNaN(tsNum) || Math.abs(Math.floor(Date.now() / 1000) - tsNum) > 60 * 5)
-    return false;
+  if (Number.isNaN(tsNum) || Math.abs(Math.floor(Date.now() / 1000) - tsNum) > 60 * 5) return false;
 
   const hmac = crypto
-    .createHmac("sha256", process.env.SLACK_SIGNING_SECRET!)
+    .createHmac("sha256", signingSecret)
     .update(`v0:${timestamp}:${rawBody}`)
     .digest("hex");
 
@@ -247,7 +234,7 @@ export function verifySlackRequest(request: Request, rawBody: string) {
     const b = encoder.encode(sig);
     if (a.length !== b.length) return false;
     return crypto.timingSafeEqual(a, b);
-  } catch (e) {
+  } catch (_e) {
     return false;
   }
 }
@@ -257,7 +244,7 @@ export function sendMessage(body: any) {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      Authorization: "Bearer " + process.env.SLACK_TOKEN,
+      Authorization: `Bearer ${process.env.SLACK_TOKEN}`,
     },
     body: JSON.stringify(body),
   });

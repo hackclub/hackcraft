@@ -1,0 +1,197 @@
+/* Based on minecraft wiki */
+#minetip-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(16, 0, 16, 0.94);
+  padding: 0.375em;
+  font-family: Minecraft, sans-serif;
+  font-size: 16px;
+  word-spacing: 4px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 44rem;
+  box-sizing: border-box;
+  line-height: 1.25em;
+  margin: 0.125em 0.25em;
+  pointer-events: none;
+  z-index: 9999;
+  color: #fbfbfb;
+  text-shadow: 0.125em 0.125em 0 #3e3e3e;
+}
+
+#minetip-tooltip::before {
+  content: "";
+  position: absolute;
+  top: 0.125em;
+  right: -0.125em;
+  bottom: 0.125em;
+  left: -0.125em;
+  border: 0.15em solid #100010;
+  border-style: none solid;
+  border-color: rgba(16, 0, 16, 0.94);
+}
+#minetip-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 0.125em;
+  right: 0;
+  bottom: 0.125em;
+  left: 0;
+  border: 0.125em solid #2d0a63;
+  border-image: linear-gradient(rgba(80, 0, 255, 0.31), rgba(40, 0, 127, 0.31)) 1;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-wrap: nowrap;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.header {
+  font-family: "Minecraftia", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+input:not([type="checkbox"]),
+textarea,
+select {
+  background: rgba(9, 9, 9, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  padding: 0.65rem 0.75rem;
+  font-family: "Minecraft", sans-serif;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+.muted {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Minecraftia", sans-serif;
+  font-size: 0.9rem;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.project-links a {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0.2rem 0.45rem;
+  background: rgba(15, 15, 15, 0.6);
+  font-size: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.screenshots {
+  display: flex;
+  gap: 0;
+}
+
+.screenshots > img {
+  width: 100%;
+  height: 5rem;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  margin-left: -0.9rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.screenshots img:not(:last-child):hover {
+  margin-right: 0.9rem;
+}
+
+.carrousel-button {
+  position: absolute;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: 100%;
+}
+
+.carrousel-button:hover {
+  font-size: 1.5em;
+  opacity: 1;
+}
+
+.project {
+  display: block;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  max-height: 10rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.project img {
+  width: 100%;
+  max-height: 10rem;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+#navbar img {
+  max-width: 50rem;
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.7rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.45) 35%,
+    rgba(0, 0, 0, 0.08) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.project:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  overflow: visible;
+}
+
+.project:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
