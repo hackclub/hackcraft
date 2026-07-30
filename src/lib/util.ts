@@ -76,14 +76,17 @@ export async function getAccessToken(type: "hca" | "hackatime") {
 }
 
 export async function getIdentity() {
-  const { identity } = await fetch("https://auth.hackclub.com/api/v1/me", {
+  const res = await fetch("https://auth.hackclub.com/api/v1/me", {
     headers: {
       Authorization: `Bearer ${await getAccessToken("hca")}`,
     },
-  }).then(r => r.json());
+  });
+  if (!res.ok)
+    throw new Error(`Failed to fetch identity: ${res.status} ${await res.text()}`);
 
+  const { identity }: { identity: Identity } = await res.json();
   if (!identity.ysws_eligible)
     throw new Error(`Your verification status is ${identity.verification_status ?? "unknown"}`);
 
-  return identity as Identity;
+  return identity;
 }

@@ -206,11 +206,12 @@ export default function ProjectForm({
           : validation.totalWarnings > 0 && `${validation.totalWarnings} warning(s)`}
       </p>
       <div>
-        <button type="submit" name="intent" value="draft" style={{ marginRight: "1rem" }}>
+        <button type="submit" className="btn" name="intent" value="draft" style={{ marginRight: "1rem" }}>
           Save as draft
         </button>
         <button
           type="submit"
+          className="btn"
           name="intent"
           value="submit"
           disabled={validation.totalErrors > 0}
@@ -224,6 +225,7 @@ export default function ProjectForm({
         {id !== "new" && project?.status === "Draft" && (
           <button
             type="submit"
+            className="btn"
             name="intent"
             value="delete"
             onClick={e => {

@@ -43,7 +43,7 @@ export default async function Stickers(props: { searchParams: Promise<{ success?
                   </option>
                 ))}
               </select>
-              <button type="submit" style={{ marginTop: "1rem" }}>
+              <button type="submit" className="btn" style={{ marginTop: "1rem" }}>
                 Send them off!
               </button>
             </form>

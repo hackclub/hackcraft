@@ -25,7 +25,9 @@ export default function Page(props: React.PropsWithChildren<{ back?: string; bac
           <SplashText />
         </div>
       </TiledDiv>
-      {props.children}
+      <main>
+        {props.children}
+      </main>
       <TiledDiv
         background="bedrock"
         element="footer"

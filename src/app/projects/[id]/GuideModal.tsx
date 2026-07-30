@@ -22,8 +22,6 @@ export default function GuideModal({ guide, onClose }: { guide: string; onClose:
           inset: 0,
           width: "100vw",
           height: "100vh",
-          border: "none",
-          padding: 0,
           cursor: "default",
           background: "rgba(0, 0, 0, 0.88)",
           backdropFilter: "blur(6px)",

@@ -53,15 +53,12 @@ export default function HackatimeProjectPicker({
                 style={{
                   fontSize: "1rem",
                   padding: "0.75rem 1rem",
-                  font: "inherit",
-                  color: "inherit",
                   textAlign: "left",
                   display: javaFilter && !isJavaProject(project) ? "none" : "",
                   border: isJavaProject(project)
                     ? "2px solid rgba(255, 255, 255, 0.12)"
                     : "2px solid rgba(255, 224, 102, 0.3)",
                   background: checked ? "rgba(37, 105, 242, 0.18)" : "rgba(0, 0, 0, 0.18)",
-                  cursor: "pointer",
                 }}>
                 <input
                   type="checkbox"

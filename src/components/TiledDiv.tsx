@@ -56,6 +56,7 @@ export default function TiledDiv(
         backgroundSize: "400px",
         imageRendering: "pixelated",
         backgroundRepeat: "repeat",
+        display: "flow-root",
       }}>
       <Element {...rest} />
     </div>

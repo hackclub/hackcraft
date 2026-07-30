@@ -42,8 +42,6 @@ export default function Carrousel(props: {
           inset: 0,
           width: "100vw",
           height: "100vh",
-          border: "none",
-          padding: 0,
           cursor: "default",
           background: "rgba(0, 0, 0, 0.88)",
           backdropFilter: "blur(6px)",
@@ -53,6 +51,7 @@ export default function Carrousel(props: {
         src={props.images[activeIndex]}
         alt="Project screenshot"
         style={{
+          position: "relative",
           width: "100%",
           height: "80vh",
           objectFit: "contain",

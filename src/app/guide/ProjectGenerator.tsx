@@ -38,7 +38,7 @@ export default function ProjectGenerator() {
         Version: 26.1.2
         <br />
       </div>
-      <button type="button" onClick={() => generate(group, name)}>
+      <button type="button" className="btn" onClick={() => generate(group, name)}>
         Download template
       </button>
     </>

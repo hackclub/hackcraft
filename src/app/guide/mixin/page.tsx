@@ -64,7 +64,7 @@ export default function GuidePage() {
             <code>
               <span className="keyword">this</span>.getWorld().getOtherEntities(
               <span className="keyword">this</span>, <span className="keyword">this</span>
-              .getBoundingBox(), predicate) \n .forEach(entity -&gt; entity.serverDamage(
+              .getBoundingBox(), predicate) {"\n    "} .forEach(entity -&gt; entity.serverDamage(
               <span className="field">damageSource2</span>, <span className="field">f</span>));
             </code>
           </pre>
@@ -234,18 +234,18 @@ export default function GuidePage() {
           <pre>
             <code>
               <span className="annotation">@Mixin</span>(FallingBlockEntity.
-              <span className="keyword">class</span>)\n
+              <span className="keyword">class</span>){"\n"}
               <span className="keyword">public abstract class</span> FallingBlockEntityMixin{" "}
               {"{\n    "}
               <span className="annotation">@Inject</span>(method ={" "}
               <span className="string">"method_32879"</span>, at ={" "}
-              <span className="annotation">@At</span>(<span className="string">"TAIL"</span>)) \n
+              <span className="annotation">@At</span>(<span className="string">"TAIL"</span>)) {"\n    "}
               <span className="keyword">private static void</span>{" "}
               <span className="function">shrinkEntity</span>(DamageSource damageSource,{" "}
-              <span className="keyword">float</span> amount, \n Entity entity, CallbackInfo ci){" "}
-              {"{\n        "}
+              <span className="keyword">float</span> amount, Entity entity, CallbackInfo ci){" "}
+              {"{\n       "}
               <span className="comment">
-                {/*  */}The actual code is out of scope for this tutorial (since my mod is already
+                //The actual code is out of scope for this tutorial (since my mod is already
                 doing it :&gt;)
               </span>
               {"\n    }"}

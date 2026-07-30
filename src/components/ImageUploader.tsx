@@ -83,7 +83,7 @@ export default function ImageUploader({
   });
 
   return (
-    // biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop has no keyboard equivalent; the "Upload file" button and paste support cover keyboard users
+    // biome-ignore lint/a11y/noStaticElementInteractions: shh its fiinneee 
     <div
       style={{
         display: "grid",
@@ -136,9 +136,6 @@ export default function ImageUploader({
               style={{
                 width: "100%",
                 height: "100%",
-                padding: 0,
-                border: "none",
-                background: "none",
               }}>
               <img
                 src={url}
@@ -155,12 +152,6 @@ export default function ImageUploader({
                 position: "absolute",
                 top: "0px",
                 left: "8px",
-                cursor: "pointer",
-                border: "none",
-                background: "none",
-                color: "inherit",
-                font: "inherit",
-                padding: 0,
               }}>
               x
             </button>

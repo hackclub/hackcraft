@@ -69,15 +69,12 @@ export default function PrizePicker({
                 flexShrink: 0,
                 textAlign: "left",
                 padding: "20px",
-                font: "inherit",
-                color: "inherit",
                 background: isSelected ? "#1c1c1c" : "#171717",
                 border: isSelected ? "1px solid #fff" : "2px solid #2c2c2c",
                 transform: isSelected ? "translateY(0px) scale(0.98)" : "",
                 display: "flex",
                 flexDirection: "column",
                 gap: "10px",
-                cursor: "pointer",
                 transition: "transform .12s ease, border-color .12s ease, background .12s ease",
               }}>
               <img

@@ -85,7 +85,7 @@ export default function RootLayout({
       <head>
         <link
           rel="preload"
-          href="/fonts/Minecraft-Regular.woff2"
+          href="/fonts/Minecraft.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"

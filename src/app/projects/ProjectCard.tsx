@@ -55,11 +55,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.screenshots.length > 0 && (
             <div className="screenshots">
               {project.screenshots.slice(0, 5).map((shot, i) => (
-                <button
-                  type="button"
-                  key={shot.url}
-                  onClick={() => setOpenIndex(i)}
-                  style={{ padding: 0, border: "none", background: "none" }}>
+                <button type="button" key={shot.url} onClick={() => setOpenIndex(i)}>
                   <img src={shot.url} alt="" />
                 </button>
               ))}

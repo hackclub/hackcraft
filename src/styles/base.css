@@ -5,6 +5,7 @@ body {
   font-family: "Minecraft", sans-serif;
   font-size: 1.5em;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 * {
@@ -20,6 +21,15 @@ textarea {
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
 }
 
 @font-face {
@@ -47,13 +57,9 @@ textarea {
   font-size: 1.25rem;
   color: #ffff55;
   animation: splash 0.25s alternate infinite;
-  cursor: pointer;
   position: absolute;
   bottom: 25%;
   right: -65px;
-  border: none;
-  background: none;
-  padding: 0;
 }
 
 @media (max-width: 900px) {

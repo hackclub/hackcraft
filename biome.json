@@ -36,7 +36,6 @@
         "useConsistentArrayType": "on",
         "useConsistentArrowReturn": "on",
         "useConsistentBuiltinInstantiation": "on",
-        "useConsistentCurlyBraces": "on",
         "useConsistentObjectDefinitions": "on",
         "useDefaultParameterLast": "on",
         "useDestructuring": "on",
@@ -83,7 +82,8 @@
         "noUnassignedVariables": "on",
         "noUnusedExpressions": "on",
         "noVar": "on",
-        "useErrorMessage": "on"
+        "useErrorMessage": "on",
+        "noCommentText": "off"
       }
     }
   },
