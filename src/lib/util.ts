@@ -81,8 +81,7 @@ export async function getIdentity() {
       Authorization: `Bearer ${await getAccessToken("hca")}`,
     },
   });
-  if (!res.ok)
-    throw new Error(`Failed to fetch identity: ${res.status} ${await res.text()}`);
+  if (!res.ok) throw new Error(`Failed to fetch identity: ${res.status} ${await res.text()}`);
 
   const { identity }: { identity: Identity } = await res.json();
   if (!identity.ysws_eligible)

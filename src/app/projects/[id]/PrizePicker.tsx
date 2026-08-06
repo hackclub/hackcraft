@@ -93,7 +93,7 @@ export default function PrizePicker({
               <div
                 style={{
                   fontSize: "15px",
-                  fontWeight: 600,
+                  fontWeight: "bold",
                 }}>
                 {prize.title}
               </div>

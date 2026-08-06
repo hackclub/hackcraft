@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import LazyVideo from "~/components/LazyVideo";
+import "~/app/gallery/gallery.css";
 
 interface GalleryEntryProps {
   info: Record<string, string>;

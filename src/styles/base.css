@@ -88,6 +88,37 @@ button {
   height: 400px;
 }
 
+#navbar img {
+  max-width: 50rem;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-wrap: nowrap;
+  font-size: 1rem;
+  user-select: none;
+}
+
+input:not([type="checkbox"]),
+textarea,
+select {
+  background: rgba(9, 9, 9, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  padding: 0.65rem 0.75rem;
+  font-family: "Minecraft", sans-serif;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
 #header {
   display: flex;
   justify-content: center;

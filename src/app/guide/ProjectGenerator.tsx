@@ -27,10 +27,10 @@ export default function ProjectGenerator() {
         {name.toLowerCase().includes("hackcraft")
           ? "A little more original please!"
           : "Mod id: " +
-          name
-            .toLowerCase()
-            .replaceAll(/\s+/g, "-")
-            .replaceAll(/[^a-z0-9-_]/g, "")}
+            name
+              .toLowerCase()
+              .replaceAll(/\s+/g, "-")
+              .replaceAll(/[^a-z0-9-_]/g, "")}
         <br />
         <input type="text" placeholder="Group" onChange={e => (group = e.target.value)} />
         <i> Examples: com.yourwebsite, io.github.username, me.name</i>

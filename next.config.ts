@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     inlineCss: true,
     serverActions: {
       bodySizeLimit: "10mb",
-    }
+    },
   },
   async headers() {
     return [

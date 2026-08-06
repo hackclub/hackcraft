@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import Carrousel from "~/components/Carrousel";
+import "./gallery.css";
 
 export default function GalleryGrid({
   projects,
@@ -25,9 +26,9 @@ export default function GalleryGrid({
     if (!tooltipRef.current) return;
     tooltipRef.current.style.left = `${Math.max(
       e.clientX +
-        (e.clientX + tooltipRef.current.offsetWidth + 24 > window.innerWidth
-          ? -tooltipRef.current.offsetWidth - 12
-          : 12),
+      (e.clientX + tooltipRef.current.offsetWidth + 24 > window.innerWidth
+        ? -tooltipRef.current.offsetWidth - 12
+        : 12),
       0,
     )}px`;
     tooltipRef.current.style.top = `${Math.max(
@@ -75,7 +76,7 @@ export default function GalleryGrid({
             borderRadius: "6px",
             width: "20rem",
           }}>
-          <option value="All">All ({projects.length})</option>
+          <option value="All">All</option>
           {events.map(ev => (
             <option key={ev.name} value={ev.name}>
               {ev.name}

@@ -59,6 +59,7 @@ export function burstConfetti(originX: number, originY: number) {
       pointerEvents: "none",
       left: "0",
       top: "0",
+      zIndex: "100",
       transform: `translate(${originX}px, ${originY}px)`,
     });
 

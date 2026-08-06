@@ -6,8 +6,7 @@ import GalleryGrid from "./GalleryGrid";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description:
-    "Check out the Minecraft mods and shaders teens have built for Hackcraft.",
+  description: "Check out the Minecraft mods and shaders teens have built for Hackcraft.",
 };
 
 export default async function GalleryPage() {

@@ -1,13 +1,13 @@
 .btn {
-  font-family: Minecraftia,sans-serif;
+  font-family: Minecraftia, sans-serif;
   text-shadow: 0 2px #0000004d;
   padding: 1em;
   color: white;
   font-size: 20px;
   background: #31ae1f;
   border: 0;
-  font-weight: 700;
-  transition: all .2s cubic-bezier(.4,0,.2,1);
+  font-weight: bold;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   text-decoration: none;
 }
@@ -101,4 +101,17 @@ button:disabled {
 .help-icon:before,
 .help-icon:after {
   content: none;
+}
+
+.carrousel-button {
+  position: absolute;
+  padding: 0.5rem 1rem;
+  opacity: 0.5;
+  transition: all 0.3s ease-in-out;
+  line-height: 100%;
+}
+
+.carrousel-button:hover {
+  font-size: 1.5em;
+  opacity: 1;
 }

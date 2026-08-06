@@ -52,7 +52,6 @@ export default function Carrousel(props: {
         alt="Project screenshot"
         style={{
           position: "relative",
-          width: "100%",
           height: "80vh",
           objectFit: "contain",
         }}

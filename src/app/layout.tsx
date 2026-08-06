@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import "~/styles/base.css";
 import "~/styles/buttons.css";
 import "~/styles/content.css";
-import "~/styles/gallery.css";
 
 const title = "Hackcraft: Make a mod, get games and servers!";
 const description =

@@ -239,14 +239,15 @@ export default function GuidePage() {
               {"{\n    "}
               <span className="annotation">@Inject</span>(method ={" "}
               <span className="string">"method_32879"</span>, at ={" "}
-              <span className="annotation">@At</span>(<span className="string">"TAIL"</span>)) {"\n    "}
+              <span className="annotation">@At</span>(<span className="string">"TAIL"</span>)){" "}
+              {"\n    "}
               <span className="keyword">private static void</span>{" "}
               <span className="function">shrinkEntity</span>(DamageSource damageSource,{" "}
               <span className="keyword">float</span> amount, Entity entity, CallbackInfo ci){" "}
               {"{\n       "}
               <span className="comment">
-                //The actual code is out of scope for this tutorial (since my mod is already
-                doing it :&gt;)
+                //The actual code is out of scope for this tutorial (since my mod is already doing
+                it :&gt;)
               </span>
               {"\n    }"}
               {"\n}"}

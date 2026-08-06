@@ -1,11 +1,10 @@
 "use client";
 
 import { useActionState, useCallback, useState } from "react";
-import ImageUploader from "~/components/ImageUploader";
-import { burstConfetti } from "~/lib/confetti";
+import Modal from "~/components/Modal";
 import type { Project } from "~/lib/util";
-import GuideModal from "./GuideModal";
 import HackatimeProjectPicker from "./HackatimeProjectPicker";
+import * as modals from "./modals";
 import PrizePicker from "./PrizePicker";
 import { useProjectValidation } from "./useProjectValidation";
 import Validation from "./Validation";
@@ -74,53 +73,22 @@ export default function ProjectForm({
         </p>
       ) : null}
 
-      <div style={{ display: "flex", gap: "1rem" }}>
-        <div style={{ width: "100%" }}>
-          <span className="header">
-            Playable URL
-            <button type="button" className="help-icon" onClick={() => setGuide("modrinth")}>
-              ?
-            </button>
-          </span>
-          <input
-            name="playable_url"
-            type="url"
-            placeholder="https://modrinth.com/mod/your-mod"
-            value={values.playable_url}
-            onChange={e => updateField("playable_url", e.target.value)}
-            aria-invalid={validation.playable_url.errors.length > 0}
-          />
-          <Validation validation={validation.playable_url} />
-        </div>
-        <div style={{ width: "100%" }}>
-          <span className="header">
-            Code URL
-            <button type="button" className="help-icon" onClick={() => setGuide("github")}>
-              ?
-            </button>
-          </span>
-          <input
-            name="code_url"
-            type="url"
-            placeholder="https://github.com/you/project"
-            value={values.code_url}
-            onChange={e => updateField("code_url", e.target.value)}
-            aria-invalid={validation.code_url.errors.length > 0}
-          />
-          <Validation validation={validation.code_url} />
-        </div>
-      </div>
-
-      <div>
-        <span className="header">Description</span>
-        <textarea
-          name="description"
-          placeholder="What does it do? What is fun about it?"
-          value={values.description}
-          onChange={e => updateField("description", e.target.value)}
-          aria-invalid={validation.description.errors.length > 0}
+      <div style={{ width: "100%" }}>
+        <span className="header">
+          Project link
+          <button type="button" className="help-icon" onClick={() => setGuide("modrinth")}>
+            ?
+          </button>
+        </span>
+        <input
+          name="playable_url"
+          type="url"
+          placeholder="https://modrinth.com/mod/your-mod"
+          value={values.playable_url}
+          onChange={e => updateField("playable_url", e.target.value)}
+          aria-invalid={validation.playable_url.errors.length > 0}
         />
-        <Validation validation={validation.description} />
+        <Validation validation={validation.playable_url} />
       </div>
 
       <HackatimeProjectPicker
@@ -163,28 +131,13 @@ export default function ProjectForm({
             name="event"
             value={values.event}
             onChange={e => updateField("event", e.target.value)}>
-            {["Hackcraft V4", "Atlas"].map(option => (
+            {["Hackcraft V4"].map(option => (
               <option key={option} value={option}>
                 {option}
               </option>
             ))}
           </select>
         </div>
-      </div>
-
-      <div>
-        <span className="header">Screenshots</span>
-        <ImageUploader
-          value={values.screenshots}
-          onChange={screenshots => setValues(prev => ({ ...prev, screenshots }))}
-        />
-        <input
-          type="hidden"
-          name="screenshots"
-          value={values.screenshots.join("\n")}
-          aria-invalid={validation.screenshots.errors.length > 0}
-        />
-        <Validation validation={validation.screenshots} />
       </div>
 
       <PrizePicker selected={values.prize} onSelect={title => updateField("prize", title)} />
@@ -206,20 +159,23 @@ export default function ProjectForm({
           : validation.totalWarnings > 0 && `${validation.totalWarnings} warning(s)`}
       </p>
       <div>
-        <button type="submit" className="btn" name="intent" value="draft" style={{ marginRight: "1rem" }}>
-          Save as draft
-        </button>
         <button
           type="submit"
           className="btn"
           name="intent"
-          value="submit"
+          value="draft"
+          style={{ marginRight: "1rem" }}>
+          Save as draft
+        </button>
+        <button
+          type="button"
+          className="btn"
           disabled={validation.totalErrors > 0}
           title={
             validation.totalErrors > 0 ? "Fix form errors before submitting" : "Submit project"
           }
           style={{ marginRight: "1rem" }}
-          onClick={e => burstConfetti(e.clientX, e.clientY)}>
+          onClick={() => setGuide("presubmit")}>
           Submit project
         </button>
         {id !== "new" && project?.status === "Draft" && (
@@ -247,7 +203,14 @@ export default function ProjectForm({
         </a>
         .
       </p>
-      {guide ? <GuideModal guide={guide} onClose={() => setGuide(null)} /> : null}
+      {guide ? (
+        <Modal onClose={() => setGuide(null)}>
+          {guide === "checklist" && modals.ChecklistGuide()}
+          {guide === "github" && modals.GithubGuide()}
+          {guide === "modrinth" && modals.ModrinthGuide()}
+          {guide === "presubmit" && modals.PreSubmit({ setGuide })}
+        </Modal>
+      ) : null}
     </form>
   );
 }

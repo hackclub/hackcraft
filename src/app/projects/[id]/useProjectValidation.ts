@@ -21,11 +21,8 @@ export function useProjectValidation(
   return useMemo(() => {
     const validation = {
       playable_url: { errors: [] as string[], warnings: [] as string[] },
-      code_url: { errors: [] as string[], warnings: [] as string[] },
-      description: { errors: [] as string[], warnings: [] as string[] },
       hour_override: { errors: [] as string[], warnings: [] as string[] },
       hackatime_projects: { errors: [] as string[], warnings: [] as string[] },
-      screenshots: { errors: [] as string[], warnings: [] as string[] },
       notes: { errors: [] as string[], warnings: [] as string[] },
     };
 
@@ -37,22 +34,6 @@ export function useProjectValidation(
       validation.playable_url.errors.push("Playable URL must be a valid https URL.");
     } else if (!values.playable_url.startsWith("https://modrinth.com/")) {
       validation.playable_url.warnings.push("Modrinth is recommended.");
-    }
-
-    if (!HTTPS_URL_RE.test(values.code_url))
-      validation.code_url.errors.push("Code URL must be a valid https URL.");
-
-    if (values.description.length < 10) {
-      validation.description.errors.push("Description should be at least 10 characters.");
-    } else if (values.description.length > 500) {
-      validation.description.warnings.push("Description should not exceed 500 characters.");
-    } else if (
-      values.description.toLowerCase().includes("installation instructions") ||
-      values.description.toLowerCase().includes("license")
-    ) {
-      validation.description.warnings.push(
-        "Please describe your project itself, this is not your readme.",
-      );
     }
 
     if (selectedProjects.length === 0)
@@ -74,7 +55,7 @@ export function useProjectValidation(
       const parsed = Number(values.hour_override);
       if (parsed < 0) {
         validation.hour_override.errors.push("Hour override must be greater than 0.");
-      } else if (parsed < 3) {
+      } else if (parsed < 4) {
         validation.hour_override.warnings.push(
           "That hour count is quite low and unlikely to be approved.",
         );
@@ -89,26 +70,6 @@ export function useProjectValidation(
           "Please explain in notes why the hour override is different from Hackatime.",
         );
       }
-    }
-
-    const screenshotUrls = values.screenshots.map(url => url.trim()).filter(Boolean);
-
-    if (screenshotUrls.length === 0) {
-      validation.screenshots.errors.push("Please add some screenshots.");
-    } else if (screenshotUrls.length < 3) {
-      validation.screenshots.warnings.push("Maybe some more?");
-    }
-
-    if (
-      screenshotUrls.filter(
-        url =>
-          !(
-            HTTPS_URL_RE.test(url) ||
-            /^data:image\/(png|jpeg|jpg|gif|webp|avif|bmp|svg\+xml);base64,/i.test(url)
-          ),
-      ).length > 0
-    ) {
-      validation.screenshots.errors.push("Invalid screenshots.");
     }
 
     return {

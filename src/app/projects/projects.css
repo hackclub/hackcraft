@@ -1,0 +1,103 @@
+.card {
+  --status-color: #75bce8;
+  background: rgba(7, 7, 7, 0.88);
+}
+
+.card[data-status="Approved"] {
+  --status-color: #8dfd5c;
+}
+
+.card[data-status="Rejected"] {
+  --status-color: #ff7373;
+}
+
+.card[data-status="Draft"] {
+  --status-color: #e5c765;
+}
+
+.card[data-status="Changes requested"] {
+  --status-color: #ff9d57;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 16rem);
+  padding: 1.25rem 1.4rem;
+}
+
+.name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.meta {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.45rem 0 0;
+  font-size: 0.75rem;
+}
+
+.status {
+  color: var(--status-color);
+}
+
+.separator {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+  font-size: 0.8rem;
+}
+
+.actions a {
+  color: rgba(255, 255, 255, 0.68);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.actions a:hover {
+  color: white;
+}
+
+.screenshots {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+  padding-left: 3rem;
+}
+
+.screenshots button {
+  position: relative;
+  flex: 0 0 7.5rem;
+  height: 5rem;
+  overflow: hidden;
+  background: #111;
+  outline: 2px solid rgba(0, 0, 0, 0.8);
+  transition: margin-right 120ms ease;
+}
+
+.screenshots button + button {
+  margin-left: -5.25rem;
+}
+
+.screenshots button:focus-visible {
+  outline-color: white;
+}
+
+.screenshots button:not(:last-child):hover,
+.screenshots button:not(:last-child):focus-visible {
+  margin-right: 5.25rem;
+}
+
+.screenshots img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

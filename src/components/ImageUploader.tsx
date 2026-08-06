@@ -83,7 +83,7 @@ export default function ImageUploader({
   });
 
   return (
-    // biome-ignore lint/a11y/noStaticElementInteractions: shh its fiinneee 
+    // biome-ignore lint/a11y/noStaticElementInteractions: shh its fiinneee
     <div
       style={{
         display: "grid",
