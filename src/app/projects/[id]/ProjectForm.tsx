@@ -131,7 +131,7 @@ export default function ProjectForm({
             name="event"
             value={values.event}
             onChange={e => updateField("event", e.target.value)}>
-            {["Hackcraft V4"].map(option => (
+            {["Hackcraft V4", "Atlas"].map(option => (
               <option key={option} value={option}>
                 {option}
               </option>
