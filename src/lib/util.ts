@@ -85,7 +85,9 @@ export async function getIdentity() {
 
   const { identity }: { identity: Identity } = await res.json();
   if (!identity.ysws_eligible)
-    throw new Error(`Your verification status is ${identity.verification_status ?? "unknown"}`);
+    redirect(
+      `/verification?status=${identity.verification_status ?? "unknown"}`,
+    );
 
   return identity;
 }
